@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">LinkedInClone</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="post">Post</string>
+    <string name="jobs">Jobs</string>
+    <string name="unknown_error">Unknown error occurred</string>
+    <string name="request_timeout">Request timed out</string>
+    <string name="unAuthed">Unauthorized access</string>
+    <string name="conflict">Conflict occurred</string>
+    <string name="too_many_request">Too many requests</string>
+    <string name="no_netowrk">No network connection</string>
+    <string name="payload_too_large">Payload too large</string>
+    <string name="server_error">Server error occurred</string>
+    <string name="serialize_error">Serialization error</string>
+    <string name="invalid_email">Invalid email or username</string>
+    <string name="invalid_password">Invalid password</string>
+    <string name="disk_full">Disk is full</string>
+</resources>

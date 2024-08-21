@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@id/nav_graph_posts"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home" />
+    <item
+        android:id="@id/nav_graph_add_post"
+        android:icon="@drawable/ic_add"
+        android:title="@string/post" />
+    <item
+        android:id="@id/nav_graph_jobs"
+        android:icon="@drawable/ic_jobs"
+        android:title="@string/jobs" />
+
+
+</menu>
