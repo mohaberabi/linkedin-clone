@@ -34,7 +34,7 @@ class PostStateRenderer(
             adapter.submitList(items)
             recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
             recyclerView.adapter = adapter
-            loader.visibility = View.GONE
+            loader.hide()
 
             recyclerView.addOnScrollListener(
                 AppRecyclerViewScrollListener(true) { lastVisible, totalCount ->
@@ -49,15 +49,16 @@ class PostStateRenderer(
 
     private fun error() {
         with(binding) {
-            loader.visibility = View.GONE
+            loader.hide()
             recyclerView.visibility = View.GONE
         }
     }
 
     private fun loading() {
         with(binding) {
-            loader.visibility = View.VISIBLE
+            loader.show()
             recyclerView.visibility = View.GONE
+            error.hide()
         }
     }
 

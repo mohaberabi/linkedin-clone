@@ -5,23 +5,29 @@
     android:layout_height="match_parent"
     tools:context="com.mohaberabi.linkedinclone.posts.presentation.fragments.posts.PostsFragment">
 
-    <include
+    <com.mohaberabi.presentation.ui.views.AppLoader
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
         android:id="@+id/loader"
-        layout="@layout/app_loader"
-        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <include
+    </com.mohaberabi.presentation.ui.views.AppLoader>
+
+    <com.mohaberabi.presentation.ui.views.ErrorWidget
+        android:layout_width="match_parent"
         android:id="@+id/error"
-        layout="@layout/error_widget"
         android:visibility="gone"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </com.mohaberabi.presentation.ui.views.ErrorWidget>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

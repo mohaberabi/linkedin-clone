@@ -10,9 +10,10 @@ import com.mohaberabi.linkedin.core.domain.model.PostModel
 import com.mohaberabi.posts.R
 import com.mohaberabi.posts.databinding.PostListItemBinding
 import com.mohaberabi.presentation.ui.util.AppListAdapter
+import com.mohaberabi.presentation.ui.util.cached
 
 
-class PostsListAdapter() : AppListAdapter<PostModel, PostsListAdapter.PostViewHolder>({ it.id }) {
+class PostsListAdapter : AppListAdapter<PostModel, PostsListAdapter.PostViewHolder>({ it.id }) {
 
     inner class PostViewHolder(
         private val binding: PostListItemBinding,
@@ -21,16 +22,13 @@ class PostsListAdapter() : AppListAdapter<PostModel, PostsListAdapter.PostViewHo
             with(binding) {
                 issuerBioTextView.text = post.issuerBio
                 issuerNameTextView.text = post.issuerName
-                issuerAvatarImageView.load(post.issuerAvatar) {
+                issuerAvatarImageView.cached(post.issuerAvatar) {
                     transformations(CircleCropTransformation())
-                    crossfade(true)
                 }
                 if (post.postAttachedImg.isEmpty()) {
                     postAttachedImageView.visibility = View.GONE
                 } else {
-                    postAttachedImageView.load(post.postAttachedImg) {
-                        crossfade(true)
-                    }
+                    postAttachedImageView.load(post.postAttachedImg)
                 }
 
             }

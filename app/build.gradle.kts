@@ -24,6 +24,21 @@ android {
         }
     }
 
+    flavorDimensions += "default"
+
+    productFlavors {
+
+        create("development") {
+            applicationIdSuffix = ".dev"
+            versionNameSuffix = "-dev"
+            dimension = "default"
+        }
+
+        create("production") {
+            dimension = "default"
+        }
+    }
+
 
 }
 
@@ -37,6 +52,6 @@ dependencies {
     implementation(projects.posts)
     implementation(projects.addPost)
     implementation(projects.jobs)
-
+    implementation(projects.jobDetail)
 
 }

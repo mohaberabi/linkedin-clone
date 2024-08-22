@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="ErrorWidget">
+        <attr name="errorTitle" format="string" />
+        <attr name="errorDescription" format="string" />
+    </declare-styleable>
+</resources>

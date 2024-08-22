@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.linkedinclone.android.library)
+
+    alias(libs.plugins.linkedinclone.android.hilt)
 }
 
 android {

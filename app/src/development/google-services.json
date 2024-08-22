@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "775669415818",
+    "project_id": "linkedinclonedev",
+    "storage_bucket": "linkedinclonedev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775669415818:android:66c1578c7afe2d7e6e5273",
+        "android_client_info": {
+          "package_name": "com.mohaberabi.linkedinclone.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHT5j7nK6IF_2ynMIKTCN6Y7D77qZCWic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,6 @@
 package com.mohaberabi.presentation.ui.util
 
+import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -21,3 +22,5 @@ class AppDiffCallBack<T>(
 abstract class AppListAdapter<T, VH : ViewHolder>(
     predicate: (T) -> String,
 ) : ListAdapter<T, VH>(AppDiffCallBack<T>(predicate))
+
+

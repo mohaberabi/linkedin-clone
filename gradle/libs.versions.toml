@@ -16,7 +16,8 @@ ksp = "1.9.22-1.0.17"
 coil = "2.2.2"
 androidTools = "31.2.2"
 coroutines = "1.9.0-RC"
-
+gmsPluginVersion = "4.4.2"
+firestoreVersion = "25.0.0"
 projectDomain = "com.mohaberabi"
 projectApplicationId = "com.mohaberabi.linkedinclone"
 projectVersionName = "1.0"
@@ -49,6 +50,8 @@ android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", ver
 android-tools-common = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+firebase-firestore = { module = "com.google.firebase:firebase-firestore-ktx", version.ref = "firestoreVersion" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -62,3 +65,4 @@ linkedinclone-jvm-library = { id = "linkedinclone.jvm.library", version = "unspe
 linkedinclone-android-feature = { id = "linkedinclone.android.feature", version = "unspecified" }
 linkedinclone-android-hilt = { id = "linkedinclone.android.hilt", version = "unspecified" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+google-services = { id = "com.google.gms.google-services", version.ref = "gmsPluginVersion" }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_job_detail"
+    app:startDestination="@id/jobDetailFragment">
+
+    <fragment
+        android:id="@+id/jobDetailFragment"
+        android:name="com.mohaberabi.linkedinclone.job_detail.presentation.fragment.JobDetailFragment"
+        android:label="fragment_job_detail"
+        tools:layout="@layout/fragment_job_detail">
+        <deepLink app:uri="android-app://linked.clone.app/fragment_job_detail?jobId={jobId}" />
+        <argument
+            android:name="jobId"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
+</navigation>
