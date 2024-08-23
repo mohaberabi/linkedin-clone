@@ -1,5 +1,6 @@
-package com.mohaberabi.linkedinclone.firestore
+package com.mohaberabi.linkedinclone
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
@@ -18,4 +19,9 @@ object FirestoreModule {
     @Provides
     @Singleton
     fun providerFirebaseFirestore() = FirebaseFirestore.getInstance()
+
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth() = FirebaseAuth.getInstance()
 }

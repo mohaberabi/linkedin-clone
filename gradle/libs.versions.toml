@@ -18,6 +18,9 @@ androidTools = "31.2.2"
 coroutines = "1.9.0-RC"
 gmsPluginVersion = "4.4.2"
 firestoreVersion = "25.0.0"
+firebaseAuth = "23.0.0"
+prefsVersion = "1.1.1"
+
 projectDomain = "com.mohaberabi"
 projectApplicationId = "com.mohaberabi.linkedinclone"
 projectVersionName = "1.0"
@@ -43,6 +46,7 @@ navFragment = { group = "androidx.navigation", name = "navigation-fragment-ktx",
 navUI = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "nav" }
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-serilization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.7.1" }
 
 desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version = "2.0.3" }
 
@@ -51,6 +55,8 @@ android-tools-common = { group = "com.android.tools", name = "common", version.r
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 firebase-firestore = { module = "com.google.firebase:firebase-firestore-ktx", version.ref = "firestoreVersion" }
+firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuth" }
+prefs-datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "prefsVersion" }
 
 
 [plugins]
@@ -66,3 +72,4 @@ linkedinclone-android-feature = { id = "linkedinclone.android.feature", version 
 linkedinclone-android-hilt = { id = "linkedinclone.android.hilt", version = "unspecified" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 google-services = { id = "com.google.gms.google-services", version.ref = "gmsPluginVersion" }
+kotlin-serilization = { id = "org.jetbrains.kotlin.plugin.serialization", version = "2.0.20" }

@@ -29,12 +29,14 @@
             <option value="$PROJECT_DIR$/core/data" />
             <option value="$PROJECT_DIR$/core/domain" />
             <option value="$PROJECT_DIR$/core/firestore" />
+            <option value="$PROJECT_DIR$/core/persistance" />
             <option value="$PROJECT_DIR$/core/presentaton" />
             <option value="$PROJECT_DIR$/core/presentaton/design_system" />
             <option value="$PROJECT_DIR$/core/presentaton/ui" />
             <option value="$PROJECT_DIR$/job_detail" />
             <option value="$PROJECT_DIR$/jobs" />
             <option value="$PROJECT_DIR$/posts" />
+            <option value="$PROJECT_DIR$/register" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

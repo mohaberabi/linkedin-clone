@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.mohaberabi.add_posts.databinding.FragmentAddPostBinding
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostActions
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostViewModel
+import com.mohaberabi.presentation.ui.util.asByteArray
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -66,10 +67,3 @@ class AddPostFragment : Fragment() {
 
 }
 
-fun Uri.asByteArray(
-    resolver: ContentResolver,
-): ByteArray? {
-    return resolver.openInputStream(this).use { input ->
-        input?.readBytes()
-    }
-}

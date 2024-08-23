@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="11">
+      <module name="LinkedInClone.auth" target="17" />
       <module name="LinkedInClone.firestore" target="17" />
     </bytecodeTargetLevel>
   </component>

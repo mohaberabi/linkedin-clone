@@ -11,6 +11,7 @@ android {
 
 dependencies {
     api(libs.firebase.firestore)
+    api(libs.firebase.auth)
     implementation(projects.core.domain)
     implementation(projects.core.data)
 }

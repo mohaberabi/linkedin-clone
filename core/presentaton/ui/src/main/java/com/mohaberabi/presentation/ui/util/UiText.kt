@@ -60,6 +60,10 @@ fun AppError.asUiText(): UiText {
                 RemoteError.UNKNOWN_ERROR -> R.string.unknown_error
                 RemoteError.WRONG_EMAIL_USERNAME -> R.string.invalid_email
                 RemoteError.WRONG_PASSWORD -> R.string.invalid_password
+                RemoteError.INVALID_CREDENTIALS -> R.string.invalid_email
+                RemoteError.INVALID_USER -> R.string.invalid_email
+                RemoteError.EMAIL_ALREADY_IN_USE -> R.string.invalid_email
+                RemoteError.USER_DISABLED -> R.string.invalid_email
             }
         }
 
@@ -68,6 +72,8 @@ fun AppError.asUiText(): UiText {
                 LocalError.DISK_FULL -> R.string.disk_full
                 LocalError.UNKNOWN -> R.string.unknown_error
                 LocalError.IO -> R.string.disk_full
+                LocalError.DATA_CORRUPTION -> R.string.unknown_error
+                LocalError.ILLEGAL_STATE -> R.string.unknown_error
             }
         }
 

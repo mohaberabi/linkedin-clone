@@ -10,5 +10,7 @@
         <attr name="showTextField" format="boolean" />
     </declare-styleable>
 
-    
+    <declare-styleable name="PrimaryTextField">
+        <attr name="isPassword" format="boolean" />
+    </declare-styleable>
 </resources>

@@ -7,7 +7,9 @@ interface AppError
 enum class LocalError : AppError {
     DISK_FULL,
     UNKNOWN,
-    IO
+    IO,
+    DATA_CORRUPTION,
+    ILLEGAL_STATE,
 }
 
 enum class CommonError : AppError {
@@ -21,12 +23,16 @@ enum class RemoteError : AppError {
     UNAUTHORIZED,
     WRONG_EMAIL_USERNAME,
     WRONG_PASSWORD,
-
     CONFLICT,
     TOO_MANY_REQUEST,
     NO_NETWORK,
     PAYLOAD_TOO_LARGE,
     SERVER_ERROR,
     SERIALIZATION_ERROR,
-    UNKNOWN_ERROR
+    UNKNOWN_ERROR,
+    INVALID_CREDENTIALS,
+    INVALID_USER,
+    EMAIL_ALREADY_IN_USE,
+    USER_DISABLED,
+
 }
