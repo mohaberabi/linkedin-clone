@@ -6,6 +6,8 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.mohaberabi.linkedinclone.register.presentation.RegisterFragment"
+        android:name="com.mohaberabi.linkedinclone.register.presentation.fragment.RegisterFragment"
         android:label="RegisterFragment" />
+
+
 </navigation>

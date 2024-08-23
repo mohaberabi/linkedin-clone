@@ -23,7 +23,6 @@ class DataStorePersistenceClient @Inject constructor(
         withContext(dispatchers.io) {
             dataStore.safeCall {
                 set(key, value)
-
             }
         }
     }

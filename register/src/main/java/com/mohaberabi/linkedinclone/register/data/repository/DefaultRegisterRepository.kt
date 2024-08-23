@@ -7,6 +7,8 @@ import com.mohaberabi.linkedin.core.domain.util.AppResult
 import com.mohaberabi.linkedin.core.domain.util.EmptyDataResult
 import com.mohaberabi.linkedinclone.register.domain.repository.RegisterRepository
 import com.mohaberabi.linkedinclone.register.domain.source.remote.RegisterRemoteDataSource
+import kotlinx.coroutines.async
+import kotlinx.coroutines.supervisorScope
 import javax.inject.Inject
 
 class DefaultRegisterRepository @Inject constructor(
@@ -37,7 +39,7 @@ class DefaultRegisterRepository @Inject constructor(
                 img = "",
                 uid = uid
             )
-            return@handle userLocalDataSource.saveUser(user)
+            userLocalDataSource.saveUser(user)
         }
 
     }

@@ -55,5 +55,6 @@ dependencies {
     implementation(projects.jobs)
     implementation(projects.jobDetail)
     implementation(projects.core.domain)
-
+    implementation(libs.core.splashscreen)
+    implementation(projects.register)
 }

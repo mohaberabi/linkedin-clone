@@ -19,8 +19,6 @@ import javax.inject.Singleton
 @Module
 
 @InstallIn(SingletonComponent::class)
-
-
 object RegisterModule {
 
 
@@ -30,7 +28,7 @@ object RegisterModule {
         dispatchers: DispatchersProvider,
         auth: FirebaseAuth,
         firestore: FirebaseFirestore,
-    ) = FirebaseRegisterRemoteDataSource(
+    ): RegisterRemoteDataSource = FirebaseRegisterRemoteDataSource(
         dispatchers = dispatchers,
         auth = auth,
         firestore = firestore

@@ -1,24 +1,34 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Base.Theme.LinkedInClone" parent="Theme.Material3.DayNight.NoActionBar">
-
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
         <item name="colorOnPrimary">@color/colorWhite</item>
-
         <item name="colorSecondary">@color/colorAccent</item>
         <item name="colorOnSecondary">@color/colorWhite</item>
-
         <item name="android:windowBackground">@color/colorBackground</item>
-
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:textColorSecondary">@android:color/black</item>
+        <item name="android:textColorHint">@android:color/black</item>
+        <item name="android:textColorTertiary">@android:color/black</item>
+        <item name="android:divider">@color/colorDivider</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
-
-        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
-        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
-        <item name="android:textColorHint">@color/colorTextHint</item>
-
-        <item name="android:divider">@color/colorDivider</item>
+        <item name="textFillColor">@android:color/black</item>
+        <item name="textOutlineColor">@android:color/black</item>
+        <item name="textAppearanceHeadline1">@style/TextAppearance.LinkedInClone.BlackText</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.LinkedInClone.BlackText</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.LinkedInClone.BlackText</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.LinkedInClone.BlackText</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.LinkedInClone.BlackText</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.LinkedInClone.BlackText</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.LinkedInClone.BlackText</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.LinkedInClone.BlackText</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.LinkedInClone.BlackText</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.LinkedInClone.BlackText</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.LinkedInClone.BlackText</item>
+        <item name="textAppearanceButton">@style/TextAppearance.LinkedInClone.BlackText</item>
     </style>
 
     <style name="Theme.LinkedInClone" parent="Base.Theme.LinkedInClone" />
@@ -32,8 +42,7 @@
     <style name="Widget.LinkedIn.PrimaryButton" parent="Widget.MaterialComponents.Button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:backgroundTint">?attr/colorPrimary
-        </item>
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:padding">12dp</item>
@@ -42,6 +51,9 @@
         <item name="elevation">2dp</item>
         <item name="android:textStyle">bold</item>
         <item name="backgroundTintMode">src_in</item>
+    </style>
 
+    <style name="TextAppearance.LinkedInClone.BlackText" parent="TextAppearance.Material3.ActionBar.Subtitle">
+        <item name="android:textColor">@android:color/black</item>
     </style>
 </resources>
