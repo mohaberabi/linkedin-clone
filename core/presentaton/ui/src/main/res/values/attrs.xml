@@ -3,4 +3,12 @@
         <attr name="errorTitle" format="string" />
         <attr name="errorDescription" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="MainAppBar">
+        <attr name="showBackArrow" format="boolean" />
+        <attr name="showAvatar" format="boolean" />
+        <attr name="showTextField" format="boolean" />
+    </declare-styleable>
+
+    
 </resources>

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.linkedinclone.android.application)
     alias(libs.plugins.linkedinclone.android.hilt)
+    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -53,5 +54,6 @@ dependencies {
     implementation(projects.addPost)
     implementation(projects.jobs)
     implementation(projects.jobDetail)
+    implementation(projects.core.domain)
 
 }

@@ -1,9 +1,10 @@
 plugins {
     alias(libs.plugins.linkedinclone.android.feature)
-    alias(libs.plugins.jetbrains.kotlin.android)
+
+    alias(libs.plugins.linkedinclone.android.hilt)
 }
 
 android {
-    namespace = "com.mohaberabi.linkedinclone.add_post"
+    namespace = libs.versions.projectDomain.get() + ".add_posts"
 
 }

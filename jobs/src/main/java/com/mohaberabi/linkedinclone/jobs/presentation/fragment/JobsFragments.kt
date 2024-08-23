@@ -5,18 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
-import com.mohaberabi.jobs.R
 import com.mohaberabi.jobs.databinding.FragmentJobsFragmentsBinding
+import com.mohaberabi.linkedin.core.domain.util.AppDrawerActions
+import com.mohaberabi.linkedin.core.domain.util.DrawerController
 import com.mohaberabi.presentation.ui.navigation.NavDeepLinks
 import com.mohaberabi.linkedinclone.jobs.presentation.viewmodel.JobsViewModel
 import com.mohaberabi.presentation.ui.navigation.deepLinkNavigate
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -28,6 +28,9 @@ class JobsFragments : Fragment() {
     private val binding get() = _binding!!
     private lateinit var jobsRenderer: JobsUiRenderer
     private lateinit var adapter: JobsListAdapter
+
+    @Inject
+    lateinit var drawerController: DrawerController
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,14 +50,26 @@ class JobsFragments : Fragment() {
             adapter = adapter,
             binding = binding
         )
-
+        binding.appBar.loadImgUrl("https://cdn2.hubspot.net/hubfs/53/image8-2.jpg")
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.collect { state ->
                 jobsRenderer.render(state)
             }
         }
+
+        binding.appBar.setOnAvatarClickListener {
+            viewLifecycleOwner.lifecycleScope.launch {
+                drawerController.sendDrawerAction(AppDrawerActions.Close)
+                drawerController.sendDrawerAction(AppDrawerActions.Open)
+            }
+        }
+
+
+
+
         return binding.root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

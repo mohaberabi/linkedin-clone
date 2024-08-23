@@ -12,8 +12,6 @@ enum class JobDetailStatus {
 }
 
 data class JobDetailState(
-
-
     val state: JobDetailStatus = JobDetailStatus.Initial,
     val detail: JobDetailModel? = null,
     val error: UiText = UiText.Empty

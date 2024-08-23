@@ -22,11 +22,8 @@ class JobDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getJobDetailsUseCase: GetJobDetailsUseCase,
 ) : ViewModel() {
-
-
     private val _state = MutableStateFlow(JobDetailState())
     val state = _state.asStateFlow()
-
     private val id = savedStateHandle.get<String>("jobId")
 
     init {

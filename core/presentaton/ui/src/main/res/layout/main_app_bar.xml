@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appBar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:titleTextColor="?android:attr/textColorPrimary"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:visibility="gone" />
+
+        <ImageView
+            android:background="@drawable/circle_avatar"
+            android:id="@+id/profileAvatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_plcholder" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/searchField"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:enabled="false"
+            android:background="@drawable/rounded_text_field"
+            android:hint="Search"
+            android:layout_marginHorizontal="12dp"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="8dp"
+            android:inputType="text"
+            android:layout_weight="1" />
+    </LinearLayout>
+</androidx.appcompat.widget.Toolbar>

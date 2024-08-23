@@ -10,7 +10,7 @@
         android:title="@string/post" />
     <item
         android:id="@id/nav_graph_jobs"
-        android:icon="@drawable/ic_jobs"
+        android:icon="@drawable/ic_work"
         android:title="@string/jobs" />
 
 
