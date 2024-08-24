@@ -1,11 +1,13 @@
 package com.mohaberabi.linkedin.core.domain.usecase
 
+import com.mohaberabi.linkedin.core.domain.error.ErrorModel
+import com.mohaberabi.linkedin.core.domain.model.UserModel
 import com.mohaberabi.linkedin.core.domain.repository.UserRepository
-
-class GetUserUseCase(
-    private val userRepository: UserRepository,
-) {
+import com.mohaberabi.linkedin.core.domain.util.AppResult
 
 
-    operator fun invoke() = userRepository.getUser()
+interface GetUserUseCase {
+    suspend operator fun invoke(
+        uid: String,
+    ): AppResult<UserModel?, ErrorModel>
 }

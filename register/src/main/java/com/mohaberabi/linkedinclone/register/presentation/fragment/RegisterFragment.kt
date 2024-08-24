@@ -13,7 +13,6 @@ import com.mohaberabi.linkedinclone.register.presentation.viewmodel.RegisterView
 import com.mohaberabi.presentation.ui.navigation.NavDeepLinks
 import com.mohaberabi.presentation.ui.navigation.popAllAndNavigate
 import com.mohaberabi.presentation.ui.util.showSnackBar
-import com.mohaberabi.register.R
 import com.mohaberabi.register.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

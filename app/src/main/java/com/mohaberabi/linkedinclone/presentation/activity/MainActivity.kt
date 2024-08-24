@@ -1,32 +1,26 @@
 package com.mohaberabi.linkedinclone.presentation.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.GravityCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.mohaberabi.linkedin.core.domain.util.AppDrawerActions
 import com.mohaberabi.linkedin.core.domain.util.DrawerController
+import com.mohaberabi.linkedinclone.presentation.viewmodel.MainActivityViewModel
 import com.mohaberabi.linkedinclone.R
 import com.mohaberabi.linkedinclone.databinding.ActivityMainBinding
-import com.mohaberabi.linkedinclone.databinding.NavHeaderBinding
-import com.mohaberabi.linkedinclone.presentation.fragments.LayoutFragment
-import com.mohaberabi.linkedinclone.presentation.viewmodel.MainActivityViewModel
+import com.mohaberabi.presentation.ui.navigation.NavDeepLinks
 import com.mohaberabi.presentation.ui.navigation.deepLinkNavigate
 import com.mohaberabi.presentation.ui.navigation.popAllAndNavigate
+import com.mohaberabi.presentation.ui.util.closeDrawer
+import com.mohaberabi.presentation.ui.util.openDrawer
 import com.mohaberabi.presentation.ui.views.addDefaultPaddings
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -37,9 +31,6 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private val viewmodel by viewModels<MainActivityViewModel>()
-
-    private lateinit var mainDrawerBinding: NavHeaderBinding
-
     private lateinit var renderer: MainActivityRenderer
 
     @Inject
@@ -49,9 +40,12 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         val splash = installSplashScreen()
         _binding = ActivityMainBinding.inflate(layoutInflater)
-        val headerView = binding.navView.getHeaderView(0)
-        mainDrawerBinding = NavHeaderBinding.bind(headerView)
-        renderer = MainActivityRenderer(mainDrawerBinding)
+        renderer = MainActivityRenderer(
+            binding = binding,
+            onAvatarClick = {
+                goToProfile()
+            },
+        )
         setContentView(binding.root)
         addDefaultPaddings(binding.root)
         splash.setKeepOnScreenCondition {
@@ -62,19 +56,14 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
     private fun observeDrawer() {
 
         lifecycleScope.launch {
             withContext(Dispatchers.Main.immediate) {
                 drawerController.collect { event ->
                     when (event) {
-                        AppDrawerActions.Close -> binding.drawerLayout.closeDrawer(GravityCompat.START)
-                        AppDrawerActions.Open -> binding.drawerLayout.openDrawer(GravityCompat.START)
+                        AppDrawerActions.Close -> binding.drawerLayout.closeDrawer()
+                        AppDrawerActions.Open -> binding.drawerLayout.openDrawer()
                     }
                 }
             }
@@ -97,11 +86,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun goToLayout(
-    ) {
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
-        navController.popAllAndNavigate(R.id.layoutFragment)
+    private fun goToLayout() = rootNavController().popAllAndNavigate(R.id.layoutFragment)
+
+    private fun goToProfile() {
+        binding.drawerLayout.closeDrawer()
+        rootNavController().deepLinkNavigate(NavDeepLinks.PROFILE)
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

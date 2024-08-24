@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/jobsFragments"
-        android:name="com.mohaberabi.linkedinclone.jobs.presentation.fragment.JobsFragments"
+        android:name="com.mohaberbai.linkedinclone.jobs.presentation.fragment.JobsFragments"
         android:label="fragment_jobs_fragments"
         tools:layout="@layout/fragment_jobs_fragments" />
 </navigation>

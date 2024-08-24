@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.mohaberabi.linkedin.core.domain.model.AppFile
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
-import com.mohaberabi.linkedinclone.add_post.presentation.domain.usecase.AddPostUseCase
+import com.mohaberabi.linkedinclone.add_post.usecase.AddPostUseCase
 import com.mohaberabi.presentation.ui.util.asUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -20,8 +20,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddPostViewModel @Inject constructor(
-
-
     private val addPostUseCase: AddPostUseCase,
 ) : ViewModel() {
     private val _state = MutableStateFlow(AddPostState())

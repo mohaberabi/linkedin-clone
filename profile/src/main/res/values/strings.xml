@@ -1,4 +1,6 @@
 <resources>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mohab_the_loser">Mohab The Loser</string>
+    <string name="bio_prev">Android Developer | Tech Enthusiast | Open Source Contributor</string>
 </resources>

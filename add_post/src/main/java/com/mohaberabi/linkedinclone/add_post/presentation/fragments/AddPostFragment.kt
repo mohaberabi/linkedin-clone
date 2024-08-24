@@ -1,7 +1,5 @@
 package com.mohaberabi.linkedinclone.add_post.presentation.fragments
 
-import android.content.ContentResolver
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,10 +17,7 @@ import com.mohaberabi.presentation.ui.util.asByteArray
 import com.mohaberabi.presentation.ui.util.createLoadingDialog
 import com.mohaberabi.presentation.ui.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 @AndroidEntryPoint

@@ -1,11 +1,17 @@
 plugins {
     alias(libs.plugins.linkedinclone.android.feature)
     alias(libs.plugins.linkedinclone.android.hilt)
-    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
-    namespace = "com.mohaberabi.profile"
+    namespace = libs.versions.projectDomain.get() + ".profile"
 
 }
 
+
+dependencies {
+
+    implementation(projects.core.domain)
+    implementation(projects.core.data)
+
+}

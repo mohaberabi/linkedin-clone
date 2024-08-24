@@ -6,7 +6,17 @@ data class ErrorModel(
     val statusCode: Int? = null,
     val cause: Exception? = null,
     val type: AppError,
-) : AppError
+) : AppError {
+    override fun toString(): String {
+        val message = buildString {
+            append("App Error ->")
+            append("Type ${type}-")
+            append("Message ${message}-")
+            append("Code ${statusCode}-")
+        }
+        return message
+    }
+}
 
 
 sealed class AppException(

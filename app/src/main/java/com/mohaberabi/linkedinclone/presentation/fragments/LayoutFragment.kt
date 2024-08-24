@@ -5,15 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.mohaberabi.linkedinclone.R
 import com.mohaberabi.linkedinclone.databinding.FragmentLayoutBinding
+
 import com.mohaberabi.presentation.ui.navigation.NavDeepLinks
 import com.mohaberabi.presentation.ui.navigation.deepLinkNavigate
-import com.mohaberabi.presentation.ui.navigation.popAllAndNavigate
 
 
 class LayoutFragment : Fragment() {
@@ -39,9 +38,7 @@ class LayoutFragment : Fragment() {
 
 
     private fun setupBottomNav() {
-        val navHostFragment =
-            childFragmentManager.findFragmentById(R.id.nav_host_layout_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
+        val navController = layoutNavController()
         binding.bottomNavigationView.setupWithNavController(navController)
         binding.bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {

@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
-import com.mohaberabi.linkedinclone.register.domain.repository.RegisterRepository
-import com.mohaberabi.linkedinclone.register.domain.usecase.RegisterUsecase
+import com.mohaberabi.linkedinclone.register.usecase.RegisterUsecase
 import com.mohaberabi.presentation.ui.util.asUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

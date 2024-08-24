@@ -2,7 +2,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.mohaberabi.linkedinclone.jobs.presentation.fragment.JobsFragments"
+    tools:context="com.mohaberbai.linkedinclone.jobs.presentation.fragment.JobsFragments"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.mohaberabi.presentation.ui.views.MainAppBar

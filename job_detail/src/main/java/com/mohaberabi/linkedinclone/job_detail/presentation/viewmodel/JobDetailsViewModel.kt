@@ -1,13 +1,12 @@
 package com.mohaberabi.linkedinclone.job_detail.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohaberabi.linkedin.core.domain.error.RemoteError
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
-import com.mohaberabi.linkedinclone.job_detail.domain.usecase.GetJobDetailsUseCase
+import com.mohaberabi.linkedinclone.job_detail.usecase.GetJobDetailsUseCase
 import com.mohaberabi.presentation.ui.util.asUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

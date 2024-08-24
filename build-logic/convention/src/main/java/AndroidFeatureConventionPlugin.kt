@@ -12,6 +12,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
         target.run {
             pluginManager.run {
                 apply("linkedinclone.android.library")
+//                apply("androidx.navigation.safeargs.kotlin")
+
             }
 
             extensions.configure<LibraryExtension> {

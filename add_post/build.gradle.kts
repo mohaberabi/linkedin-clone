@@ -12,7 +12,6 @@ android {
 
 dependencies {
     implementation(projects.core.domain)
-    implementation(projects.core.presentaton.designSystem)
-    implementation(projects.core.presentaton.ui)
-    implementation(projects.core.firestore)
+    implementation(projects.core.data)
+
 }

@@ -9,6 +9,6 @@ android {
 dependencies {
     implementation(projects.core.presentaton.designSystem)
     implementation(projects.core.domain)
-    api(libs.navUI)
     api(libs.navFragment)
+    api(libs.navUI)
 }

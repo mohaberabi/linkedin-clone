@@ -10,7 +10,6 @@
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="?attr/homeAsUpIndicator"
-        android:titleTextColor="?android:attr/textColorPrimary"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 

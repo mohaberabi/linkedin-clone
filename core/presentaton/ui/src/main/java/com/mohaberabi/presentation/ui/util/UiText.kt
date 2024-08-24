@@ -11,6 +11,12 @@ import com.mohaberabi.linkedin.core.domain.error.RemoteError
 
 sealed class UiText {
 
+
+    companion object {
+        val unknown = StringResources(id = R.string.unknown_error)
+        val userDeleted = StringResources(id = R.string.user_deleted)
+    }
+
     data object Empty : UiText()
 
     data class Dynamic(val value: String) : UiText()
@@ -34,6 +40,8 @@ sealed class UiText {
 
     val isEmpty: Boolean
         get() = this == Empty
+
+
 }
 
 

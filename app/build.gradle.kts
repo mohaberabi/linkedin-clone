@@ -57,4 +57,5 @@ dependencies {
     implementation(projects.core.domain)
     implementation(libs.core.splashscreen)
     implementation(projects.register)
+    implementation(projects.profile)
 }

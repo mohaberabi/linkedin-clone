@@ -7,13 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
-import com.mohaberabi.job_detail.R
 import com.mohaberabi.job_detail.databinding.FragmentJobDetailBinding
 import com.mohaberabi.linkedinclone.job_detail.presentation.viewmodel.JobDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -23,10 +20,13 @@ class JobDetailFragment : Fragment() {
     private var _binding: FragmentJobDetailBinding? = null
     private val binding get() = _binding!!
     private lateinit var detailRenderer: JobDetailRenderer
+
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentJobDetailBinding.inflate(
             layoutInflater,
             container,
@@ -41,6 +41,7 @@ class JobDetailFragment : Fragment() {
                 detailRenderer.bind(state)
             }
         }
+
         return binding.root
     }
 
