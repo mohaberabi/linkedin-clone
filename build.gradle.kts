@@ -6,4 +6,5 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.kotlin.serilization) apply false
+    alias(libs.plugins.safe.args) apply false
 }

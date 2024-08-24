@@ -11,8 +11,9 @@ import com.mohaberabi.linkedinclone.profile.presentation.viewmodel.ProfileStatus
 
 class ProfileRenderer(
     private val binding: FragmentProfileBinding,
-
-    ) {
+    private val onCoverClicked: () -> Unit,
+    private val onImgClicked: () -> Unit,
+) {
 
 
     fun bind(state: ProfileState) {
@@ -25,16 +26,16 @@ class ProfileRenderer(
 
     private fun loading() {
         with(binding) {
-            loader.visibility = View.VISIBLE
-            error.visibility = View.GONE
+            loader.show()
+            error.hide()
             userContent.visibility = View.GONE
         }
     }
 
     private fun error(errorText: UiText) {
         with(binding) {
-            loader.visibility = View.GONE
-            error.visibility = View.VISIBLE
+            loader.hide()
+            error.show()
             error.setErrorTitle(errorText.asString(binding.root.context))
             userContent.visibility = View.GONE
         }
@@ -42,13 +43,25 @@ class ProfileRenderer(
 
     private fun populated(user: UserModel) {
         with(binding) {
+            error.hide()
+            loader.hide()
             userContent.visibility = View.VISIBLE
             userBio.text = user.bio
             userName.text = "${user.name} ${user.lastname}"
-            avatarImage.cached(user.img) {
-                transformations(CircleCropTransformation())
+            avatarImage.apply {
+                cached(user.img) {
+                    transformations(CircleCropTransformation())
+                }
+                setOnClickListener {
+                    onImgClicked()
+                }
             }
-            coverImage.cached(user.cover)
+            coverImage.apply {
+                cached(user.cover)
+                setOnClickListener {
+                    onCoverClicked()
+                }
+            }
         }
     }
 }

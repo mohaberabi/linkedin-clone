@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_user_media"
+    app:startDestination="@id/viewAvatarFragment">
+
+    <fragment
+        android:id="@+id/viewAvatarFragment"
+        android:name="com.mohaberabi.linkedinclone.usermedida.avatar.fragments.ViewAvatarFragment"
+        android:label="ViewAvatarFragment">
+        <argument
+            android:name="imgUri"
+            app:argType="string" />
+        <deepLink app:uri="android-app://linked.clone.app/ViewAvatarFragment?imgUri={imgUri}" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/viewCoverFragment"
+        android:name="com.mohaberabi.linkedinclone.usermedida.cover.fragments.ViewCoverFragment"
+        android:label="fragment_view_cover"
+        tools:layout="@layout/fragment_view_cover">
+        <argument
+            android:name="imgUri"
+            app:argType="string" />
+        <deepLink app:uri="android-app://linked.clone.app/fragment_view_cover?imgUri={imgUri}" />
+
+    </fragment>
+</navigation>

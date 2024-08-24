@@ -6,5 +6,7 @@ object EndPoints {
     const val JOB_DETAILS = "jobDetails"
     const val USERS = "users"
     const val Posts = "posts"
+    const val USER_IMG = "users/images"
+    const val USER_CVR = "users/covers"
 
 }

@@ -36,6 +36,7 @@
             <option value="$PROJECT_DIR$/posts" />
             <option value="$PROJECT_DIR$/profile" />
             <option value="$PROJECT_DIR$/register" />
+            <option value="$PROJECT_DIR$/user_media" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

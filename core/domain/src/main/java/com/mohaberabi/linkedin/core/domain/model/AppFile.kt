@@ -6,7 +6,7 @@ enum class AppFileType {
 }
 
 data class AppFile(
-    val bytes: ByteArray,
+    val bytes: ByteArray = byteArrayOf(),
     val type: AppFileType = AppFileType.Image,
     val compressedToExtension: AppFileType = AppFileType.Image,
     val reference: String = ""

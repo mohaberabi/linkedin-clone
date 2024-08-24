@@ -14,12 +14,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/avatarImage"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/circle_avatar"
+            android:elevation="1dp"
             android:src="@drawable/img_plcholder"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
             android:layout_gravity="start"
             android:contentDescription="@string/user_avatar" />
 

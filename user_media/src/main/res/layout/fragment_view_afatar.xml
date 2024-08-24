@@ -1,0 +1,43 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/black">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageProfilePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_plcholder"
+        app:shapeAppearanceOverlay="@style/roundedImageView"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:text="@string/cancel"
+            android:layout_weight="50"
+            android:textColor="@android:color/white"
+            android:background="?attr/selectableItemBackground" />
+
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:text="@string/confirm"
+            android:layout_weight="50"
+            android:textColor="@android:color/white"
+            android:background="?attr/selectableItemBackground" />
+    </LinearLayout>
+
+</FrameLayout>

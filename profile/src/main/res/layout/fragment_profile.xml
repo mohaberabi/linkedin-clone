@@ -42,7 +42,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:id="@+id/userContent"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
 
         android:layout_height="wrap_content">
@@ -57,14 +57,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/avatar_image"
+            android:elevation="2dp"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="-60dp"
             android:src="@drawable/img_plcholder"
-            android:background="@drawable/circle_avatar"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cover_image" />
 
