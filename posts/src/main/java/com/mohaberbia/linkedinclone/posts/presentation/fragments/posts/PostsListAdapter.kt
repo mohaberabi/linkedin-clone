@@ -23,6 +23,7 @@ class PostsListAdapter :
     ) : ViewHolder(binding.root) {
         fun bind(post: PostModel) {
             with(binding) {
+                postDataTextView.text = post.postData
                 issuerBioTextView.text = post.issuerBio
                 createdAtTextView.text = post.createdAtMillis.toTimeAgo(binding.root.context)
                 issuerNameTextView.text = post.issuerName

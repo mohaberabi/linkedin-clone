@@ -37,11 +37,13 @@ class PostsViewModel @Inject constructor(
     private fun loadMore() {
         loadMoreJob?.cancel()
         loadMoreJob = viewModelScope.launch {
-            getPostsUseCase()
-                .onSuccess { posts ->
+            getPostsUseCase(
+                lastDocId = _state.value.posts.lastOrNull()?.id,
+            )
+                .onSuccess { newPosts ->
                     _state.update {
                         it.copy(
-                            posts = it.posts + posts
+                            posts = it.posts + newPosts
                         )
                     }
                 }
