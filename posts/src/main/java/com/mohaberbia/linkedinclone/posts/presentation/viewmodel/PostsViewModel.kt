@@ -31,6 +31,7 @@ class PostsViewModel @Inject constructor(
     fun onAction(action: PostsActions) {
         when (action) {
             PostsActions.LoadMore -> loadMore()
+            PostsActions.Refresh -> getPosts()
         }
     }
 

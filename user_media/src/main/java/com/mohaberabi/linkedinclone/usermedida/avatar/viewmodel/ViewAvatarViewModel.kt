@@ -1,5 +1,6 @@
 package com.mohaberabi.linkedinclone.usermedida.avatar.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohaberabi.linkedin.core.domain.util.onFailure
@@ -33,7 +34,7 @@ class ViewAvatarViewModel @Inject constructor(
     fun onAction(action: AvatarActions) {
         when (action) {
             is AvatarActions.AvatarChanged -> _state.update {
-                it.copy(avatar = _state.value.avatar)
+                it.copy(avatar = _state.value.avatar.copy(bytes = action.bytes))
             }
 
             AvatarActions.ConfirmUpload -> uploadImage()
@@ -44,8 +45,12 @@ class ViewAvatarViewModel @Inject constructor(
         _state.update { it.copy(loading = true) }
         viewModelScope.launch {
             updateImgUseCase(_state.value.avatar)
-                .onSuccess { _events.send(AvatarEvents.Uploaded) }
-                .onFailure { _events.send(AvatarEvents.Error(it.asUiText())) }
+//                .onSuccess {
+//                    _events.send(AvatarEvents.Uploaded)
+//                }
+//                .onFailure { fail ->
+//                    _events.send(AvatarEvents.Error(fail.asUiText()))
+//                }
             _state.update { it.copy(loading = false) }
 
         }

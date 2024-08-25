@@ -14,6 +14,7 @@ import com.mohaberabi.linkedin.core.domain.util.DrawerController
 import com.mohaberabi.presentation.ui.navigation.NavDeepLinks
 import com.mohaberbai.linkedinclone.jobs.presentation.viewmodel.JobsViewModel
 import com.mohaberabi.presentation.ui.navigation.deepLinkNavigate
+import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,7 +27,6 @@ class JobsFragments : Fragment() {
     private val viewModel by viewModels<JobsViewModel>()
     private var _binding: FragmentJobsFragmentsBinding? = null
     private val binding get() = _binding!!
-    private lateinit var jobsRenderer: JobsUiRenderer
     private lateinit var adapter: JobsListAdapter
 
     @Inject
@@ -45,16 +45,14 @@ class JobsFragments : Fragment() {
                 goToJobDetails(it.id)
             },
         )
-        jobsRenderer = JobsUiRenderer(
-            onAction = viewModel::onAction,
-            adapter = adapter,
-            binding = binding
-        )
-        binding.appBar.loadImgUrl("https://cdn2.hubspot.net/hubfs/53/image8-2.jpg")
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.state.collect { state ->
-                jobsRenderer.render(state)
-            }
+
+        collectLifeCycleFlow(viewModel.state) { state ->
+            binding.render(
+                state = state,
+                onActions = viewModel::onAction,
+                adapter = adapter,
+            )
+
         }
 
         binding.appBar.setOnAvatarClickListener {
@@ -63,9 +61,6 @@ class JobsFragments : Fragment() {
                 drawerController.sendDrawerAction(AppDrawerActions.Open)
             }
         }
-
-
-
 
         return binding.root
     }

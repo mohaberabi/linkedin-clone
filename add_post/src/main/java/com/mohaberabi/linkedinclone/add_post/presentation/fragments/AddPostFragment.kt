@@ -14,7 +14,9 @@ import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostActio
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostEvents
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostViewModel
 import com.mohaberabi.presentation.ui.util.asByteArray
+import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
 import com.mohaberabi.presentation.ui.util.createLoadingDialog
+import com.mohaberabi.presentation.ui.util.eventCollector
 import com.mohaberabi.presentation.ui.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -28,7 +30,6 @@ class AddPostFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModels<AddPostViewModel>()
 
-    private lateinit var renderer: AddPostRenderer
     private val imagePicker = registerForActivityResult(
         ActivityResultContracts.GetContent(),
     ) { uri ->
@@ -49,46 +50,48 @@ class AddPostFragment : Fragment() {
             container,
             false
         )
-        renderer = AddPostRenderer(
-            binding = binding,
-            onAction = viewModel::action
-        )
         binding.addPhotoButton.setOnClickListener {
             imagePicker.launch("image/*")
         }
         val loadingDialog = requireContext().createLoadingDialog()
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.state.collect { state ->
-                renderer.render(state)
-                if (state.loading) {
-                    loadingDialog.show()
-                } else {
-                    loadingDialog.dismiss()
-                }
-            }
 
+
+        collectLifeCycleFlow(viewModel.state) { state ->
+            binding.render(
+                state = state,
+                onAction = viewModel::action
+            )
+            if (state.loading) {
+                loadingDialog.show()
+            } else {
+                loadingDialog.dismiss()
+            }
         }
 
 
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.events.collect { event ->
-                when (event) {
-                    is AddPostEvents.Error -> binding.root.showSnackBar(
-                        event.error.asString(
-                            requireContext()
-                        )
+
+        eventCollector(
+            viewModel.events,
+        ) { event ->
+            when (event) {
+                is AddPostEvents.Error -> binding.root.showSnackBar(
+                    event.error.asString(
+                        requireContext()
                     )
+                )
 
-                    AddPostEvents.Posted -> {
-                        binding.root.showSnackBar(
-                            "Post Added"
-                        )
-                        findNavController().popBackStack()
-                    }
+                AddPostEvents.Posted -> {
+                    binding.root.showSnackBar(
+                        "Post Added"
+                    )
+                    findNavController().popBackStack()
                 }
             }
         }
+
+
+
 
         return binding.root
     }

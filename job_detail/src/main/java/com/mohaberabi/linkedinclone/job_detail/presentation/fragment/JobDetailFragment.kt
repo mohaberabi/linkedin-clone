@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.mohaberabi.job_detail.databinding.FragmentJobDetailBinding
 import com.mohaberabi.linkedinclone.job_detail.presentation.viewmodel.JobDetailsViewModel
+import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -19,9 +20,8 @@ class JobDetailFragment : Fragment() {
     private val viewmodel by viewModels<JobDetailsViewModel>()
     private var _binding: FragmentJobDetailBinding? = null
     private val binding get() = _binding!!
-    private lateinit var detailRenderer: JobDetailRenderer
 
-    
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,12 +35,10 @@ class JobDetailFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-        detailRenderer = JobDetailRenderer(binding)
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewmodel.state.collect { state ->
-                detailRenderer.bind(state)
-            }
+        collectLifeCycleFlow(viewmodel.state) { state ->
+            binding.render(state)
         }
+
 
         return binding.root
     }

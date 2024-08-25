@@ -8,28 +8,24 @@ import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostActio
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostState
 
 
-class AddPostRenderer(
-    private val binding: FragmentAddPostBinding,
-    private val onAction: (AddPostActions) -> Unit,
+fun FragmentAddPostBinding.render(
+    state: AddPostState,
+    onAction: (AddPostActions) -> Unit,
 ) {
-
-
-    fun render(state: AddPostState) {
-        if (state.postImgByteArray.isNotEmpty()) {
-            binding.imagePreview.visibility = View.VISIBLE
-            binding.imagePreview.setImageBitmap(
-                BitmapFactory.decodeByteArray(
-                    state.postImgByteArray,
-                    0,
-                    state.postImgByteArray.size,
-                )
+    if (state.postImgByteArray.isNotEmpty()) {
+        imagePreview.visibility = View.VISIBLE
+        imagePreview.setImageBitmap(
+            BitmapFactory.decodeByteArray(
+                state.postImgByteArray,
+                0,
+                state.postImgByteArray.size,
             )
-        }
-        binding.postButton.setOnClickListener {
-            onAction(AddPostActions.SubmitPost)
-        }
-        binding.postTextField.addTextChangedListener {
-            onAction(AddPostActions.PostDataChanged(it.toString()))
-        }
+        )
+    }
+    postButton.setOnClickListener {
+        onAction(AddPostActions.SubmitPost)
+    }
+    postTextField.addTextChangedListener {
+        onAction(AddPostActions.PostDataChanged(it.toString()))
     }
 }

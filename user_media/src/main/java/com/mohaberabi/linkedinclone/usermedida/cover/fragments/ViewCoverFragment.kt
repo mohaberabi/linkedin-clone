@@ -16,7 +16,11 @@ class ViewCoverFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_view_cover, container, false)
+        return inflater.inflate(
+            R.layout.fragment_view_cover,
+            container,
+            false
+        )
     }
 
 

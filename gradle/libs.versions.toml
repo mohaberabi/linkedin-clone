@@ -29,6 +29,7 @@ projectTargetSdkVersion = "34"
 projectCompileSdkVersion = "34"
 projectVersionCode = "1"
 storageVersion = "20.2.1"
+pullRefreshVersion = "1.1.0"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -48,6 +49,7 @@ coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-serilization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.5.1" }
 core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashVersion" }
+androdix-pull-refresh = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "pullRefreshVersion" }
 
 desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version = "2.0.3" }
 

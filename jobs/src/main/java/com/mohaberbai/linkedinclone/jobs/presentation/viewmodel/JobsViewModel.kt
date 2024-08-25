@@ -35,6 +35,7 @@ class JobsViewModel @Inject constructor(
     fun onAction(action: JobsActions) {
         when (action) {
             JobsActions.LoadMore -> loadMore()
+            JobsActions.Refresh -> getJobs()
         }
     }
 

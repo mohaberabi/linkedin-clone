@@ -15,6 +15,7 @@ import com.mohaberabi.profile.databinding.FragmentProfileBinding
 import com.mohaberabi.linkedinclone.profile.presentation.viewmodel.ProfileViewModel
 import com.mohaberabi.presentation.ui.navigation.NavDeepLinks
 import com.mohaberabi.presentation.ui.navigation.deepLinkNavigate
+import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -27,8 +28,6 @@ class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-
-
     private val imgPickerLauncher =
         createImagePickerLauncher(handleImageResult(NavDeepLinks.ViewAvatar))
     private val coverPickerLauncher =
@@ -50,11 +49,11 @@ class ProfileFragment : Fragment() {
             onImgClicked = { imgPickerLauncher.launch("image/*") },
             onCoverClicked = { coverPickerLauncher.launch("image/*") }
         )
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.state.collect { state ->
-                renderer.bind(state)
-            }
+
+        collectLifeCycleFlow(viewModel.state) { state ->
+            renderer.bind(state)
         }
+
         return binding.root
     }
 

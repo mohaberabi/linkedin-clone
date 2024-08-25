@@ -15,13 +15,11 @@ suspend fun <T> FirebaseAuth.safeCall(
     } catch (e: FirebaseAuthException) {
         throw AppException.RemoteException(e.toErrorModel())
     } catch (e: Exception) {
-        e.printStackTrace()
         throw AppException.RemoteException(
-            ErrorModel(
-                type = RemoteError.UNKNOWN_ERROR,
-                message = e.message,
+            errorModel(RemoteError.UNKNOWN_ERROR) {
+                message = e.message
                 cause = e
-            )
+            }
         )
     }
 }

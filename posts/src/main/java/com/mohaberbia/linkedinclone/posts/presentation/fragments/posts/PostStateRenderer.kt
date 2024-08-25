@@ -2,33 +2,34 @@ package com.mohaberbia.linkedinclone.posts.presentation.fragments.posts
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mohaberabi.linkedin.core.domain.model.PostModel
+import com.mohaberabi.posts.databinding.FragmentPostsBinding
+import com.mohaberabi.presentation.ui.util.AppRecyclerViewScrollListener
 import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsActions
 import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsState
 import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsStatus
-import com.mohaberabi.posts.databinding.FragmentPostsBinding
-import com.mohaberabi.presentation.ui.util.AppRecyclerViewScrollListener
 
-class PostStateRenderer(
-    private val adapter: PostsListAdapter,
-    private val binding: FragmentPostsBinding,
-    private val onAction: (PostsActions) -> Unit,
+fun FragmentPostsBinding.render(
+    state: PostsState,
+    adapter: PostsListAdapter,
+    onAction: (PostsActions) -> Unit,
 ) {
-
-
-    fun render(state: PostsState) {
-        when (state.state) {
-            PostsStatus.Error -> error()
-            PostsStatus.Populated -> populated(state.posts)
-            else -> loading()
+    when (state.state) {
+        PostsStatus.Error -> {
+            pullRefresh.isRefreshing = false
+            loader.hide()
+            error.show()
+            error.setErrorTitle(state.error.asString(root.context))
         }
-    }
 
-    private fun populated(items: List<PostModel>) {
-        with(binding) {
+        PostsStatus.Populated -> {
+            pullRefresh.isRefreshing = false
+            pullRefresh.setOnRefreshListener {
+                onAction(PostsActions.Refresh)
+            }
             recyclerView.visibility = View.VISIBLE
-            adapter.submitList(items)
-            recyclerView.layoutManager = LinearLayoutManager(binding.root.context)
+            error.hide()
+            adapter.submitList(state.posts)
+            recyclerView.layoutManager = LinearLayoutManager(root.context)
             recyclerView.adapter = adapter
             loader.hide()
 
@@ -41,23 +42,10 @@ class PostStateRenderer(
             )
         }
 
-    }
-
-    private fun error() {
-        with(binding) {
-            loader.hide()
-            recyclerView.visibility = View.GONE
-        }
-    }
-
-    private fun loading() {
-        with(binding) {
+        else -> {
             loader.show()
             recyclerView.visibility = View.GONE
             error.hide()
         }
     }
-
-
 }
-

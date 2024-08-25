@@ -26,7 +26,6 @@ fun errorModel(
     action: ErrorModelBuilder.() -> Unit = {},
 ): ErrorModel {
     val errorModel = ErrorModelBuilder(type).apply(action).build()
-
     Log.e("appError", errorModel.toString())
     return errorModel
 }

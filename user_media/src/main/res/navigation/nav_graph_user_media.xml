@@ -21,9 +21,9 @@
         android:label="fragment_view_cover"
         tools:layout="@layout/fragment_view_cover">
         <argument
-            android:name="imgUri"
+            android:name="coverUri"
             app:argType="string" />
-        <deepLink app:uri="android-app://linked.clone.app/fragment_view_cover?imgUri={imgUri}" />
+        <deepLink app:uri="android-app://linked.clone.app/fragment_view_cover?coverUri={coverUri}" />
 
     </fragment>
 </navigation>

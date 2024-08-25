@@ -43,11 +43,10 @@ suspend fun <T> FirebaseFirestore.safeCall(
     } catch (e: Exception) {
         e.printStackTrace()
         throw AppException.RemoteException(
-            ErrorModel(
-                type = RemoteError.UNKNOWN_ERROR,
-                message = e.message,
+            errorModel(RemoteError.UNKNOWN_ERROR) {
+                message = e.message
                 cause = e
-            )
+            }
         )
     }
 }

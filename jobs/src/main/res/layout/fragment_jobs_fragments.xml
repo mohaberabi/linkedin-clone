@@ -2,53 +2,51 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.mohaberbai.linkedinclone.jobs.presentation.fragment.JobsFragments"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context="com.mohaberbai.linkedinclone.jobs.presentation.fragment.JobsFragments">
 
     <com.mohaberabi.presentation.ui.views.MainAppBar
-        android:layout_width="match_parent"
-        app:showBackArrow="false"
         android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:showBackArrow="false"
         app:showAvatar="true"
-        app:layout_constraintTop_toTopOf="parent"
-        
         app:showTextField="true"
-        android:layout_height="wrap_content">
-
-    </com.mohaberabi.presentation.ui.views.MainAppBar>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.mohaberabi.presentation.ui.views.AppLoader
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
         android:id="@+id/loader"
-        app:layout_constraintTop_toBottomOf="@+id/appBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-    </com.mohaberabi.presentation.ui.views.AppLoader>
-
-    <com.mohaberabi.presentation.ui.views.ErrorWidget
         android:layout_width="match_parent"
-        android:id="@+id/error"
-        android:visibility="gone"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-    </com.mohaberabi.presentation.ui.views.ErrorWidget>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
         android:visibility="gone"
-        tools:listitem="@layout/job_list_item"
         app:layout_constraintTop_toBottomOf="@+id/appBar"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.mohaberabi.presentation.ui.views.ErrorWidget
+        android:id="@+id/error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/appBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/pullRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/margin_xlarge"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/job_list_item" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
