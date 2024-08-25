@@ -13,7 +13,7 @@ object NavDeepLinks {
     const val LAYOUT = "layoutFragment"
     const val ADD_POST = "fragment_add_post"
     const val PROFILE = "profile_fragment"
-    const val ViewAvatar = "ViewAvatarFragment"
+    const val Profile_Pic = "ProfilePictureFragment"
     const val ViewCover = "fragment_view_cover"
 
 }

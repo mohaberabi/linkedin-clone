@@ -1,6 +1,5 @@
-package com.mohaberabi.linkedinclone.usermedida.avatar.viewmodel
+package com.mohaberabi.linkedinclone.usermedida.profile_picture.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohaberabi.linkedin.core.domain.util.onFailure
@@ -18,26 +17,25 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class ViewAvatarViewModel @Inject constructor(
+class ProfilePictureViewModel @Inject constructor(
     private val updateImgUseCase: UpdateImgUseCase,
 ) : ViewModel() {
 
 
-    private val _state = MutableStateFlow(AvatarState())
+    private val _state = MutableStateFlow(ProfilePictureState())
     val state = _state.asStateFlow()
-
-
-    private val _events = Channel<AvatarEvents>()
+    private val _events = Channel<ProfilePictureEvents>()
     val events = _events.receiveAsFlow()
-
-
-    fun onAction(action: AvatarActions) {
+    fun onAction(action: ProfilePictureActions) {
         when (action) {
-            is AvatarActions.AvatarChanged -> _state.update {
-                it.copy(avatar = _state.value.avatar.copy(bytes = action.bytes))
-            }
+            is ProfilePictureActions.ProfilePictureChanged -> pictureChanged(action.bytes)
+            ProfilePictureActions.ConfirmUpload -> uploadImage()
+        }
+    }
 
-            AvatarActions.ConfirmUpload -> uploadImage()
+    private fun pictureChanged(bytes: ByteArray) {
+        _state.update {
+            it.copy(avatar = _state.value.avatar.copy(bytes = bytes))
         }
     }
 
@@ -45,12 +43,12 @@ class ViewAvatarViewModel @Inject constructor(
         _state.update { it.copy(loading = true) }
         viewModelScope.launch {
             updateImgUseCase(_state.value.avatar)
-//                .onSuccess {
-//                    _events.send(AvatarEvents.Uploaded)
-//                }
-//                .onFailure { fail ->
-//                    _events.send(AvatarEvents.Error(fail.asUiText()))
-//                }
+                .onSuccess {
+                    _events.send(ProfilePictureEvents.Uploaded)
+                }
+                .onFailure { fail ->
+                    _events.send(ProfilePictureEvents.Error(fail.asUiText()))
+                }
             _state.update { it.copy(loading = false) }
 
         }

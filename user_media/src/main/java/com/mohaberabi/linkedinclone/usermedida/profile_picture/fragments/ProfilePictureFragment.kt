@@ -1,4 +1,4 @@
-package com.mohaberabi.linkedinclone.usermedida.avatar.fragments
+package com.mohaberabi.linkedinclone.usermedida.profile_picture.fragments
 
 import android.net.Uri
 import android.os.Bundle
@@ -7,37 +7,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.mohaberabi.linkedinclone.usermedida.avatar.viewmodel.AvatarActions
-import com.mohaberabi.linkedinclone.usermedida.avatar.viewmodel.AvatarEvents
-import com.mohaberabi.linkedinclone.usermedida.avatar.viewmodel.ViewAvatarViewModel
+import com.mohaberabi.linkedinclone.usermedida.profile_picture.viewmodel.ProfilePictureActions
+import com.mohaberabi.linkedinclone.usermedida.profile_picture.viewmodel.ProfilePictureViewModel
 import com.mohaberabi.presentation.ui.util.asByteArray
-import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
 import com.mohaberabi.presentation.ui.util.createLoadingDialog
-import com.mohaberabi.presentation.ui.util.eventCollector
-import com.mohaberabi.presentation.ui.util.showSnackBar
-import com.mohaberabi.user_media.R
-import com.mohaberabi.user_media.databinding.FragmentViewAvatarBinding
-import com.mohaberabi.user_media.databinding.FragmentViewCoverBinding
+import com.mohaberabi.user_media.databinding.FragmentProfilePictureBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class ViewAvatarFragment : Fragment() {
-    private val viewmodel by viewModels<ViewAvatarViewModel>()
-    private val args by navArgs<ViewAvatarFragmentArgs>()
-    private var _binding: FragmentViewAvatarBinding? = null
+class ProfilePictureFragment : Fragment() {
+    private val viewmodel by viewModels<ProfilePictureViewModel>()
+    private val args by navArgs<ProfilePictureFragmentArgs>()
+    private var _binding: FragmentProfilePictureBinding? = null
     private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentViewAvatarBinding.inflate(
+        _binding = FragmentProfilePictureBinding.inflate(
             layoutInflater,
             container,
             false
@@ -75,7 +64,7 @@ class ViewAvatarFragment : Fragment() {
         val bytes = Uri.parse(args.imgUri).asByteArray(requireContext().contentResolver)
         bytes?.let {
             viewmodel.onAction(
-                AvatarActions.AvatarChanged(
+                ProfilePictureActions.ProfilePictureChanged(
                     it
                 )
             )
@@ -90,7 +79,7 @@ class ViewAvatarFragment : Fragment() {
 //            findNavController().popBackStack()
         }
         binding.confirmButton.setOnClickListener {
-            viewmodel.onAction(AvatarActions.ConfirmUpload)
+            viewmodel.onAction(ProfilePictureActions.ConfirmUpload)
         }
     }
 }

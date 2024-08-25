@@ -8,17 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.mohaberabi.profile.R
 import com.mohaberabi.profile.databinding.FragmentProfileBinding
 import com.mohaberabi.linkedinclone.profile.presentation.viewmodel.ProfileViewModel
 import com.mohaberabi.presentation.ui.navigation.NavDeepLinks
 import com.mohaberabi.presentation.ui.navigation.deepLinkNavigate
 import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 
@@ -29,7 +25,7 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val imgPickerLauncher =
-        createImagePickerLauncher(handleImageResult(NavDeepLinks.ViewAvatar))
+        createImagePickerLauncher(handleImageResult(NavDeepLinks.Profile_Pic))
     private val coverPickerLauncher =
         createImagePickerLauncher(handleImageResult(NavDeepLinks.ViewCover))
 
