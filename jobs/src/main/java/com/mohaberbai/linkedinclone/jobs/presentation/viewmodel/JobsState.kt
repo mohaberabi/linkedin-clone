@@ -14,5 +14,6 @@ enum class JobsStatus {
 data class JobsState(
     val jobs: List<JobModel> = listOf(),
     val error: UiText = UiText.Empty,
-    val state: JobsStatus = JobsStatus.Initial
+    val state: JobsStatus = JobsStatus.Initial,
+    val userImg: String = "",
 )

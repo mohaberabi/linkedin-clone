@@ -1,4 +1,4 @@
-package com.mohaberabi.linkedinclone.presentation.viewmodel
+package com.mohaberabi.linkedinclone.presentation.activity.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

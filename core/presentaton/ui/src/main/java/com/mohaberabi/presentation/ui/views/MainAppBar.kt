@@ -5,11 +5,10 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
 import coil.transform.CircleCropTransformation
 import com.mohaberabi.core.presentation.ui.R
 import com.mohaberabi.core.presentation.ui.databinding.MainAppBarBinding
-import com.mohaberabi.presentation.ui.util.cached
+import com.mohaberabi.presentation.ui.util.cachedImage
 
 class MainAppBar @JvmOverloads constructor(
     context: Context,
@@ -89,7 +88,7 @@ class MainAppBar @JvmOverloads constructor(
     }
 
     fun loadImgUrl(url: String) {
-        binding.profileAvatar.cached(url) {
+        binding.profileAvatar.cachedImage(url) {
             transformations(CircleCropTransformation())
         }
     }

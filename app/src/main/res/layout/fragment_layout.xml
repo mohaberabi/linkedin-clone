@@ -1,7 +1,17 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.mohaberabi.presentation.ui.views.MainAppBar
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:showBackArrow="false"
+        app:showAvatar="true"
+        app:showTextField="true"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_layout_fragment"
@@ -9,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:navGraph="@navigation/nav_graph_layout"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBar"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,7 +31,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         style="@style/Widget.BottomNavigationView.LinkedInClone"
-        android:layout_marginBottom="0dp"
         app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

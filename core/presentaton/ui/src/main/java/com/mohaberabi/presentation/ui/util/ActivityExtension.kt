@@ -1,4 +1,4 @@
-package com.mohaberabi.presentation.ui.views
+package com.mohaberabi.presentation.ui.util
 
 import android.app.Activity
 import android.view.View

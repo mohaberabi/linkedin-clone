@@ -2,4 +2,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="post_content">Post Content</string>
+    <string name="issuer_name">Issuer Name</string>
+    <string name="issuer_bio">Issuer Bio</string>
+    <string name="_2h_ago">2h ago</string>
+    <string name="_5_reposts">5 Reposts</string>
+    <string name="_45_comments">45 Comments</string>
+    <string name="test_readmore">This is a sample text to demonstrate the Read More functionality. The text will be truncated if it\'s too long, and the Read More button will appear below to expand it. Once expanded, you can collapse it back by clicking on Read Less.</string>
 </resources>

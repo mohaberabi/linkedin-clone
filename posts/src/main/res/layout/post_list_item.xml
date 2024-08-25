@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -7,23 +6,26 @@
     android:layout_marginTop="@dimen/margin_medium"
     android:padding="0dp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/issuerAvatarImageView"
-        android:layout_width="50dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_margin="@dimen/margin_small"
-        android:layout_height="50dp"
-        android:layout_marginTop="@dimen/margin_large"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="@dimen/margin_medium"
+        android:elevation="1dp"
         android:scaleType="centerCrop"
         android:src="@drawable/img_plcholder"
-        app:layout_constraintBottom_toBottomOf="@id/issuerNameTextView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/issuerNameTextView"
+        app:shapeAppearanceOverlay="@style/roundedImageView" />
 
     <TextView
         android:id="@+id/issuerNameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Issuer Name"
+        android:layout_marginHorizontal="@dimen/margin_small"
+        android:text="@string/issuer_name"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         android:textSize="16sp"
@@ -35,7 +37,8 @@
         android:id="@+id/issuerBioTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Issuer Bio"
+        android:layout_marginHorizontal="@dimen/margin_small"
+        android:text="@string/issuer_bio"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@id/issuerAvatarImageView"
@@ -47,8 +50,8 @@
         android:id="@+id/createdAtTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2h ago"
         android:layout_marginHorizontal="@dimen/margin_small"
+        android:text="@string/_2h_ago"
         android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,14 +60,19 @@
         app:layout_constraintBottom_toBottomOf="@id/issuerNameTextView"
         app:layout_constraintHorizontal_bias="1.0" />
 
-    <TextView
+    <com.mohaberabi.presentation.ui.views.ReadMoreText
         android:id="@+id/postDataTextView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/post_content"
-        android:layout_marginHorizontal="@dimen/margin_large"
-        android:textColor="@android:color/black"
-        android:textSize="14sp"
+        app:readMoreText="@string/test_readmore"
+        app:readMoreTextColor="@android:color/black"
+        app:readMoreTextSize="12sp"
+        app:toggleTextColor="@color/colorPrimary"
+        app:toggleTextSize="12sp"
+        app:toggleTextReadMore="Read More"
+        app:toggleTextReadLess="Read Less"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/issuerAvatarImageView"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -73,47 +81,142 @@
         android:id="@+id/postAttachedImageView"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        android:scaleType="centerCrop"
         android:layout_marginTop="@dimen/margin_large"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/postDataTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/img_plcholder" />
 
-    <TextView
-        android:id="@+id/reactionsCountTextView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+
+        android:id="@+id/reactionsCountsLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="123"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="12sp"
-        android:layout_margin="@dimen/margin_medium"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/margin_medium"
+        app:layout_constraintTop_toBottomOf="@id/postAttachedImageView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/postAttachedImageView"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="start"
+            android:layout_marginStart="@dimen/margin_large">
+
+            <ImageView
+                android:id="@+id/likeReact"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/like"
+                android:layout_marginEnd="-8dp" />
+
+            <ImageView
+                android:id="@+id/funnyReact"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/funny"
+                android:layout_marginEnd="-8dp" />
+
+            <ImageView
+                android:id="@+id/loveReact"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/love" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/commentsRepostsLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/margin_large">
+
+            <TextView
+                android:id="@+id/commentsCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_45_comments"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/repostsCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_5_reposts"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_marginHorizontal="@dimen/margin_large"
+        android:id="@+id/engagementButtonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/margin_medium"
+        app:layout_constraintTop_toBottomOf="@id/reactionsCountsLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.mohaberabi.presentation.ui.views.SimpleIconButton
+            android:id="@+id/likeButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:simpleIcon="@drawable/ic_react"
+            app:simpleText="Like"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginEnd="8dp" />
+
+        <com.mohaberabi.presentation.ui.views.SimpleIconButton
+            android:id="@+id/commentButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:simpleIcon="@drawable/ic_comment"
+            app:simpleText="Comment"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginEnd="8dp" />
+
+        <com.mohaberabi.presentation.ui.views.SimpleIconButton
+            android:id="@+id/repostButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:simpleIcon="@drawable/ic_repost"
+            app:simpleText="Repost"
+            android:layout_weight="1"
+            android:gravity="center" />
+
+        <com.mohaberabi.presentation.ui.views.SimpleIconButton
+            android:id="@+id/sendButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:simpleIcon="@drawable/ic_repost"
+            app:simpleText="Send"
+            android:layout_weight="1"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/postDivider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/lightGray"
+        app:layout_constraintTop_toBottomOf="@id/engagementButtonsLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
-
-    <TextView
-        android:id="@+id/commentsCountTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="45 Comments"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/reactionsCountTextView"
-        app:layout_constraintTop_toBottomOf="@id/postAttachedImageView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="8dp" />
-
-    <TextView
-        android:id="@+id/repostsCountTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="5 Reposts"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/commentsCountTextView"
-        app:layout_constraintTop_toBottomOf="@id/postAttachedImageView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

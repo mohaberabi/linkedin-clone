@@ -56,7 +56,9 @@ class AddPostFragment : Fragment() {
         val loadingDialog = requireContext().createLoadingDialog()
 
 
-        collectLifeCycleFlow(viewModel.state) { state ->
+        collectLifeCycleFlow(
+            viewModel.state,
+        ) { state ->
             binding.render(
                 state = state,
                 onAction = viewModel::action
@@ -75,18 +77,14 @@ class AddPostFragment : Fragment() {
             viewModel.events,
         ) { event ->
             when (event) {
-                is AddPostEvents.Error -> binding.root.showSnackBar(
-                    event.error.asString(
+                is AddPostEvents.Error -> {
+                    val errorMessage = event.error.asString(
                         requireContext()
                     )
-                )
-
-                AddPostEvents.Posted -> {
-                    binding.root.showSnackBar(
-                        "Post Added"
-                    )
-                    findNavController().popBackStack()
+                    binding.root.showSnackBar(errorMessage)
                 }
+
+                AddPostEvents.Posted -> onPostAdded()
             }
         }
 
@@ -97,5 +95,9 @@ class AddPostFragment : Fragment() {
     }
 
 
+    private fun onPostAdded() {
+        binding.root.showSnackBar("Post Added")
+        findNavController().popBackStack()
+    }
 }
 

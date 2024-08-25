@@ -5,7 +5,7 @@ import coil.load
 import coil.request.ImageRequest
 import com.mohaberabi.core.presentation.ui.R
 
-fun ImageView.cached(
+fun ImageView.cachedImage(
     url: String,
     builder: ImageRequest.Builder.() -> Unit = {}
 ) {

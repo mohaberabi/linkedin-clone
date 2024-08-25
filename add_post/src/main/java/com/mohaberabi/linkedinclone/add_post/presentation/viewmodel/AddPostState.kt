@@ -5,6 +5,7 @@ data class AddPostState(
     val postImgByteArray: ByteArray = byteArrayOf(),
     val postData: String = "",
     val loading: Boolean = false,
+    val userImg: String = ""
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

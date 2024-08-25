@@ -4,7 +4,7 @@ import android.view.View
 import coil.transform.CircleCropTransformation
 import com.mohaberabi.linkedin.core.domain.model.UserModel
 import com.mohaberabi.presentation.ui.util.UiText
-import com.mohaberabi.presentation.ui.util.cached
+import com.mohaberabi.presentation.ui.util.cachedImage
 import com.mohaberabi.profile.databinding.FragmentProfileBinding
 import com.mohaberabi.linkedinclone.profile.presentation.viewmodel.ProfileState
 import com.mohaberabi.linkedinclone.profile.presentation.viewmodel.ProfileStatus
@@ -49,7 +49,7 @@ class ProfileRenderer(
             userBio.text = user.bio
             userName.text = "${user.name} ${user.lastname}"
             avatarImage.apply {
-                cached(user.img) {
+                cachedImage(user.img) {
                     transformations(CircleCropTransformation())
                 }
                 setOnClickListener {
@@ -57,7 +57,7 @@ class ProfileRenderer(
                 }
             }
             coverImage.apply {
-                cached(user.cover)
+                cachedImage(user.cover)
                 setOnClickListener {
                     onCoverClicked()
                 }

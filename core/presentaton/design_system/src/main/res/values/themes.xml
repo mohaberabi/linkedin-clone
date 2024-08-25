@@ -33,10 +33,11 @@
 
     <style name="Theme.LinkedInClone" parent="Base.Theme.LinkedInClone" />
 
+
     <style name="Widget.BottomNavigationView.LinkedInClone" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemIconTint">@color/bottom_nav_item_color</item>
         <item name="itemTextColor">@color/bottom_nav_item_color</item>
-        <item name="backgroundTint">@color/colorBackground</item>
+        <item name="backgroundTint">@android:color/white</item>
     </style>
 
     <style name="Widget.LinkedIn.PrimaryButton" parent="Widget.MaterialComponents.Button">

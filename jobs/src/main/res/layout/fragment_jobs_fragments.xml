@@ -5,21 +5,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     tools:context="com.mohaberbai.linkedinclone.jobs.presentation.fragment.JobsFragments">
 
-    <com.mohaberabi.presentation.ui.views.MainAppBar
-        android:id="@+id/appBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:showBackArrow="false"
-        app:showAvatar="true"
-        app:showTextField="true"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.mohaberabi.presentation.ui.views.AppLoader
         android:id="@+id/loader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/appBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -28,7 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/appBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -36,10 +26,8 @@
         android:id="@+id/pullRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/margin_xlarge"
         app:layout_constraintEnd_toEndOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView

@@ -1,5 +1,6 @@
 package com.mohaberabi.linkedinclone.job_detail.presentation.viewmodel
 
+import android.os.Bundle
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,11 +26,16 @@ class JobDetailsViewModel @Inject constructor(
     val state = _state.asStateFlow()
     private val id = savedStateHandle.get<String>("jobId")
 
-    init {
+//    init {
+//
+//        getJobDetail(id)
+//    }
 
-        getJobDetail(id)
+    fun onAction(action: JobDetailActions) {
+        when (action) {
+            is JobDetailActions.JobIdChanged -> getJobDetail(action.id)
+        }
     }
-
 
     private fun getJobDetail(id: String?) {
         id?.let {
@@ -63,4 +69,6 @@ class JobDetailsViewModel @Inject constructor(
         }
 
     }
+
+
 }

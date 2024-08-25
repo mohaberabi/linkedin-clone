@@ -7,7 +7,7 @@ import com.mohaberabi.linkedin.core.domain.model.JobDetailModel
 import com.mohaberabi.linkedinclone.job_detail.presentation.viewmodel.JobDetailState
 import com.mohaberabi.linkedinclone.job_detail.presentation.viewmodel.JobDetailStatus
 import com.mohaberabi.presentation.ui.util.UiText
-import com.mohaberabi.presentation.ui.util.cached
+import com.mohaberabi.presentation.ui.util.cachedImage
 
 fun FragmentJobDetailBinding.render(state: JobDetailState) {
     when (state.state) {
@@ -39,7 +39,7 @@ private fun FragmentJobDetailBinding.populated(detail: JobDetailModel) {
         loader.hide()
         error.hide()
         nestedScroll.visibility = View.VISIBLE
-        companyLogo.cached(detail.companyLogo)
+        companyLogo.cachedImage(detail.companyLogo)
         company.text = detail.company
         jobTime.text = detail.time.name
         jobLocation.text = detail.jobPlace

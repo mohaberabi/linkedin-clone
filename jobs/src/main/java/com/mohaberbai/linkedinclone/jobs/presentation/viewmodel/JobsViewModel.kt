@@ -3,6 +3,7 @@ package com.mohaberbai.linkedinclone.jobs.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mohaberabi.linkedin.core.domain.usecase.ListenToCurrentUserUseCase
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
 import com.mohaberbai.linkedinclone.jobs.usecase.GetJobsUseCase
@@ -11,6 +12,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class JobsViewModel @Inject constructor(
     private val getJobsUseCase: GetJobsUseCase,
+    private val listenToCurrentUserUseCase: ListenToCurrentUserUseCase,
 ) : ViewModel() {
 
 
@@ -28,8 +32,15 @@ class JobsViewModel @Inject constructor(
     private var pagingJob: Job? = null
 
     init {
-
+        listenToUser()
         getJobs()
+    }
+
+
+    private fun listenToUser() {
+        listenToCurrentUserUseCase().onEach { user ->
+            _state.update { it.copy(userImg = user?.img ?: "") }
+        }.launchIn(viewModelScope)
     }
 
     fun onAction(action: JobsActions) {

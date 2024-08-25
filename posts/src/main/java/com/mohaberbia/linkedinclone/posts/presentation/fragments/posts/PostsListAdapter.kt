@@ -9,8 +9,9 @@ import coil.transform.CircleCropTransformation
 import com.mohaberabi.linkedin.core.domain.model.PostModel
 import com.mohaberabi.posts.databinding.PostListItemBinding
 import com.mohaberabi.presentation.ui.util.AppListAdapter
-import com.mohaberabi.presentation.ui.util.cached
+import com.mohaberabi.presentation.ui.util.cachedImage
 import com.mohaberabi.presentation.ui.util.toTimeAgo
+import kotlin.math.max
 
 
 class PostsListAdapter :
@@ -23,14 +24,21 @@ class PostsListAdapter :
     ) : ViewHolder(binding.root) {
         fun bind(post: PostModel) {
             with(binding) {
-                postDataTextView.apply {
-                    if (text.isEmpty()) visibility = View.GONE
-                    else text = post.postData
+
+                if (post.postData.isEmpty()) {
+                    postDataTextView.visibility = View.GONE
+                } else {
+                    postDataTextView.setText(
+                        post.postData,
+                        maxLines = 5
+                    )
+
                 }
+
                 issuerBioTextView.text = post.issuerBio
                 createdAtTextView.text = post.createdAtMillis.toTimeAgo(binding.root.context)
                 issuerNameTextView.text = post.issuerName
-                issuerAvatarImageView.cached(post.issuerAvatar) {
+                issuerAvatarImageView.cachedImage(post.issuerAvatar) {
                     transformations(CircleCropTransformation())
                 }
                 if (post.postAttachedImg.isEmpty()) {

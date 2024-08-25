@@ -22,13 +22,13 @@
             android:textColor="@android:color/black"
             android:visibility="gone" />
 
-        <ImageView
-            android:background="@drawable/circle_avatar"
+
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profileAvatar"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="@dimen/margin_small"
             android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
             android:src="@drawable/img_plcholder" />
 
         <androidx.appcompat.widget.AppCompatEditText

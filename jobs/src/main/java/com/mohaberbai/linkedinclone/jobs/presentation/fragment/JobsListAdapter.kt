@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.mohaberabi.jobs.databinding.JobListItemBinding
 import com.mohaberabi.linkedin.core.domain.model.JobModel
 import com.mohaberabi.presentation.ui.util.AppListAdapter
-import com.mohaberabi.presentation.ui.util.cached
+import com.mohaberabi.presentation.ui.util.cachedImage
 import com.mohaberabi.presentation.ui.util.toTimeAgo
 
 
@@ -23,7 +23,7 @@ class JobsListAdapter(
                 jobPlaceTextView.text = job.jobPlace
                 jobTitleTextView.text = job.jobTitle
                 companyNameTextView.text = job.company
-                companyLogoImageView.cached(job.companyLogo)
+                companyLogoImageView.cachedImage(job.companyLogo)
                 postedAtTextView.text = job.postedAtMillis.toTimeAgo(binding.root.context)
                 root.setOnClickListener {
                     onClick(job)
