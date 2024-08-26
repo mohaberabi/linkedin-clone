@@ -25,12 +25,6 @@ class JobDetailsViewModel @Inject constructor(
     private val _state = MutableStateFlow(JobDetailState())
     val state = _state.asStateFlow()
     private val id = savedStateHandle.get<String>("jobId")
-
-//    init {
-//
-//        getJobDetail(id)
-//    }
-
     fun onAction(action: JobDetailActions) {
         when (action) {
             is JobDetailActions.JobIdChanged -> getJobDetail(action.id)

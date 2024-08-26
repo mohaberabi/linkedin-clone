@@ -7,16 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.mohaberabi.jobs.databinding.FragmentJobsFragmentsBinding
 import com.mohaberabi.linkedin.core.domain.util.AppBottomSheet
 import com.mohaberabi.linkedin.core.domain.util.AppBottomSheetShower
-import com.mohaberabi.linkedin.core.domain.util.AppDrawerActions
 import com.mohaberabi.linkedin.core.domain.util.BottomSheetAction
 import com.mohaberabi.linkedin.core.domain.util.DrawerController
-import com.mohaberabi.presentation.ui.navigation.NavDeepLinks
 import com.mohaberbai.linkedinclone.jobs.presentation.viewmodel.JobsViewModel
-import com.mohaberabi.presentation.ui.navigation.deepLinkNavigate
 import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -49,12 +45,11 @@ class JobsFragments : Fragment() {
         adapter = JobsListAdapter(
             onClick = {
                 showJobDetailSheet(it.id)
-//                goToJobDetails(it.id)
             },
         )
 
         collectLifeCycleFlow(viewModel.state) { state ->
-            binding.render(
+            binding.bind(
                 state = state,
                 onActions = viewModel::onAction,
                 adapter = adapter,
@@ -77,13 +72,6 @@ class JobsFragments : Fragment() {
         }
     }
 
-    private fun goToJobDetails(id: String) {
-        findNavController().deepLinkNavigate(
-            NavDeepLinks.Job_Detail,
-            args = listOf(
-                "jobId" to id,
-            )
-        )
-    }
+
 }
 

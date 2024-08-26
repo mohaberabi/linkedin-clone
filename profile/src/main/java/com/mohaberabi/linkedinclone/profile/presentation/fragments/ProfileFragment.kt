@@ -30,7 +30,6 @@ class ProfileFragment : Fragment() {
         createImagePickerLauncher(handleImageResult(NavDeepLinks.ViewCover))
 
 
-    private lateinit var renderer: ProfileRenderer
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,14 +39,12 @@ class ProfileFragment : Fragment() {
             container,
             false
         )
-        renderer = ProfileRenderer(
-            binding = binding,
-            onImgClicked = { imgPickerLauncher.launch("image/*") },
-            onCoverClicked = { coverPickerLauncher.launch("image/*") }
-        )
-
         collectLifeCycleFlow(viewModel.state) { state ->
-            renderer.bind(state)
+            binding.bind(
+                state = state,
+                onImgClicked = { imgPickerLauncher.launch("image/*") },
+                onCoverClicked = { coverPickerLauncher.launch("image/*") }
+            )
         }
 
         return binding.root

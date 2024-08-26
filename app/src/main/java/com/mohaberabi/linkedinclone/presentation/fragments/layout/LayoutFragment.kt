@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.mohaberabi.linkedin.core.domain.util.AppDrawerActions
 import com.mohaberabi.linkedin.core.domain.util.DrawerController
+import com.mohaberabi.linkedin.core.domain.util.GlobalNavigator
+import com.mohaberabi.linkedin.core.domain.util.NavigationCommand
 import com.mohaberabi.linkedinclone.R
 import com.mohaberabi.linkedinclone.databinding.FragmentLayoutBinding
 import com.mohaberabi.linkedinclone.presentation.fragments.layout.viewmodel.LayoutViewModel
@@ -30,32 +33,33 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class LayoutFragment : Fragment() {
-
-
     private val viewModel by viewModels<LayoutViewModel>()
     private var _binding: FragmentLayoutBinding? = null
     private val binding get() = _binding!!
 
+    @Inject
+    lateinit var appGlobalNavigator: GlobalNavigator
 
     @Inject
     lateinit var drawerController: DrawerController
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLayoutBinding.inflate(
             layoutInflater,
             container,
             false
         )
-
-
         binding.setupBottomNav(
             navController = layoutNavController(),
             onAddPost = { goToAddPost() }
         )
 
-        collectLifeCycleFlow(viewModel.state) { state ->
+        collectLifeCycleFlow(
+            viewModel.state,
+        ) { state ->
             binding.bind(
                 state = state,
                 onAvatarClick = {
@@ -67,12 +71,15 @@ class LayoutFragment : Fragment() {
     }
 
     private fun openDrawer() {
-        lifecycleScope.launch {
-            drawerController.sendDrawerAction(AppDrawerActions.Close)
-            drawerController.sendDrawerAction(AppDrawerActions.Open)
-
+        with(drawerController) {
+            sendDrawerAction(AppDrawerActions.Close)
+            sendDrawerAction(AppDrawerActions.Open)
         }
+    }
 
+
+    private fun goToAddPost() {
+        appGlobalNavigator.sendCommand(NavigationCommand.GoTo(NavDeepLinks.ADD_POST))
     }
 
     override fun onDestroyView() {
@@ -80,13 +87,5 @@ class LayoutFragment : Fragment() {
         _binding = null
     }
 
-
-    private fun goToAddPost() {
-        findNavController().deepLinkNavigate(NavDeepLinks.ADD_POST)
-    }
-
-    private fun goProfile() {
-        findNavController().deepLinkNavigate(NavDeepLinks.PROFILE)
-    }
 
 }

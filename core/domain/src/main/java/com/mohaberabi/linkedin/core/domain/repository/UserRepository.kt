@@ -13,6 +13,4 @@ interface UserRepository {
     suspend fun getUser(
         uid: String,
     ): AppResult<UserModel?, ErrorModel>
-
-
 }

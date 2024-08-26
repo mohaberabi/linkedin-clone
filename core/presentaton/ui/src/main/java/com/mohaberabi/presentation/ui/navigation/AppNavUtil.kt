@@ -2,14 +2,16 @@ package com.mohaberabi.presentation.ui.navigation
 
 import android.net.Uri
 import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavOptions
+import androidx.navigation.findNavController
+import com.mohaberabi.core.presentation.ui.R
 
 
 object NavDeepLinks {
     const val APP_DOMAIN = "android-app://linked.clone.app/"
-    const val Job_Detail = "fragment_job_detail"
     const val LAYOUT = "layoutFragment"
     const val ADD_POST = "fragment_add_post"
     const val PROFILE = "profile_fragment"
@@ -71,3 +73,4 @@ fun NavController.popAllAndNavigate(
 
     navigate(destinationId, null, navOptions)
 }
+

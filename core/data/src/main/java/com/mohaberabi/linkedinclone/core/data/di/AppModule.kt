@@ -9,18 +9,23 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.mohaberabi.linkedin.core.domain.source.local.persistence.PersistenceClient
 import com.mohaberabi.linkedin.core.domain.util.AppBottomSheetShower
+import com.mohaberabi.linkedin.core.domain.util.AppSuperVisorScope
 import com.mohaberabi.linkedin.core.domain.util.DispatchersProvider
 import com.mohaberabi.linkedin.core.domain.util.DrawerController
+import com.mohaberabi.linkedin.core.domain.util.GlobalNavigator
 import com.mohaberabi.linkedinclone.core.data.source.local.persistence.DataStorePersistenceClient
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseStorageStorageClient
 import com.mohaberabi.linkedinclone.core.data.util.DefaultAppSheetShower
 import com.mohaberabi.linkedinclone.core.data.util.DefaultDispatchersProvider
+import com.mohaberabi.linkedinclone.core.data.util.DefaultGlobalNavigator
 import com.mohaberabi.linkedinclone.core.data.util.GlobalDrawerController
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import javax.inject.Singleton
 
 
@@ -34,15 +39,34 @@ object AppModule {
     fun provideDisaptcherProvider(
     ): DispatchersProvider = DefaultDispatchersProvider()
 
+
+    @Singleton
+    @Provides
+    fun provideAppSuperVisorScope(
+        dispatchers: DispatchersProvider
+    ): AppSuperVisorScope = object : AppSuperVisorScope {
+        override fun invoke(): CoroutineScope {
+            return CoroutineScope(SupervisorJob() + dispatchers.main)
+        }
+    }
+
+    @Singleton
+    @Provides
+    fun provideGlobalNavigator(
+        appSuperVisorScope: AppSuperVisorScope
+    ): GlobalNavigator = DefaultGlobalNavigator(appSuperVisorScope)
+
     @Singleton
     @Provides
     fun provideDrawerController(
-    ): DrawerController = GlobalDrawerController()
+        appSuperVisorScope: AppSuperVisorScope
+    ): DrawerController = GlobalDrawerController(appSuperVisorScope)
 
     @Singleton
     @Provides
     fun provideSheetShower(
-    ): AppBottomSheetShower = DefaultAppSheetShower()
+        appSuperVisorScope: AppSuperVisorScope
+    ): AppBottomSheetShower = DefaultAppSheetShower(appSuperVisorScope)
 
     @Singleton
     @Provides

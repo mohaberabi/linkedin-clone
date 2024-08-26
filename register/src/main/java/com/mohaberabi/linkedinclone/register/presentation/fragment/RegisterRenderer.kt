@@ -12,7 +12,9 @@ class RegisterRenderer(
 ) {
 
 
-    fun bind(state: RegisterState) {
+    fun bind(
+        state: RegisterState,
+    ) {
 
     }
 

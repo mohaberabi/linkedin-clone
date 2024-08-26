@@ -17,6 +17,6 @@ sealed interface BottomSheetAction {
 
 interface AppBottomSheetShower {
     val actions: Flow<BottomSheetAction>
-    suspend fun sendAction(action: BottomSheetAction)
+    fun sendAction(action: BottomSheetAction)
 }
 

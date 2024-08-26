@@ -11,7 +11,7 @@ import com.mohaberabi.presentation.ui.util.AppRecyclerViewScrollListener
 import com.mohaberabi.presentation.ui.util.UiText
 
 
-fun FragmentJobsFragmentsBinding.render(
+fun FragmentJobsFragmentsBinding.bind(
     state: JobsState,
     onActions: (JobsActions) -> Unit,
     adapter: JobsListAdapter,

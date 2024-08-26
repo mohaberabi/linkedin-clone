@@ -6,6 +6,6 @@ sealed interface AppDrawerActions {
 }
 
 interface DrawerController {
-    suspend fun sendDrawerAction(actions: AppDrawerActions)
+    fun sendDrawerAction(actions: AppDrawerActions)
     suspend fun collect(collector: (AppDrawerActions) -> Unit)
 }

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.mohaberabi.add_posts.databinding.FragmentAddPostBinding
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostActions
@@ -16,10 +15,8 @@ import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostViewM
 import com.mohaberabi.presentation.ui.util.asByteArray
 import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
 import com.mohaberabi.presentation.ui.util.createLoadingDialog
-import com.mohaberabi.presentation.ui.util.eventCollector
 import com.mohaberabi.presentation.ui.util.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -73,7 +70,7 @@ class AddPostFragment : Fragment() {
 
 
 
-        eventCollector(
+        collectLifeCycleFlow(
             viewModel.events,
         ) { event ->
             when (event) {

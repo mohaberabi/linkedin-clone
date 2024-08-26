@@ -21,6 +21,8 @@ firestoreVersion = "25.0.0"
 firebaseAuth = "23.0.0"
 prefsVersion = "1.1.1"
 splashVersion = "1.0.0-beta02"
+crashlyticsVersion = "18.3.7"
+
 projectDomain = "com.mohaberabi"
 projectApplicationId = "com.mohaberabi.linkedinclone"
 projectVersionName = "1.0"
@@ -30,6 +32,9 @@ projectCompileSdkVersion = "34"
 projectVersionCode = "1"
 storageVersion = "20.2.1"
 pullRefreshVersion = "1.1.0"
+crashlytics-plugin = "2.9.9"
+anaytlicsVersion = "21.0.0"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -50,6 +55,9 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-serilization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.5.1" }
 core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splashVersion" }
 androdix-pull-refresh = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "pullRefreshVersion" }
+firebase-crash = { module = "com.google.firebase:firebase-crashlytics", version.ref = "crashlyticsVersion" }
+
+
 
 desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version = "2.0.3" }
 
@@ -61,6 +69,7 @@ firebase-firestore = { module = "com.google.firebase:firebase-firestore-ktx", ve
 firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuth" }
 prefs-datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "prefsVersion" }
 firebase-storage = { module = "com.google.firebase:firebase-storage-ktx", version.ref = "storageVersion" }
+firebase-anayltics = { module = "com.google.firebase:firebase-analytics", version.ref = "anaytlicsVersion" }
 
 
 [plugins]
@@ -77,3 +86,4 @@ linkedinclone-android-hilt = { id = "linkedinclone.android.hilt", version = "uns
 android-library = { id = "com.android.library", version.ref = "agp" }
 google-services = { id = "com.google.gms.google-services", version.ref = "gmsPluginVersion" }
 kotlin-serilization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics-plugin" }

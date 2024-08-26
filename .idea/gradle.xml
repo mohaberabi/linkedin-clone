@@ -31,6 +31,8 @@
             <option value="$PROJECT_DIR$/core/presentaton" />
             <option value="$PROJECT_DIR$/core/presentaton/design_system" />
             <option value="$PROJECT_DIR$/core/presentaton/ui" />
+            <option value="$PROJECT_DIR$/core/remote-logging" />
+            <option value="$PROJECT_DIR$/core/remote_anayltics" />
             <option value="$PROJECT_DIR$/job_detail" />
             <option value="$PROJECT_DIR$/jobs" />
             <option value="$PROJECT_DIR$/posts" />

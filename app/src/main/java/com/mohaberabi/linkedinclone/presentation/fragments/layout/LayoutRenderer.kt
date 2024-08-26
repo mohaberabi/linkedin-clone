@@ -19,8 +19,7 @@ fun LayoutFragment.layoutNavController(): NavController {
 fun FragmentLayoutBinding.bind(
     state: LayoutState,
     onAvatarClick: () -> Unit,
-
-    ) {
+) {
     state.user?.let {
         appBar.loadImgUrl(it.img)
         appBar.setOnAvatarClickListener {

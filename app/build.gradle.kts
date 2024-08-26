@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.linkedinclone.android.application)
     alias(libs.plugins.linkedinclone.android.hilt)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.crashlytics)
 }
 
 android {
@@ -59,6 +60,6 @@ dependencies {
     implementation(projects.register)
     implementation(projects.profile)
     implementation(projects.userMedia)
-
-
+    implementation(projects.core.remoteLogging)
+    implementation(projects.core.remoteAnayltics)
 }

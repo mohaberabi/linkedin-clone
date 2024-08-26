@@ -18,41 +18,35 @@ fun FragmentJobDetailBinding.render(state: JobDetailState) {
 }
 
 private fun FragmentJobDetailBinding.loading() {
-    with(this) {
-        error.hide()
-        nestedScroll.visibility = View.GONE
-        loader.show()
-    }
+    error.hide()
+    nestedScroll.visibility = View.GONE
+    loader.show()
 }
 
 private fun FragmentJobDetailBinding.error(errorText: UiText) {
     val errorVal = errorText.asString(root.context)
-    with(this) {
-        loader.hide()
-        error.show()
-        error.setErrorTitle(errorVal)
-    }
+    loader.hide()
+    error.show()
+    error.setErrorTitle(errorVal)
 }
 
 private fun FragmentJobDetailBinding.populated(detail: JobDetailModel) {
-    with(this) {
-        loader.hide()
-        error.hide()
-        nestedScroll.visibility = View.VISIBLE
-        companyLogo.cachedImage(detail.companyLogo)
-        company.text = detail.company
-        jobTime.text = detail.time.name
-        jobLocation.text = detail.jobPlace
-        about.text = detail.about
-        skillsLayout.removeAllViews()
-        jobTitle.text = detail.jobTitle
-        jobLocation.text = detail.jobPlace
-        detail.skills.forEach { skill ->
-            val skillView = TextView(root.context).apply {
-                text = skill
-                textSize = 14f
-            }
-            skillsLayout.addView(skillView)
+    loader.hide()
+    error.hide()
+    nestedScroll.visibility = View.VISIBLE
+    companyLogo.cachedImage(detail.companyLogo)
+    company.text = detail.company
+    jobTime.text = detail.time.name
+    jobLocation.text = detail.jobPlace
+    about.text = detail.about
+    skillsLayout.removeAllViews()
+    jobTitle.text = detail.jobTitle
+    jobLocation.text = detail.jobPlace
+    detail.skills.forEach { skill ->
+        val skillView = TextView(root.context).apply {
+            text = skill
+            textSize = 14f
         }
+        skillsLayout.addView(skillView)
     }
 }

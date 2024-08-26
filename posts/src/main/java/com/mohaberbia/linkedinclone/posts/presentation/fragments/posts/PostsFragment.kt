@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsViewModel
 import com.mohaberabi.posts.databinding.FragmentPostsBinding
 import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -22,15 +20,17 @@ class PostsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPostsBinding.inflate(
             inflater,
             container,
             false
         )
         postsListAdapter = PostsListAdapter()
-        collectLifeCycleFlow(viewModel.state) { state ->
-            binding.render(
+        collectLifeCycleFlow(
+            viewModel.state,
+        ) { state ->
+            binding.bind(
                 state = state,
                 onAction = viewModel::onAction,
                 adapter = postsListAdapter,

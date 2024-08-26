@@ -36,7 +36,7 @@ class SimpleIconButton @JvmOverloads constructor(
 
                 val text = getString(
                     R.styleable.SimpleIconButton_simpleText,
-                ) ?: "Like"
+                ) ?: ""
                 binding.text.text = text
             } finally {
                 recycle()

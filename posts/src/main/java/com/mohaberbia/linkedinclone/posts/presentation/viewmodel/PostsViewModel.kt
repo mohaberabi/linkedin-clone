@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
+import com.mohaberabi.linkedinclone.core.remote_logging.RemoteLogger
 import com.mohaberbia.linkedinclone.posts.usecase.GetPostsUseCase
 import com.mohaberabi.presentation.ui.util.asUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,6 +38,8 @@ class PostsViewModel @Inject constructor(
 
     private fun loadMore() {
         loadMoreJob?.cancel()
+        _state.value.logRemotely()
+
         loadMoreJob = viewModelScope.launch {
             getPostsUseCase(
                 lastDocId = _state.value.posts.lastOrNull()?.id,
@@ -47,21 +50,26 @@ class PostsViewModel @Inject constructor(
                             posts = it.posts + newPosts
                         )
                     }
+                    _state.value.logRemotely()
                 }
         }
     }
 
     private fun getPosts() {
+        _state.value.logRemotely()
         _state.update { it.copy(state = PostsStatus.Loading) }
         viewModelScope.launch {
             getPostsUseCase()
                 .onFailure { fail ->
+
                     _state.update {
                         it.copy(
                             state = PostsStatus.Error,
                             error = fail.asUiText()
                         )
                     }
+                    _state.value.logRemotely()
+
                 }
                 .onSuccess { posts ->
                     _state.update {
@@ -70,7 +78,9 @@ class PostsViewModel @Inject constructor(
                             posts = posts
                         )
                     }
+                    _state.value.logRemotely()
                 }
+
         }
     }
 }

@@ -24,7 +24,6 @@ class PostsListAdapter :
     ) : ViewHolder(binding.root) {
         fun bind(post: PostModel) {
             with(binding) {
-
                 if (post.postData.isEmpty()) {
                     postDataTextView.visibility = View.GONE
                 } else {
@@ -32,9 +31,7 @@ class PostsListAdapter :
                         post.postData,
                         maxLines = 5
                     )
-
                 }
-
                 issuerBioTextView.text = post.issuerBio
                 createdAtTextView.text = post.createdAtMillis.toTimeAgo(binding.root.context)
                 issuerNameTextView.text = post.issuerName

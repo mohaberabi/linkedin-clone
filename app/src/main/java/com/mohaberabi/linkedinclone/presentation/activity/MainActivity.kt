@@ -5,26 +5,19 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import com.mohaberabi.linkedin.core.domain.util.AppBottomSheet
+import com.mohaberabi.linedinclone.core.remote_anayltics.domain.AppAnalytics
 import com.mohaberabi.linkedin.core.domain.util.AppBottomSheetShower
-import com.mohaberabi.linkedin.core.domain.util.AppDrawerActions
-import com.mohaberabi.linkedin.core.domain.util.BottomSheetAction
 import com.mohaberabi.linkedin.core.domain.util.DrawerController
+import com.mohaberabi.linkedin.core.domain.util.GlobalNavigator
 import com.mohaberabi.linkedinclone.presentation.activity.viewmodel.MainActivityViewModel
-import com.mohaberabi.linkedinclone.R
 import com.mohaberabi.linkedinclone.databinding.ActivityMainBinding
-import com.mohaberabi.linkedinclone.job_detail.presentation.fragment.JobDetailFragment
 import com.mohaberabi.presentation.ui.navigation.NavDeepLinks
 import com.mohaberabi.presentation.ui.navigation.deepLinkNavigate
-import com.mohaberabi.presentation.ui.navigation.popAllAndNavigate
 import com.mohaberabi.presentation.ui.util.closeDrawer
 import com.mohaberabi.presentation.ui.util.openDrawer
 import com.mohaberabi.presentation.ui.util.addDefaultPaddings
+import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -34,84 +27,79 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     private val viewmodel by viewModels<MainActivityViewModel>()
 
+
+    @Inject
+    lateinit var anayltics: AppAnalytics
+
     @Inject
     lateinit var sheetShower: AppBottomSheetShower
+
+    @Inject
+    lateinit var appGlobalNavigator: GlobalNavigator
 
     @Inject
     lateinit var drawerController: DrawerController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        anayltics.logEvent(
+            "activityCreated",
+        )
         enableEdgeToEdge()
         val splash = installSplashScreen()
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        addDefaultPaddings(binding.root)
         splash.setKeepOnScreenCondition {
             !viewmodel.state.value.didLoad
         }
+        addDefaultPaddings(
+            rootView = binding.root,
+        )
+
         observeState()
-        observeDrawer()
-        observeBottomSheet()
-    }
-
-
-    private fun observeBottomSheet() {
-        lifecycleScope.launch {
-            sheetShower.actions.collect { action ->
-                when (action) {
-                    BottomSheetAction.Dismiss -> Unit
-                    is BottomSheetAction.Show -> {
-                        when (val sheet = action.appSheet) {
-                            is AppBottomSheet.JobDetailSheet -> {
-                                val fragment = JobDetailFragment.newInstance(sheet.jobId)
-                                fragment.show(supportFragmentManager, sheet.tag)
-
-                            }
-                        }
-
-                    }
-                }
+        observeGlobalDrawer(
+            onOpenDrawer = {
+                binding.drawerLayout.openDrawer()
+            },
+            onCloseDrawer = {
+                binding.drawerLayout.closeDrawer()
             }
-        }
+        )
+
+        observeGlobalBottomSheet()
+        observeGlobalNavCommands()
     }
+
 
     private fun observeState() {
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewmodel.state.collect { state ->
-                    if (state.user != null) {
-                        binding.bind(
-                            state = state,
-                            onAvatarClick = { goToProfile() },
-                        )
-                        goToLayout()
-                    }
-
-                }
-            }
+        collectLifeCycleFlow(
+            viewmodel.state,
+        ) { state ->
+            handleStartNavGraph(
+                loggedIn = state.user != null,
+                didLoad = state.didLoad
+            )
+            binding.bind(
+                state = state,
+                onAvatarClick = { goToProfile() },
+            )
         }
     }
 
-
-    private fun observeDrawer() {
-        lifecycleScope.launch {
-            drawerController.collect { event ->
-                when (event) {
-                    AppDrawerActions.Close -> binding.drawerLayout.closeDrawer()
-                    AppDrawerActions.Open -> binding.drawerLayout.openDrawer()
-                }
-            }
-        }
-    }
-
-
-    private fun goToLayout() =
-        rootNavController().popAllAndNavigate(R.id.layoutFragment)
 
     private fun goToProfile() {
         binding.drawerLayout.closeDrawer()
         rootNavController().deepLinkNavigate(NavDeepLinks.PROFILE)
+    }
+
+
+    private fun handleStartNavGraph(
+        loggedIn: Boolean,
+        didLoad: Boolean
+    ) {
+        val navController = rootNavController()
+        if (!loggedIn && didLoad) {
+            navController.setGraph(com.mohaberabi.register.R.navigation.nav_graph_register)
+        }
     }
 
     override fun onDestroy() {
@@ -119,4 +107,7 @@ class MainActivity : AppCompatActivity() {
         _binding = null
     }
 
+
 }
+
+

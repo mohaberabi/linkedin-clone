@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="24dp"
-    android:background="@drawable/loading_dialog_bg"
+    android:background="@drawable/prim_dialog_bg"
     android:gravity="center">
 
     <ProgressBar
