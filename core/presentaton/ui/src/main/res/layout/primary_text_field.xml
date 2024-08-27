@@ -10,7 +10,6 @@
     app:boxCornerRadiusTopEnd="16dp"
     app:boxCornerRadiusBottomStart="16dp"
     app:boxCornerRadiusBottomEnd="16dp"
-    app:boxStrokeColor="@color/colorPrimary"
     app:errorEnabled="true">
 
     <com.google.android.material.textfield.TextInputEditText

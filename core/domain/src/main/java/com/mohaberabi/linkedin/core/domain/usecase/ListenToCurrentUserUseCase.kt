@@ -2,7 +2,11 @@ package com.mohaberabi.linkedin.core.domain.usecase
 
 import com.mohaberabi.linkedin.core.domain.model.UserModel
 import com.mohaberabi.linkedin.core.domain.repository.UserRepository
+import kotlinx.coroutines.flow.Flow
 
-interface ListenToCurrentUserUseCase {
-    operator fun invoke(): kotlinx.coroutines.flow.Flow<UserModel?>
+class ListenToCurrentUserUseCase(
+    private val userRepository: UserRepository,
+) {
+    operator fun invoke() = userRepository.listenToCurrentUser()
+
 }

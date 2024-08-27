@@ -7,15 +7,25 @@ import androidx.recyclerview.widget.RecyclerView
 
 class AppRecyclerViewScrollListener(
     private val isLinear: Boolean,
-    private val onPaginate: (lastVisible: Int, total: Int) -> Unit,
+    private val threshold: Int = 1,
+    private val onPaginate: () -> Unit,
 ) : RecyclerView.OnScrollListener() {
-    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+    override fun onScrolled(
+        recyclerView: RecyclerView,
+        dx: Int,
+        dy: Int
+    ) {
         super.onScrolled(recyclerView, dx, dy)
+
         val layoutManager = recyclerView.layoutManager.let {
             if (isLinear) it as LinearLayoutManager else it as GridLayoutManager
         }
         val totalItemCount = layoutManager.itemCount
         val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
-        onPaginate(lastVisibleItem, totalItemCount)
+        val tendToPage = dy > 0
+        val needsToGetMoreItems = lastVisibleItem + threshold >= totalItemCount
+        if (tendToPage && needsToGetMoreItems) {
+            onPaginate()
+        }
     }
 }

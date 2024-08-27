@@ -6,8 +6,10 @@ import com.mohaberabi.linkedin.core.domain.repository.UserRepository
 import com.mohaberabi.linkedin.core.domain.util.AppResult
 
 
-interface GetUserUseCase {
+class GetUserUseCase(
+    private val userRepository: UserRepository
+) {
     suspend operator fun invoke(
         uid: String,
-    ): AppResult<UserModel?, ErrorModel>
+    ): AppResult<UserModel?, ErrorModel> = userRepository.getUser(uid = uid)
 }

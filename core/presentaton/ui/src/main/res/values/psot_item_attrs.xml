@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PostListItem">
+        <attr name="posterName" format="string" />
+        <attr name="posterBio" format="string" />
+        <attr name="posterImage" format="reference" />
+        <attr name="attachedImage" format="reference" />
+        <attr name="createdAt" format="string" />
+        <attr name="postData" format="string" />
+        <attr name="reactionsCount" format="string" />
+        <attr name="commentsCount" format="string" />
+        <attr name="repostsCount" format="string" />
+        <attr name="showLikeReaction" format="boolean" />
+        <attr name="showLoveReaction" format="boolean" />
+        <attr name="showFunnyReaction" format="boolean" />
+    </declare-styleable>
+</resources>

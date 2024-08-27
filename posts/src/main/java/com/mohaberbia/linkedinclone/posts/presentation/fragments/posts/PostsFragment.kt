@@ -6,9 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.mohaberabi.linkedin.core.domain.model.ReactionType
 import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsViewModel
 import com.mohaberabi.posts.databinding.FragmentPostsBinding
 import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
+import com.mohaberabi.presentation.ui.util.showSnackBar
+import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsActions
+import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsEvents
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -26,7 +30,17 @@ class PostsFragment : Fragment() {
             container,
             false
         )
-        postsListAdapter = PostsListAdapter()
+        postsListAdapter = PostsListAdapter(
+            onClickCallBacks = PostClickCallBacks(
+                onClick = {},
+                onLikeClick = {
+                    reactToPost(
+                        postId = it.id,
+                    )
+                },
+                onLongClickLike = {}
+            )
+        )
         collectLifeCycleFlow(
             viewModel.state,
         ) { state ->
@@ -37,6 +51,29 @@ class PostsFragment : Fragment() {
             )
         }
 
+        collectLifeCycleFlow(
+            viewModel.events,
+        ) { event ->
+            when (event) {
+                is PostsEvents.Error -> binding.root.showSnackBar(
+                    event.error.asString(
+                        requireContext()
+                    )
+                )
+            }
+        }
         return binding.root
+    }
+
+    private fun reactToPost(
+        postId: String,
+        reactionType: ReactionType = ReactionType.Like,
+    ) {
+        viewModel.onAction(
+            PostsActions.ReactToPost(
+                postId = postId,
+                reactionType = reactionType
+            )
+        )
     }
 }

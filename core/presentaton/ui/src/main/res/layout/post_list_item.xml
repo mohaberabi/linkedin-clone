@@ -25,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_small"
-        android:text="@string/issuer_name"
+        android:text="Mohab Erabi"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         android:textSize="16sp"
@@ -38,7 +38,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_small"
-        android:text="@string/issuer_bio"
+        android:text="i lvoe kotlin"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@id/issuerAvatarImageView"
@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_small"
-        android:text="@string/_2h_ago"
+        android:text="2 horus ago "
         android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,10 +64,10 @@
         android:id="@+id/postDataTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:readMoreText="@string/test_readmore"
+        app:readMoreText="readmosakjdnslakdnaskldsalkdnsalkd"
         app:readMoreTextColor="@android:color/black"
         app:readMoreTextSize="12sp"
-        app:toggleTextColor="@color/colorPrimary"
+        app:toggleTextColor="?attr/colorPrimary"
         app:toggleTextSize="12sp"
         app:toggleTextReadMore="Read More"
         app:toggleTextReadLess="Read Less"
@@ -109,22 +109,22 @@
 
             <ImageView
                 android:id="@+id/likeReact"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
                 android:src="@drawable/like"
                 android:layout_marginEnd="-8dp" />
 
             <ImageView
                 android:id="@+id/funnyReact"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
                 android:src="@drawable/funny"
                 android:layout_marginEnd="-8dp" />
 
             <ImageView
                 android:id="@+id/loveReact"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
                 android:src="@drawable/love" />
         </LinearLayout>
 
@@ -141,7 +141,7 @@
                 android:id="@+id/commentsCountTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/_45_comments"
+                android:text="45 comments"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp"
                 android:layout_marginEnd="8dp" />
@@ -150,7 +150,7 @@
                 android:id="@+id/repostsCountTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/_5_reposts"
+                android:text="5 reposts"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -212,8 +212,8 @@
         android:id="@+id/postDivider"
         android:layout_width="0dp"
         android:layout_height="2dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/lightGray"
+        android:layout_marginTop="@dimen/margin_small"
+        android:background="@color/mediumGray"
         app:layout_constraintTop_toBottomOf="@id/engagementButtonsLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

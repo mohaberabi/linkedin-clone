@@ -5,7 +5,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewTreeObserver
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.widget.addTextChangedListener
 import com.mohaberabi.core.presentation.ui.R
 import com.mohaberabi.core.presentation.ui.databinding.ReadMoreTextBinding
 
@@ -72,20 +75,38 @@ class ReadMoreText @JvmOverloads constructor(
         }
     }
 
-    fun setText(content: String, maxLines: Int = 3) {
+    fun setText(
+        content: String,
+        maxLines: Int = 3,
+    ) {
+        defaultMaxLines = maxLines
+        binding.readMoreTextView.text = content
         with(binding) {
-            readMoreTextView.text = content
-            defaultMaxLines = maxLines
-            readMoreTextView.maxLines = defaultMaxLines
-            readMoreTextView.post {
+            val showToggleButton = readMoreTextView.lineCount > defaultMaxLines
+            toggleButtonVisible(showToggleButton)
+        }
+
+        addTextChangedListener()
+    }
+
+    private fun addTextChangedListener() {
+
+        with(binding) {
+            readMoreTextView.addTextChangedListener {
                 if (readMoreTextView.lineCount > defaultMaxLines) {
-                    readMoreToggleTextView.visibility = VISIBLE
+                    toggleButtonVisible(true)
                     readMoreTextView.maxLines = defaultMaxLines
                 } else {
-                    readMoreToggleTextView.visibility = GONE
+                    toggleButtonVisible(false)
+
                 }
             }
         }
+
+    }
+
+    private fun toggleButtonVisible(show: Boolean) {
+        binding.readMoreToggleTextView.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun toggleTextExpansion() {
@@ -100,5 +121,4 @@ class ReadMoreText @JvmOverloads constructor(
             isExpanded = !isExpanded
         }
     }
-
 }

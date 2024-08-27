@@ -19,7 +19,7 @@
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="User Name"
+        android:text="@string/user_name"
         android:textSize="18sp"
         android:textColor="@android:color/black"
         android:layout_marginTop="8dp" />
@@ -38,7 +38,7 @@
         android:id="@+id/profileViews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile Views"
+        android:text="@string/profile_views"
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_marginBottom="@dimen/margin_large"

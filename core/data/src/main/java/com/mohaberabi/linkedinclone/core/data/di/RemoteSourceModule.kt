@@ -3,6 +3,7 @@ package com.mohaberabi.linkedinclone.core.data.di
 import com.mohaberabi.linkedin.core.domain.source.remote.*
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseJobDetailRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseJobsRemoteDataSource
+import com.mohaberabi.linkedinclone.core.data.source.remote.FirebasePostReactionsRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebasePostsRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseRegisterRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseStorageStorageClient
@@ -52,6 +53,12 @@ abstract class RemoteSourceModule {
     abstract fun bindUserRemoteDataSource(
         firebaseUserRemoteDataSource: FirebaseUserRemoteDataSource
     ): UserRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindPostReactionsRemoteDataSource(
+        firebasePostReactionsRemoteDataSource: FirebasePostReactionsRemoteDataSource
+    ): PostReactionsRemoteDataSource
 
 
 }

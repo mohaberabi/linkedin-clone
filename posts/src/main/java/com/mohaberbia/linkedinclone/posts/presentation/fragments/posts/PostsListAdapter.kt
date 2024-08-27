@@ -6,17 +6,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.mohaberabi.core.presentation.design_system.R
+import com.mohaberabi.core.presentation.ui.databinding.PostListItemBinding
 import com.mohaberabi.linkedin.core.domain.model.PostModel
-import com.mohaberabi.posts.databinding.PostListItemBinding
 import com.mohaberabi.presentation.ui.util.AppListAdapter
 import com.mohaberabi.presentation.ui.util.cachedImage
 import com.mohaberabi.presentation.ui.util.toTimeAgo
 import kotlin.math.max
 
 
-class PostsListAdapter :
+class PostsListAdapter(
+    private val onClickCallBacks: PostClickCallBacks,
+) :
     AppListAdapter<PostModel, PostsListAdapter.PostViewHolder>(
         predicate = { it.id },
+        contentPredicate = { old, new -> old == new }
     ) {
 
     inner class PostViewHolder(
@@ -24,14 +28,19 @@ class PostsListAdapter :
     ) : ViewHolder(binding.root) {
         fun bind(post: PostModel) {
             with(binding) {
-                if (post.postData.isEmpty()) {
-                    postDataTextView.visibility = View.GONE
-                } else {
-                    postDataTextView.setText(
-                        post.postData,
-                        maxLines = 5
-                    )
+                repostsCountTextView.text = post.reactionsCount.toString()
+                likeButton.setClickListener {
+                    onClickCallBacks.onLikeClick.invoke(post)
                 }
+                post.currentUserReaction?.let {
+                    likeButton.setIcon(R.drawable.like)
+                } ?: run {
+                    likeButton.setIcon(R.drawable.ic_react)
+                }
+                postDataTextView.setText(
+                    post.postData,
+                    maxLines = 5
+                )
                 issuerBioTextView.text = post.issuerBio
                 createdAtTextView.text = post.createdAtMillis.toTimeAgo(binding.root.context)
                 issuerNameTextView.text = post.issuerName
@@ -52,6 +61,7 @@ class PostsListAdapter :
         parent: ViewGroup,
         viewType: Int
     ): PostViewHolder {
+
         val binding = PostListItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,

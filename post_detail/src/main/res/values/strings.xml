@@ -1,0 +1,11 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="leave_your_thoughts_here">Leave your thoughts here...</string>
+    <string name="post">Post</string>
+    <string name="reactions">Reactions</string>
+    <string name="comments">Comments</string>
+    <string name="some_comment">Some comment</string>
+    <string name="like">Like</string>
+    <string name="reply">Reply</string>
+</resources>

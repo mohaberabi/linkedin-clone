@@ -8,5 +8,7 @@ object EndPoints {
     const val Posts = "posts"
     const val USER_IMG = "users/images"
     const val USER_CVR = "users/covers"
+    const val REACTIONS = "reactions"
+    const val COMMENTS = "comments"
 
 }

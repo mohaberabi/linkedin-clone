@@ -16,4 +16,5 @@ fun PostDto.toPostModel() = PostModel(
     repostsCount = repostsCount,
     commentsCount = commentsCount,
     reactionsCount = reactionsCount,
+    currentUserReaction = currentUserReaction?.toReactionModel()
 )

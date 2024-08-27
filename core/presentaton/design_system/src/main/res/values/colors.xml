@@ -1,16 +1,184 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary">#0077B5</color>
-    <color name="colorPrimaryDark">#005582</color>
-    <color name="colorAccent">#00A0DC</color>
-    <color name="colorBackground">#FFFFFFFF</color>
-    <color name="colorTextPrimary">#000000</color>
-    <color name="colorTextSecondary">#606060</color>
-    <color name="colorTextHint">#A6A6A6</color>
-    <color name="colorDivider">#E0E0E0</color>
-    <color name="colorWhite">#FFFFFF</color>
-    <color name="lightGray">#E0E0E0</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#808080</color>
+    <color name="lightGray">#D3D3D3</color>
+    <color name="darkGray">#A9A9A9</color>
+    <color name="mediumGray">#BEBEBE</color>
+    <color name="dimGray">#696969</color>
+    <color name="slateGray">#708090</color>
+    <color name="lightSlateGray">#778899</color>
+    <color name="gainsboro">#DCDCDC</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="primaryColor">#004DA3</color>
+    <color name="onPrimaryColor">#FFFFFF</color>
+    <color name="primaryContainerColor">#0071E8</color>
+    <color name="onPrimaryContainerColor">#FFFFFF</color>
 
+    <color name="secondaryColor">#455E8E</color>
+    <color name="onSecondaryColor">#FFFFFF</color>
+    <color name="secondaryContainerColor">#B8CEFF</color>
+    <color name="onSecondaryContainerColor">#1F3B69</color>
+
+    <color name="tertiaryColor">#7F229A</color>
+    <color name="onTertiaryColor">#FFFFFF</color>
+    <color name="tertiaryContainerColor">#A94DC3</color>
+    <color name="onTertiaryContainerColor">#FFFFFF</color>
+
+    <color name="errorColor">#BA1A1A</color>
+    <color name="onErrorColor">#FFFFFF</color>
+    <color name="errorContainerColor">#FFDAD6</color>
+    <color name="onErrorContainerColor">#410002</color>
+
+    <color name="backgroundColor">#FFFFFF</color>
+    <color name="onBackgroundColor">#181C23</color>
+    <color name="surfaceColor">#F9F9FF</color>
+    <color name="onSurfaceColor">#181C23</color>
+    <color name="surfaceVariantColor">#DDE2F3</color>
+    <color name="onSurfaceVariantColor">#414754</color>
+
+    <color name="outlineColor">#727785</color>
+    <color name="outlineVariantColor">#C1C6D6</color>
+
+    <color name="scrimColor">#000000</color>
+    <color name="inverseSurfaceColor">#2D3038</color>
+    <color name="inverseOnSurfaceColor">#EFF0FB</color>
+    <color name="inversePrimaryColor">#ACC7FF</color>
+
+    <color name="primaryFixedColor">#D7E2FF</color>
+    <color name="onPrimaryFixedColor">#001A40</color>
+    <color name="primaryFixedDimColor">#ACC7FF</color>
+    <color name="onPrimaryFixedVariantColor">#004491</color>
+
+    <color name="secondaryFixedColor">#D7E2FF</color>
+    <color name="onSecondaryFixedColor">#001A40</color>
+    <color name="secondaryFixedDimColor">#ADC7FD</color>
+    <color name="onSecondaryFixedVariantColor">#2C4675</color>
+
+    <color name="tertiaryFixedColor">#FCD7FF</color>
+    <color name="onTertiaryFixedColor">#340043</color>
+    <color name="tertiaryFixedDimColor">#F2AFFF</color>
+    <color name="onTertiaryFixedVariantColor">#751390</color>
+
+    <color name="surfaceDimColor">#D8D9E4</color>
+    <color name="surfaceBrightColor">#F9F9FF</color>
+    <color name="surfaceContainerLowestColor">#FFFFFF</color>
+    <color name="surfaceContainerLowColor">#F2F3FE</color>
+    <color name="surfaceContainerColor">#ECEDF8</color>
+    <color name="surfaceContainerHighColor">#E6E8F2</color>
+    <color name="surfaceContainerHighestColor">#E0E2EC</color>
+
+    <color name="primaryColorMediumContrast">#00418A</color>
+    <color name="onPrimaryColorMediumContrast">#FFFFFF</color>
+    <color name="primaryContainerColorMediumContrast">#0071E8</color>
+    <color name="onPrimaryContainerColorMediumContrast">#FFFFFF</color>
+
+    <color name="secondaryColorMediumContrast">#284271</color>
+    <color name="onSecondaryColorMediumContrast">#FFFFFF</color>
+    <color name="secondaryContainerColorMediumContrast">#5B75A6</color>
+    <color name="onSecondaryContainerColorMediumContrast">#FFFFFF</color>
+
+    <color name="tertiaryColorMediumContrast">#700B8B</color>
+    <color name="onTertiaryColorMediumContrast">#FFFFFF</color>
+    <color name="tertiaryContainerColorMediumContrast">#A94DC3</color>
+    <color name="onTertiaryContainerColorMediumContrast">#FFFFFF</color>
+
+    <color name="errorColorMediumContrast">#8C0009</color>
+    <color name="onErrorColorMediumContrast">#FFFFFF</color>
+    <color name="errorContainerColorMediumContrast">#DA342E</color>
+    <color name="onErrorContainerColorMediumContrast">#FFFFFF</color>
+
+    <color name="backgroundColorMediumContrast">#F9F9FF</color>
+    <color name="onBackgroundColorMediumContrast">#181C23</color>
+    <color name="surfaceColorMediumContrast">#F9F9FF</color>
+    <color name="onSurfaceColorMediumContrast">#181C23</color>
+    <color name="surfaceVariantColorMediumContrast">#DDE2F3</color>
+    <color name="onSurfaceVariantColorMediumContrast">#3D4350</color>
+    <color name="outlineColorMediumContrast">#595F6D</color>
+    <color name="outlineVariantColorMediumContrast">#757B89</color>
+
+    <color name="scrimColorMediumContrast">#000000</color>
+    <color name="inverseSurfaceColorMediumContrast">#2D3038</color>
+    <color name="inverseOnSurfaceColorMediumContrast">#EFF0FB</color>
+    <color name="inversePrimaryColorMediumContrast">#ACC7FF</color>
+
+    <color name="primaryFixedColorMediumContrast">#0071E8</color>
+    <color name="onPrimaryFixedColorMediumContrast">#FFFFFF</color>
+    <color name="primaryFixedDimColorMediumContrast">#0059B9</color>
+    <color name="onPrimaryFixedVariantColorMediumContrast">#FFFFFF</color>
+
+    <color name="secondaryFixedColorMediumContrast">#5B75A6</color>
+    <color name="onSecondaryFixedColorMediumContrast">#FFFFFF</color>
+    <color name="secondaryFixedDimColorMediumContrast">#425C8C</color>
+    <color name="onSecondaryFixedVariantColorMediumContrast">#FFFFFF</color>
+
+    <color name="tertiaryFixedColorMediumContrast">#A94DC2</color>
+    <color name="onTertiaryFixedColorMediumContrast">#FFFFFF</color>
+    <color name="tertiaryFixedDimColorMediumContrast">#8D31A7</color>
+    <color name="onTertiaryFixedVariantColorMediumContrast">#FFFFFF</color>
+
+    <color name="surfaceDimColorMediumContrast">#D8D9E4</color>
+    <color name="surfaceBrightColorMediumContrast">#F9F9FF</color>
+    <color name="surfaceContainerLowestColorMediumContrast">#FFFFFF</color>
+    <color name="surfaceContainerLowColorMediumContrast">#F2F3FE</color>
+    <color name="surfaceContainerColorMediumContrast">#ECEDF8</color>
+    <color name="surfaceContainerHighColorMediumContrast">#E6E8F2</color>
+    <color name="surfaceContainerHighestColorMediumContrast">#E0E2EC</color>
+
+    <color name="primaryColorHighContrast">#00214D</color>
+    <color name="onPrimaryColorHighContrast">#FFFFFF</color>
+    <color name="primaryContainerColorHighContrast">#00418A</color>
+    <color name="onPrimaryContainerColorHighContrast">#FFFFFF</color>
+
+    <color name="secondaryColorHighContrast">#00214D</color>
+    <color name="onSecondaryColorHighContrast">#FFFFFF</color>
+    <color name="secondaryContainerColorHighContrast">#284271</color>
+    <color name="onSecondaryContainerColorHighContrast">#FFFFFF</color>
+
+    <color name="tertiaryColorHighContrast">#3E0050</color>
+    <color name="onTertiaryColorHighContrast">#FFFFFF</color>
+    <color name="tertiaryContainerColorHighContrast">#700B8B</color>
+    <color name="onTertiaryContainerColorHighContrast">#FFFFFF</color>
+
+    <color name="errorColorHighContrast">#4E0002</color>
+    <color name="onErrorColorHighContrast">#FFFFFF</color>
+    <color name="errorContainerColorHighContrast">#8C0009</color>
+    <color name="onErrorContainerColorHighContrast">#FFFFFF</color>
+
+    <color name="backgroundColorHighContrast">#F9F9FF</color>
+    <color name="onBackgroundColorHighContrast">#181C23</color>
+    <color name="surfaceColorHighContrast">#F9F9FF</color>
+    <color name="onSurfaceColorHighContrast">#000000</color>
+    <color name="surfaceVariantColorHighContrast">#DDE2F3</color>
+    <color name="onSurfaceVariantColorHighContrast">#1E2430</color>
+    <color name="outlineColorHighContrast">#3D4350</color>
+    <color name="outlineVariantColorHighContrast">#3D4350</color>
+
+    <color name="scrimColorHighContrast">#000000</color>
+    <color name="inverseSurfaceColorHighContrast">#2D3038</color>
+    <color name="inverseOnSurfaceColorHighContrast">#FFFFFF</color>
+    <color name="inversePrimaryColorHighContrast">#E6ECFF</color>
+
+    <color name="primaryFixedColorHighContrast">#00418A</color>
+    <color name="onPrimaryFixedColorHighContrast">#FFFFFF</color>
+    <color name="primaryFixedDimColorHighContrast">#002B60</color>
+    <color name="onPrimaryFixedVariantColorHighContrast">#FFFFFF</color>
+
+    <color name="secondaryFixedColorHighContrast">#284271</color>
+    <color name="onSecondaryFixedColorHighContrast">#FFFFFF</color>
+    <color name="secondaryFixedDimColorHighContrast">#0C2C59</color>
+    <color name="onSecondaryFixedVariantColorHighContrast">#FFFFFF</color>
+
+    <color name="tertiaryFixedColorHighContrast">#700B8B</color>
+    <color name="onTertiaryFixedColorHighContrast">#FFFFFF</color>
+    <color name="tertiaryFixedDimColorHighContrast">#4F0064</color>
+    <color name="onTertiaryFixedVariantColorHighContrast">#FFFFFF</color>
+
+    <color name="surfaceDimColorHighContrast">#D8D9E4</color>
+    <color name="surfaceBrightColorHighContrast">#F9F9FF</color>
+    <color name="surfaceContainerLowestColorHighContrast">#FFFFFF</color>
+    <color name="surfaceContainerLowColorHighContrast">#F2F3FE</color>
+    <color name="surfaceContainerColorHighContrast">#ECEDF8</color>
+    <color name="surfaceContainerHighColorHighContrast">#E6E8F2</color>
+    <color name="surfaceContainerHighestColorHighContrast">#E0E2EC</color>
 </resources>

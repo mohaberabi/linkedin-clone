@@ -40,7 +40,7 @@ class AddPostFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentAddPostBinding.inflate(
             layoutInflater,
@@ -81,7 +81,8 @@ class AddPostFragment : Fragment() {
                     binding.root.showSnackBar(errorMessage)
                 }
 
-                AddPostEvents.Posted -> onPostAdded()
+                AddPostEvents.Posted -> findNavController().popBackStack()
+
             }
         }
 
@@ -92,9 +93,5 @@ class AddPostFragment : Fragment() {
     }
 
 
-    private fun onPostAdded() {
-        binding.root.showSnackBar("Post Added")
-        findNavController().popBackStack()
-    }
 }
 

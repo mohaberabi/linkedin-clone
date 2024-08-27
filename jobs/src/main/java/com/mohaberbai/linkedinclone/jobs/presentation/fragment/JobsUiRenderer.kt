@@ -9,6 +9,8 @@ import com.mohaberbai.linkedinclone.jobs.presentation.viewmodel.JobsState
 import com.mohaberbai.linkedinclone.jobs.presentation.viewmodel.JobsStatus
 import com.mohaberabi.presentation.ui.util.AppRecyclerViewScrollListener
 import com.mohaberabi.presentation.ui.util.UiText
+import com.mohaberabi.presentation.ui.util.submitIfDifferent
+import com.mohaberabi.presentation.ui.util.submitOnce
 
 
 fun FragmentJobsFragmentsBinding.bind(
@@ -16,6 +18,8 @@ fun FragmentJobsFragmentsBinding.bind(
     onActions: (JobsActions) -> Unit,
     adapter: JobsListAdapter,
 ) {
+
+
     when (state.state) {
         JobsStatus.Error -> error(state.error)
         JobsStatus.Populated -> populated(
@@ -52,24 +56,25 @@ private fun FragmentJobsFragmentsBinding.populated(
     onRefresh: () -> Unit,
 ) {
 
+    adapter.submitIfDifferent(
+        jobs
+    )
+    recyclerView.submitOnce(
+        listAdapter = adapter,
+        scrollListener = AppRecyclerViewScrollListener(
+            isLinear = true,
+        ) {
+            onLoadMore()
+        },
+        newLayoutManager = LinearLayoutManager(root.context)
+    )
     pullRefresh.setOnRefreshListener {
         onRefresh()
     }
     error.hide()
     loader.hide()
     recyclerView.visibility = View.VISIBLE
-    adapter.submitList(jobs)
-    recyclerView.layoutManager = LinearLayoutManager(root.context)
-    recyclerView.adapter = adapter
-    recyclerView.addOnScrollListener(
-        AppRecyclerViewScrollListener(
-            isLinear = true,
-        ) { lastVisible, total ->
-            if (lastVisible == total - 1) {
-                onLoadMore()
-            }
-        },
-    )
+
     pullRefresh.isRefreshing = false
 
 }

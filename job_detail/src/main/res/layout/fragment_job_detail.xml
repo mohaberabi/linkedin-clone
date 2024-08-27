@@ -106,7 +106,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:tint="@color/colorTextHint"
+                        android:tint="?attr/colorPrimaryInverse"
                         android:src="@drawable/ic_location" />
 
                     <TextView
@@ -135,7 +135,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:tint="@color/colorTextHint"
+                        android:tint="?attr/colorPrimaryInverse"
                         android:src="@drawable/ic_time" />
 
                     <TextView
@@ -164,7 +164,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:tint="@color/colorTextHint"
+                        android:tint="?attr/colorPrimaryInverse"
                         android:src="@drawable/ic_work" />
 
                     <TextView

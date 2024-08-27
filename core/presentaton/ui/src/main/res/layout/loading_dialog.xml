@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
-        android:progressTint="@color/colorPrimary"
+        android:progressTint="?attr/colorPrimary"
         android:layout_gravity="center_vertical" />
 
     <TextView

@@ -10,8 +10,12 @@ import com.mohaberabi.linkedin.core.domain.source.local.compressor.FileCompresso
 import com.mohaberabi.linkedin.core.domain.source.local.user.UserLocalDataSource
 import com.mohaberabi.linkedin.core.domain.source.remote.PostsRemoteDataSource
 import com.mohaberabi.linkedin.core.domain.source.remote.StorageClient
+import com.mohaberabi.linkedin.core.domain.source.remote.UserReactionId
 import com.mohaberabi.linkedin.core.domain.util.EmptyDataResult
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 class DefaultPostsRepository @Inject constructor(
@@ -54,5 +58,23 @@ class DefaultPostsRepository @Inject constructor(
             )
         }
 
+    }
+
+    override fun listenToPosts(
+        limit: Int,
+        lastDocId: String?,
+    ): Flow<List<PostModel>> {
+        return userLocalDataSource.getUser()
+            .flatMapLatest { user ->
+                if (user == null) {
+                    flowOf()
+                } else {
+                    postRemoteDataSource.listenToPosts(
+                        limit = limit,
+                        lastDocId = lastDocId,
+                        userId = user.uid
+                    )
+                }
+            }
     }
 }

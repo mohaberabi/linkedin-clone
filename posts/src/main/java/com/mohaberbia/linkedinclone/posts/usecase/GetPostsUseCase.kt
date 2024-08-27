@@ -3,12 +3,15 @@ package com.mohaberbia.linkedinclone.posts.usecase
 import com.mohaberabi.linkedin.core.domain.repository.PostsRepository
 import javax.inject.Inject
 
-class GetPostsUseCase @Inject constructor(
+class GetPostsUseCase(
     private val postsRepository: PostsRepository,
 ) {
 
     suspend operator fun invoke(
         limit: Int = 20,
         lastDocId: String? = null,
-    ) = postsRepository.getPosts(limit, lastDocId)
+    ) = postsRepository.getPosts(
+        limit = limit,
+        lastDocId = lastDocId
+    )
 }

@@ -12,9 +12,10 @@ import com.mohaberabi.presentation.ui.util.toTimeAgo
 
 class JobsListAdapter(
     private val onClick: (JobModel) -> Unit,
-) : AppListAdapter<JobModel, JobsListAdapter.JobsViewHolder>({ it.id }) {
-
-
+) : AppListAdapter<JobModel, JobsListAdapter.JobsViewHolder>(
+    predicate = { it.id },
+    contentPredicate = { old, new -> old == new }
+) {
     inner class JobsViewHolder(
         private val binding: JobListItemBinding,
     ) : ViewHolder(binding.root) {

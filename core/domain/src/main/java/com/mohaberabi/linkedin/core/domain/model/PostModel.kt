@@ -13,4 +13,5 @@ data class PostModel(
     val reactionsCount: Int,
     val repostsCount: Int,
     val postAttachedImg: String,
+    val currentUserReaction: ReactionModel? = null,
 )

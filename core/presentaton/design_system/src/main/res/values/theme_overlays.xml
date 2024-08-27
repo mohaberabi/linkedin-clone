@@ -1,0 +1,58 @@
+<resources>
+
+    <style name="ThemeOverlay.AppTheme.MediumContrast" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/primaryColorMediumContrast</item>
+        <item name="colorOnPrimary">@color/onPrimaryColorMediumContrast</item>
+        <item name="colorPrimaryContainer">@color/primaryContainerColorMediumContrast</item>
+        <item name="colorOnPrimaryContainer">@color/onPrimaryContainerColorMediumContrast</item>
+        <item name="colorSecondary">@color/secondaryColorMediumContrast</item>
+        <item name="colorOnSecondary">@color/onSecondaryColorMediumContrast</item>
+        <item name="colorSecondaryContainer">@color/secondaryContainerColorMediumContrast</item>
+        <item name="colorOnSecondaryContainer">@color/onSecondaryContainerColorMediumContrast</item>
+        <item name="colorTertiary">@color/tertiaryColorMediumContrast</item>
+        <item name="colorOnTertiary">@color/onTertiaryColorMediumContrast</item>
+        <item name="colorTertiaryContainer">@color/tertiaryContainerColorMediumContrast</item>
+        <item name="colorOnTertiaryContainer">@color/onTertiaryContainerColorMediumContrast</item>
+        <item name="colorError">@color/errorColorMediumContrast</item>
+        <item name="colorOnError">@color/onErrorColorMediumContrast</item>
+        <item name="colorErrorContainer">@color/errorContainerColorMediumContrast</item>
+        <item name="colorOnErrorContainer">@color/onErrorContainerColorMediumContrast</item>
+        <item name="android:colorBackground">@color/backgroundColorMediumContrast</item>
+        <item name="colorOnBackground">@color/onBackgroundColorMediumContrast</item>
+        <item name="colorSurface">@color/surfaceColorMediumContrast</item>
+        <item name="colorOnSurface">@color/onSurfaceColorMediumContrast</item>
+        <item name="colorSurfaceVariant">@color/surfaceVariantColorMediumContrast</item>
+        <item name="colorOnSurfaceVariant">@color/onSurfaceVariantColorMediumContrast</item>
+        <item name="colorOutline">@color/outlineColorMediumContrast</item>
+        <item name="colorOutlineVariant">@color/outlineVariantColorMediumContrast</item>
+        <item name="colorSurfaceInverse">@color/inverseSurfaceColorMediumContrast</item>
+        <item name="colorOnSurfaceInverse">@color/inverseOnSurfaceColorMediumContrast</item>
+        <item name="colorPrimaryInverse">@color/inversePrimaryColorMediumContrast</item>
+        <item name="colorPrimaryFixed">@color/primaryFixedColorMediumContrast</item>
+        <item name="colorOnPrimaryFixed">@color/onPrimaryFixedColorMediumContrast</item>
+        <item name="colorPrimaryFixedDim">@color/primaryFixedDimColorMediumContrast</item>
+        <item name="colorOnPrimaryFixedVariant">@color/onPrimaryFixedVariantColorMediumContrast
+        </item>
+        <item name="colorSecondaryFixed">@color/secondaryFixedColorMediumContrast</item>
+        <item name="colorOnSecondaryFixed">@color/onSecondaryFixedColorMediumContrast</item>
+        <item name="colorSecondaryFixedDim">@color/secondaryFixedDimColorMediumContrast</item>
+        <item name="colorOnSecondaryFixedVariant">
+            @color/onSecondaryFixedVariantColorMediumContrast
+        </item>
+        <item name="colorTertiaryFixed">@color/tertiaryFixedColorMediumContrast</item>
+        <item name="colorOnTertiaryFixed">@color/onTertiaryFixedColorMediumContrast</item>
+        <item name="colorTertiaryFixedDim">@color/tertiaryFixedDimColorMediumContrast</item>
+        <item name="colorOnTertiaryFixedVariant">@color/onTertiaryFixedVariantColorMediumContrast
+        </item>
+        <item name="colorSurfaceDim">@color/surfaceDimColorMediumContrast</item>
+        <item name="colorSurfaceBright">@color/surfaceBrightColorMediumContrast</item>
+        <item name="colorSurfaceContainerLowest">@color/surfaceContainerLowestColorMediumContrast
+        </item>
+        <item name="colorSurfaceContainerLow">@color/surfaceContainerLowColorMediumContrast</item>
+        <item name="colorSurfaceContainer">@color/surfaceContainerColorMediumContrast</item>
+        <item name="colorSurfaceContainerHigh">@color/surfaceContainerHighColorMediumContrast</item>
+        <item name="colorSurfaceContainerHighest">
+            @color/surfaceContainerHighestColorMediumContrast
+        </item>
+    </style>
+</resources>

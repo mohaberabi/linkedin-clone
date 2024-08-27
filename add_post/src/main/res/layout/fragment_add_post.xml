@@ -32,7 +32,7 @@
             android:text="@string/post"
             android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="?attr/colorPrimary"
             android:layout_gravity="end"
             android:layout_marginEnd="8dp"
             android:background="@drawable/prim_button_style"

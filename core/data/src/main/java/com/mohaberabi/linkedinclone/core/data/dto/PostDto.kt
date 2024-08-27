@@ -14,6 +14,7 @@ data class PostDto(
     val reactionsCount: Int,
     val repostsCount: Int,
     val postAttachedImg: String,
+    val currentUserReaction: ReactionDto? = null,
 ) {
     constructor() : this(
         "", 0L,
@@ -21,5 +22,6 @@ data class PostDto(
         0, 0,
         0,
         "",
+        currentUserReaction = null
     )
 }
