@@ -2,4 +2,5 @@
 <resources>
     <string name="read_more">Read More</string>
     <string name="read_less">Read Less</string>
+    <string name="title">Title</string>
 </resources>

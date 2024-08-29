@@ -5,4 +5,6 @@
     <string name="sign_in">Sign in</string>
     <string name="or_join_linkedin">or Join LinkedIn</string>
     <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="already_have_an_account_sign_in">Already have an account? Sign In</string>
 </resources>

@@ -15,23 +15,16 @@
     </declare-styleable>
 
 
-    <declare-styleable name="ReadMoreText">
-        <attr name="readMoreTextColor" format="color" />
-
-        <attr name="readMoreTextSize" format="dimension" />
-
-        <attr name="readMoreText" format="string" />
-
-        <attr name="toggleTextColor" format="color" />
-
-        <attr name="toggleTextSize" format="dimension" />
-
-        <attr name="toggleTextReadMore" format="string" />
-
-        <attr name="toggleTextReadLess" format="string" />
-    </declare-styleable>
     <declare-styleable name="SimpleIconButton">
         <attr name="simpleIcon" format="reference" />
         <attr name="simpleText" format="string" />
+    </declare-styleable>
+    <declare-styleable name="AppButton">
+        <attr name="buttonText" format="string" />
+        <attr name="buttonWidth" format="dimension" />
+        <attr name="buttonHeight" format="dimension" />
+        <attr name="buttonEnabled" format="boolean" />
+        <attr name="buttonLoading" format="boolean" />
+
     </declare-styleable>
 </resources>

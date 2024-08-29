@@ -1,7 +1,12 @@
 package com.mohaberabi.linkedinclone.core.data.source.remote
 
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.Filter
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.snapshots
 import com.mohaberabi.linkedin.core.domain.model.ReactionModel
 import com.mohaberabi.linkedin.core.domain.source.remote.PostReactionsRemoteDataSource
 import com.mohaberabi.linkedin.core.domain.util.CommonParams
@@ -12,8 +17,9 @@ import com.mohaberabi.linkedinclone.core.data.dto.mapper.toReactionDto
 import com.mohaberabi.linkedinclone.core.data.dto.mapper.toReactionModel
 import com.mohaberabi.linkedinclone.core.data.util.paginate
 import com.mohaberabi.linkedinclone.core.data.util.safeCall
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -25,63 +31,92 @@ class FirebasePostReactionsRemoteDataSource @Inject constructor(
 ) : PostReactionsRemoteDataSource {
     override suspend fun reactToPost(
         reaction: ReactionModel,
+        incrementCount: Int,
     ) {
+        return withContext(dispatchers.io) {
+            coroutineScope {
+                firestore.safeCall {
+                    val postReactions = getPostReactionsDoc(
+                        reactorId = reaction.reactorId,
+                        postId = reaction.postId,
+                    )
+                    val userReactions =
+                        userReactionsCollection(reaction.reactorId).document(reaction.postId)
+                    val postDoc = postsCollection.document(reaction.postId)
+                    val postUpdatedData = createReactionUpdateMap(
+                        value = incrementCount.toLong(),
+                    )
+
+                    runTransaction { txn ->
+                        val reactionDto = reaction.toReactionDto()
+                        txn.set(
+                            postReactions,
+                            reactionDto,
+                        )
+                        txn.set(
+                            userReactions,
+                            reactionDto,
+                        )
+                        txn.update(
+                            postDoc,
+                            postUpdatedData
+                        )
+                    }.await()
+                }
+
+            }
+        }
+    }
+
+    override suspend fun undoReactToPost(
+        postId: String,
+        reactorId: String,
+    ) {
+
         withContext(dispatchers.io) {
             firestore.safeCall {
-                val reactionReference = collection(EndPoints.Posts)
-                    .document(reaction.postId)
-                    .collection(EndPoints.REACTIONS)
-                    .document(reaction.reactorId)
-                val currentReaction: ReactionDto? = reactionReference.get()
-                    .await().toObject(ReactionDto::class.java)
-                val existsBefore =
-                    currentReaction != null && currentReaction.reactionType == reaction.reactionType.name
-                val incrementedValue = when {
-                    existsBefore -> -1
-                    currentReaction != null -> 0
-                    else -> 1
-                }
-                val updateMap = mapOf(
-                    CommonParams.REACT_COUNT to FieldValue.increment(
-                        incrementedValue.toLong(),
-                    )
+                val globalReactionRef = getPostReactionsDoc(
+                    reactorId = reactorId,
+                    postId = postId,
                 )
-                launch {
-                    with(reactionReference) {
-                        if (existsBefore) {
-                            delete()
-                        } else {
-                            set(reaction.toReactionDto()).await()
-                        }
-                    }
-                }
-                launch {
-                    collection(EndPoints.Posts)
-                        .document(reaction.postId)
-                        .update(updateMap).await()
-                }
-            }
-
-        }
-    }
-
-
-    override suspend fun getUserReactionOnPost(
-        postId: String,
-        reactorId: String
-    ): ReactionModel? {
-        return withContext(dispatchers.io) {
-            firestore.safeCall {
-                collection(EndPoints.Posts)
-                    .document(postId)
-                    .collection(EndPoints.REACTIONS)
-                    .document(reactorId)
-                    .get()
-                    .await().toObject(ReactionDto::class.java)
-                    ?.toReactionModel()
+                val userReactionRef =
+                    userReactionsCollection(reactorId).document(postId)
+                runTransaction { txn ->
+                    val postDoc = postsCollection.document(postId)
+                    val postUpdatedData = createReactionUpdateMap(
+                        value = -1,
+                    )
+                    txn.delete(globalReactionRef)
+                    txn.delete(userReactionRef)
+                    txn.update(
+                        postDoc,
+                        postUpdatedData
+                    )
+                }.await()
             }
         }
     }
+
+
+    override fun listenToUserPostReactions(
+        uid: String,
+        whereIn: List<String>
+    ): Flow<Map<String, ReactionModel?>> {
+        val filter = Filter.inArray(
+            FieldPath.documentId(),
+            whereIn
+        )
+        return userReactionsCollection(
+            uid = uid,
+        ).where(
+            filter
+        ).snapshots().map { snapshots ->
+            snapshots.map { it.toObject(ReactionDto::class.java).toReactionModel() }
+                .associateBy { it.postId }
+        }
+
+    }
+
 
     override suspend fun getPostReactions(
         postId: String,
@@ -91,13 +126,18 @@ class FirebasePostReactionsRemoteDataSource @Inject constructor(
     ): List<ReactionModel> {
         return withContext(dispatchers.io) {
             firestore.safeCall {
-                val reactionsCollection = collection(EndPoints.Posts)
+                val collection = collection(EndPoints.Posts)
                     .document(postId)
                     .collection(EndPoints.REACTIONS)
+                val filters = reactionType?.let {
+                    listOf(Filter.equalTo(CommonParams.REACTION_TYPE, it))
+                } ?: emptyList()
+
                 val reactions = paginate<ReactionDto>(
                     limit = limit.toLong(),
                     lastDocId = lastDocId,
-                    collection = reactionsCollection,
+                    collection = collection,
+                    filters = filters,
                     orderBy = CommonParams.CREATED_AT_MILLIS
                 )
                 reactions.map { it.toReactionModel() }
@@ -106,4 +146,29 @@ class FirebasePostReactionsRemoteDataSource @Inject constructor(
         }
     }
 
+
+    private fun getPostReactionsDoc(
+        reactorId: String,
+        postId: String,
+    ): DocumentReference {
+        return firestore.collection(EndPoints.Posts)
+            .document(postId)
+            .collection(EndPoints.REACTIONS)
+            .document(reactorId)
+    }
+
+
+    private val postsCollection: CollectionReference
+        get() = firestore.collection(EndPoints.Posts)
+
+    private fun userReactionsCollection(uid: String) =
+        firestore.collection(EndPoints.USERS)
+            .document(uid)
+            .collection(EndPoints.REACTIONS)
+
+    private fun createReactionUpdateMap(
+        value: Long,
+    ) = mapOf(
+        CommonParams.REACT_COUNT to FieldValue.increment(value),
+    )
 }

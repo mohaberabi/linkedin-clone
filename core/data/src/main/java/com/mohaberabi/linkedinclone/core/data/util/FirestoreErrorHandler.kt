@@ -24,6 +24,5 @@ fun FirebaseFirestoreException.toErrorModel(): ErrorModel {
         cause = this@toErrorModel,
         type = remoteError
     )
-    Log.e("appError", error.toString())
     return error
 }

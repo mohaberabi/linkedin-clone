@@ -6,7 +6,9 @@ import com.mohaberabi.linkedin.core.domain.repository.PostsReactionRepository
 import com.mohaberabi.linkedin.core.domain.repository.UserRepository
 import com.mohaberabi.linkedin.core.domain.usecase.GetUserUseCase
 import com.mohaberabi.linkedin.core.domain.usecase.ListenToCurrentUserUseCase
+import com.mohaberabi.linkedin.core.domain.usecase.ListenToUserReactionsUseCase
 import com.mohaberabi.linkedin.core.domain.usecase.ReactToPostUseCase
+import com.mohaberabi.linkedin.core.domain.usecase.UndoReactToPostUseCase
 import com.mohaberabi.linkedin.core.domain.util.AppResult
 import dagger.Module
 import dagger.Provides
@@ -43,5 +45,21 @@ object UseCaseModule {
         postPostsReactionRepository: PostsReactionRepository,
     ): ReactToPostUseCase {
         return ReactToPostUseCase(postPostsReactionRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideListenToReactions(
+        postPostsReactionRepository: PostsReactionRepository,
+    ): ListenToUserReactionsUseCase {
+        return ListenToUserReactionsUseCase(postPostsReactionRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUndoReactToPostUseCase(
+        postPostsReactionRepository: PostsReactionRepository,
+    ): UndoReactToPostUseCase {
+        return UndoReactToPostUseCase(postPostsReactionRepository)
     }
 }

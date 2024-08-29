@@ -6,6 +6,7 @@ sealed interface PostsActions {
     data object LoadMore : PostsActions
     data class ReactToPost(
         val reactionType: ReactionType,
-        val postId: String
+        val postId: String,
+        val previousReactionType: ReactionType?
     ) : PostsActions
 }

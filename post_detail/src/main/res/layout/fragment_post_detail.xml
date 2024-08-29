@@ -1,9 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presetnation.fragments.PostDetailFragment">
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginBottom="80dp"
+        android:layout_above="@id/leaveCommentArea">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.mohaberabi.presentation.ui.views.post_item.PostListItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/postData"
+                app:posterName="Mohab Erabi"
+                android:visibility="gone"
+                app:posterBio="I Love Kotlin"
+                app:createdAt="2 years ago"
+                app:postData="Mohab The Best Loser" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/reactionsArea"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/margin_medium"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reactions"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:id="@+id/moreIcon"
+                        android:src="@drawable/ic_more"
+                        android:layout_marginBottom="@dimen/margin_medium"
+                        android:layout_height="32dp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/reactorsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/reactor_list_item"
+                    android:scrollbars="horizontal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/commentsArea"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/margin_medium"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/comments"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/commentsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/commentor_list_item"
+                    android:scrollbars="vertical" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/margin_medium"
+        android:id="@+id/leaveCommentArea"
+        android:gravity="center_vertical">
 
 
-</FrameLayout>
+        <EditText
+            android:layout_width="0dp"
+            android:id="@+id/commentTextField"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/leave_your_thoughts_here"
+            android:layout_marginStart="8dp" />
+
+        <com.mohaberabi.presentation.ui.views.AppButton
+            android:layout_width="wrap_content"
+            android:id="@+id/commentOnPostButton"
+            app:buttonText="@string/comment"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_height="wrap_content">
+
+        </com.mohaberabi.presentation.ui.views.AppButton>
+    </LinearLayout>
+
+    <com.mohaberabi.presentation.ui.views.AppLoader
+        android:id="@+id/loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.mohaberabi.presentation.ui.views.ErrorWidget
+        android:id="@+id/errorWidget"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

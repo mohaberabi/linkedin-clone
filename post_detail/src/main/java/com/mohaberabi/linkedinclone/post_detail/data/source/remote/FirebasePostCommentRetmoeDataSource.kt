@@ -9,6 +9,7 @@ import com.mohaberabi.linkedin.core.domain.util.EndPoints
 import com.mohaberabi.linkedinclone.core.data.util.paginate
 import com.mohaberabi.linkedinclone.core.data.util.safeCall
 import com.mohaberabi.linkedinclone.post_detail.data.source.dto.CommentDto
+import com.mohaberabi.linkedinclone.post_detail.data.source.dto.mapper.toCommentDto
 import com.mohaberabi.linkedinclone.post_detail.data.source.dto.mapper.toCommentModel
 import com.mohaberabi.linkedinclone.post_detail.domain.source.remote.PostCommentRemoteDataSource
 import kotlinx.coroutines.coroutineScope
@@ -27,33 +28,24 @@ class FirebasePostCommentRemoteDataSource @Inject constructor(
         comment: PostCommentModel,
     ) {
         withContext(dispatchers.io) {
-            coroutineScope {
-                val commentJob = launch {
-                    firestore.safeCall {
-                        collection(EndPoints.Posts)
-                            .document(comment.postId)
-                            .collection(EndPoints.COMMENTS)
-                            .document(comment.id).set(comment).await()
-                    }
-                }
-                val postCommentJob = launch {
-                    val updateMap = mapOf(
-                        CommonParams.COMMENT_COUNT
-                                to FieldValue.increment(1L)
-                    )
-                    firestore.safeCall {
-                        collection(EndPoints.Posts)
-                            .document(comment.postId)
-                            .collection(EndPoints.COMMENTS)
-                            .document(comment.id)
-                            .update(updateMap)
-                    }
-                }
-                joinAll(
-                    postCommentJob,
-                    commentJob
+            firestore.safeCall {
+                val updateMap = mapOf(
+                    CommonParams.COMMENT_COUNT
+                            to FieldValue.increment(1L)
                 )
+                val postDoc = collection(EndPoints.Posts)
+                    .document(comment.postId)
+
+                val commentDoc = postDoc
+                    .collection(EndPoints.COMMENTS)
+                    .document(comment.id)
+
+                runTransaction { txn ->
+                    txn.set(commentDoc, comment.toCommentDto())
+                    txn.update(postDoc, updateMap)
+                }.await()
             }
+
 
         }
     }
@@ -65,7 +57,6 @@ class FirebasePostCommentRemoteDataSource @Inject constructor(
     ): List<PostCommentModel> {
         return withContext(dispatchers.io) {
 
-
             val comments = firestore.safeCall {
                 val postCommentsCollection = collection(EndPoints.Posts)
                     .document(postId)
@@ -73,7 +64,7 @@ class FirebasePostCommentRemoteDataSource @Inject constructor(
                 paginate<CommentDto>(
                     collection = postCommentsCollection,
                     lastDocId = lastDocId,
-                    orderBy = CommonParams.CREATED_AT_MILLIS
+                    orderBy = CommonParams.COMMENTED_AT_MILLIS
                 )
             }
             comments.map { it.toCommentModel() }

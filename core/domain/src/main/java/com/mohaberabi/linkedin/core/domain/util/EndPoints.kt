@@ -10,5 +10,6 @@ object EndPoints {
     const val USER_CVR = "users/covers"
     const val REACTIONS = "reactions"
     const val COMMENTS = "comments"
+    const val ACTIVITY = "activity"
 
 }

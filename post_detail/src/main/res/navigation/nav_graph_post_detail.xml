@@ -7,7 +7,24 @@
 
     <fragment
         android:id="@+id/postDetailFragment"
-        android:name="com.mohaberabi.linkedinclone.post_detail.presetnation.fragments.PostDetailFragment"
+        android:name="com.mohaberabi.linkedinclone.post_detail.presetnation.post_details.fragments.PostDetailFragment"
         android:label="fragment_post_detail"
-        tools:layout="@layout/fragment_post_detail" />
+        tools:layout="@layout/fragment_post_detail">
+        <argument
+            android:name="postId"
+            app:argType="string" />
+        <deepLink app:uri="android-app://linked.clone.app/fragment_post_detail?postId={postId}" />
+        <action
+            android:id="@+id/action_postDetailFragment_to_postReactionsFragment"
+            app:destination="@id/postReactionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postReactionsFragment"
+        android:name="com.mohaberabi.linkedinclone.post_detail.presetnation.post_reactions.fragments.PostReactionsFragment"
+        android:label="PostReactionsFragment">
+
+        <argument
+            android:name="postId"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -8,7 +8,7 @@ import androidx.appcompat.widget.Toolbar
 import coil.transform.CircleCropTransformation
 import com.mohaberabi.core.presentation.ui.R
 import com.mohaberabi.core.presentation.ui.databinding.MainAppBarBinding
-import com.mohaberabi.presentation.ui.util.cachedImage
+import com.mohaberabi.presentation.ui.util.extension.cachedImage
 
 class MainAppBar @JvmOverloads constructor(
     context: Context,
@@ -84,7 +84,7 @@ class MainAppBar @JvmOverloads constructor(
     }
 
     fun setOnNavigationClickListener(listener: OnClickListener) {
-        binding.appBar.setNavigationOnClickListener(listener)
+        binding.root.setNavigationOnClickListener(listener)
     }
 
     fun loadImgUrl(url: String) {

@@ -12,6 +12,7 @@ import com.mohaberabi.linkedin.core.domain.source.remote.PostsRemoteDataSource
 import com.mohaberabi.linkedin.core.domain.source.remote.StorageClient
 import com.mohaberabi.linkedin.core.domain.source.remote.UserReactionId
 import com.mohaberabi.linkedin.core.domain.util.EmptyDataResult
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
@@ -60,6 +61,7 @@ class DefaultPostsRepository @Inject constructor(
 
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun listenToPosts(
         limit: Int,
         lastDocId: String?,

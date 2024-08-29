@@ -4,7 +4,7 @@ import com.mohaberabi.linkedin.core.domain.repository.RegisterRepository
 import javax.inject.Inject
 
 
-class RegisterUsecase @Inject constructor(
+class RegisterUsecase(
     private val registerRepository: RegisterRepository,
 ) {
     suspend operator fun invoke(

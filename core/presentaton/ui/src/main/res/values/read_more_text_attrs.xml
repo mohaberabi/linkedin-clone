@@ -1,0 +1,19 @@
+<resources>
+    <declare-styleable name="ReadMoreText">
+        <attr name="readMoreTextColor" format="color" />
+
+        <attr name="readMoreTextSize" format="dimension" />
+
+        <attr name="readMoreText" format="string" />
+
+        <attr name="toggleTextColor" format="color" />
+
+        <attr name="toggleTextSize" format="dimension" />
+
+        <attr name="toggleTextReadMore" format="string" />
+
+        <attr name="toggleTextReadLess" format="string" />
+    </declare-styleable>
+</resources>
+
+

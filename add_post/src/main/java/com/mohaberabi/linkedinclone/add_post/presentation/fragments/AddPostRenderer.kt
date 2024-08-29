@@ -7,7 +7,7 @@ import coil.transform.CircleCropTransformation
 import com.mohaberabi.add_posts.databinding.FragmentAddPostBinding
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostActions
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostState
-import com.mohaberabi.presentation.ui.util.cachedImage
+import com.mohaberabi.presentation.ui.util.extension.cachedImage
 
 
 fun FragmentAddPostBinding.render(
@@ -24,13 +24,19 @@ fun FragmentAddPostBinding.render(
             )
         )
     }
-    avatarImage.cachedImage(state.userImg) {
-        transformations(CircleCropTransformation())
-    }
-    postButton.setOnClickListener {
-        onAction(AddPostActions.SubmitPost)
+    with(
+        postButton,
+    ) {
+        setButtonClickListener {
+            onAction(AddPostActions.SubmitPost)
+        }
+        setLoading(
+            state.loading,
+        )
+        setEnable(state.canAddPost)
     }
     postTextField.addTextChangedListener {
         onAction(AddPostActions.PostDataChanged(it.toString()))
     }
+
 }

@@ -1,15 +1,12 @@
 package com.mohaberabi.linkedinclone.core.data.util
 
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.Filter
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.snapshots
 import com.mohaberabi.linkedin.core.domain.error.AppException
 import com.mohaberabi.linkedin.core.domain.error.RemoteError
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 
 
@@ -19,14 +16,16 @@ suspend inline fun <reified T> FirebaseFirestore.paginate(
     collection: CollectionReference,
     orderBy: String,
     ascending: Boolean = false,
+    filters: List<Filter> = listOf()
 ): List<T> {
-    return paginateInternal(
+    return paginatedQuery(
         limit = limit,
+        filters = filters,
         lastDocId = lastDocId,
         query = collection,
         orderBy = orderBy,
         ascending = ascending
-    )
+    ).get().await().map { it.toObject(T::class.java) }
 }
 
 suspend inline fun <reified T> FirebaseFirestore.paginate(
@@ -35,62 +34,19 @@ suspend inline fun <reified T> FirebaseFirestore.paginate(
     coll: String,
     orderBy: String,
     ascending: Boolean = false,
+    filters: List<Filter> = listOf()
 ): List<T> {
     val collection = this.collection(coll)
-    return paginateInternal(
+    return paginatedQuery(
         limit = limit,
+        filters = filters,
         lastDocId = lastDocId,
         query = collection,
         orderBy = orderBy,
         ascending = ascending
-    )
+    ).get().await().map { it.toObject(T::class.java) }
 }
 
-
-inline fun <reified T> FirebaseFirestore.listenAndPaginate(
-    limit: Long,
-    lastDocId: String?,
-    query: CollectionReference,
-    orderBy: String,
-    ascending: Boolean,
-): Flow<List<T>> {
-    return flow {
-        val querySnapshot = paginatedQuery(
-            limit = limit,
-            lastDocId = lastDocId,
-            query = query,
-            orderBy = orderBy,
-            ascending = ascending,
-        )
-        querySnapshot
-            .snapshots()
-            .map { snapshot ->
-                val list = snapshot.documents
-                    .map {
-                        it.toObject(T::class.java)
-                    }
-                list
-            }
-    }
-}
-
-suspend inline fun <reified T> FirebaseFirestore.paginateInternal(
-    limit: Long,
-    lastDocId: String?,
-    query: CollectionReference,
-    orderBy: String,
-    ascending: Boolean,
-): List<T> {
-    val paginatedQuery =
-        paginatedQuery(
-            limit = limit,
-            lastDocId = lastDocId,
-            query = query,
-            orderBy = orderBy,
-            ascending = ascending
-        )
-    return paginatedQuery.limit(limit).get().await().mapNotNull { it.toObject(T::class.java) }
-}
 
 suspend fun <T> FirebaseFirestore.safeCall(
     operation: suspend FirebaseFirestore.() -> T
@@ -116,6 +72,7 @@ suspend fun paginatedQuery(
     query: CollectionReference,
     orderBy: String,
     ascending: Boolean,
+    filters: List<Filter> = listOf()
 ): Query {
     val queryDirection = if (ascending) {
         com.google.firebase.firestore.Query.Direction.ASCENDING
@@ -123,9 +80,25 @@ suspend fun paginatedQuery(
         com.google.firebase.firestore.Query.Direction.DESCENDING
     }
     val baseQuery = query.orderBy(orderBy, queryDirection)
+
     val document = lastDocId?.let {
         query.document(it).get().await()
     }
     val paginatedQuery = document?.let { baseQuery.startAfter(it) } ?: baseQuery
-    return paginatedQuery.limit(limit)
+    return applyFilters(
+        query = paginatedQuery.limit(limit),
+        filters = filters
+    )
+}
+
+fun applyFilters(
+    query: Query,
+    filters: List<Filter> = listOf()
+): Query {
+    var filteredQuery = query
+    filters.forEach { filter ->
+        filteredQuery = filteredQuery.where(filter)
+    }
+
+    return filteredQuery
 }

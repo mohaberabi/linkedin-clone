@@ -2,8 +2,11 @@ package com.mohaberabi.linkedin.core.domain.model
 
 
 enum class ReactionType {
+    All,
     Love,
     Like,
     Funny,
-    Thoughtful
+    Clap,
+
 }
+

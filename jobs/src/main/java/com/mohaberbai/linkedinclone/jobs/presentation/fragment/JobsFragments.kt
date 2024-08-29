@@ -13,7 +13,7 @@ import com.mohaberabi.linkedin.core.domain.util.AppBottomSheetShower
 import com.mohaberabi.linkedin.core.domain.util.BottomSheetAction
 import com.mohaberabi.linkedin.core.domain.util.DrawerController
 import com.mohaberbai.linkedinclone.jobs.presentation.viewmodel.JobsViewModel
-import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
+import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject

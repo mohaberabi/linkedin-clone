@@ -10,8 +10,12 @@ import com.mohaberabi.core.presentation.design_system.R
 import com.mohaberabi.core.presentation.ui.databinding.PostListItemBinding
 import com.mohaberabi.linkedin.core.domain.model.PostModel
 import com.mohaberabi.presentation.ui.util.AppListAdapter
-import com.mohaberabi.presentation.ui.util.cachedImage
+import com.mohaberabi.presentation.ui.util.extension.cachedImage
+import com.mohaberabi.presentation.ui.util.extension.icon
+import com.mohaberabi.presentation.ui.util.extension.label
 import com.mohaberabi.presentation.ui.util.toTimeAgo
+import com.mohaberabi.presentation.ui.views.post_item.PostClickCallBacks
+import com.mohaberabi.presentation.ui.views.post_item.bindFromPost
 import kotlin.math.max
 
 
@@ -26,34 +30,13 @@ class PostsListAdapter(
     inner class PostViewHolder(
         private val binding: PostListItemBinding,
     ) : ViewHolder(binding.root) {
-        fun bind(post: PostModel) {
-            with(binding) {
-                repostsCountTextView.text = post.reactionsCount.toString()
-                likeButton.setClickListener {
-                    onClickCallBacks.onLikeClick.invoke(post)
-                }
-                post.currentUserReaction?.let {
-                    likeButton.setIcon(R.drawable.like)
-                } ?: run {
-                    likeButton.setIcon(R.drawable.ic_react)
-                }
-                postDataTextView.setText(
-                    post.postData,
-                    maxLines = 5
-                )
-                issuerBioTextView.text = post.issuerBio
-                createdAtTextView.text = post.createdAtMillis.toTimeAgo(binding.root.context)
-                issuerNameTextView.text = post.issuerName
-                issuerAvatarImageView.cachedImage(post.issuerAvatar) {
-                    transformations(CircleCropTransformation())
-                }
-                if (post.postAttachedImg.isEmpty()) {
-                    postAttachedImageView.visibility = View.GONE
-                } else {
-                    postAttachedImageView.load(post.postAttachedImg)
-                }
-
-            }
+        fun bind(
+            post: PostModel,
+        ) {
+            binding.bindFromPost(
+                post = post,
+                onClickCallBacks = onClickCallBacks
+            )
         }
     }
 

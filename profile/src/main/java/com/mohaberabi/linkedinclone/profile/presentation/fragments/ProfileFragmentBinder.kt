@@ -4,10 +4,10 @@ import android.view.View
 import coil.transform.CircleCropTransformation
 import com.mohaberabi.linkedin.core.domain.model.UserModel
 import com.mohaberabi.presentation.ui.util.UiText
-import com.mohaberabi.presentation.ui.util.cachedImage
 import com.mohaberabi.profile.databinding.FragmentProfileBinding
 import com.mohaberabi.linkedinclone.profile.presentation.viewmodel.ProfileState
 import com.mohaberabi.linkedinclone.profile.presentation.viewmodel.ProfileStatus
+import com.mohaberabi.presentation.ui.util.extension.cachedImage
 
 fun FragmentProfileBinding.bind(
     state: ProfileState,

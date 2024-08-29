@@ -14,7 +14,7 @@ import com.mohaberabi.linkedin.core.domain.util.DispatchersProvider
 import com.mohaberabi.linkedin.core.domain.util.DrawerController
 import com.mohaberabi.linkedin.core.domain.util.GlobalNavigator
 import com.mohaberabi.linkedinclone.core.data.source.local.persistence.DataStorePersistenceClient
-import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseStorageStorageClient
+import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseStorageClient
 import com.mohaberabi.linkedinclone.core.data.util.DefaultAppSheetShower
 import com.mohaberabi.linkedinclone.core.data.util.DefaultDispatchersProvider
 import com.mohaberabi.linkedinclone.core.data.util.DefaultGlobalNavigator
@@ -98,7 +98,7 @@ object AppModule {
     fun provideStorageClient(
         dispatchers: DispatchersProvider,
         storage: FirebaseStorage
-    ) = FirebaseStorageStorageClient(
+    ) = FirebaseStorageClient(
         dispatchers = dispatchers,
         storage = storage
     )

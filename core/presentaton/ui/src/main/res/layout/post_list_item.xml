@@ -2,15 +2,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/rootLayout"
     android:fitsSystemWindows="true"
-    android:layout_marginTop="@dimen/margin_medium"
     android:padding="0dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/issuerAvatarImageView"
+        android:layout_marginTop="@dimen/margin_medium"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_margin="@dimen/margin_small"
         android:layout_marginHorizontal="@dimen/margin_medium"
         android:elevation="1dp"
         android:scaleType="centerCrop"
@@ -22,6 +22,7 @@
 
     <TextView
         android:id="@+id/issuerNameTextView"
+        android:layout_marginTop="@dimen/margin_medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_small"
@@ -35,6 +36,7 @@
 
     <TextView
         android:id="@+id/issuerBioTextView"
+        android:layout_marginTop="@dimen/margin_medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_small"
@@ -107,19 +109,28 @@
             android:gravity="start"
             android:layout_marginStart="@dimen/margin_large">
 
+            <TextView
+                android:id="@+id/reactionsCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="45"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp"
+                android:layout_marginEnd="8dp" />
+
             <ImageView
                 android:id="@+id/likeReact"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:src="@drawable/like"
-                android:layout_marginEnd="-8dp" />
+                android:layout_marginEnd="-4dp" />
 
             <ImageView
                 android:id="@+id/funnyReact"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:src="@drawable/funny"
-                android:layout_marginEnd="-8dp" />
+                android:layout_marginEnd="-4dp" />
 
             <ImageView
                 android:id="@+id/loveReact"
@@ -213,7 +224,7 @@
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginTop="@dimen/margin_small"
-        android:background="@color/mediumGray"
+        android:background="@color/lightGray"
         app:layout_constraintTop_toBottomOf="@id/engagementButtonsLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

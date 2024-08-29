@@ -9,9 +9,9 @@ data class PostModel(
     val issuerAvatar: String,
     val issuerBio: String,
     val postData: String,
-    val commentsCount: Int,
-    val reactionsCount: Int,
-    val repostsCount: Int,
     val postAttachedImg: String,
+    val commentsCount: Int = 0,
+    val reactionsCount: Int = 0,
+    val repostsCount: Int = 0,
     val currentUserReaction: ReactionModel? = null,
 )

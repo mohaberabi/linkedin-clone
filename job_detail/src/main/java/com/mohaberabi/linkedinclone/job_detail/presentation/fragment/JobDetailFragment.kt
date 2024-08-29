@@ -12,7 +12,7 @@ import com.mohaberabi.job_detail.databinding.FragmentJobDetailBinding
 import com.mohaberabi.linkedinclone.job_detail.presentation.viewmodel.JobDetailActions
 import com.mohaberabi.linkedinclone.job_detail.presentation.viewmodel.JobDetailsViewModel
 import com.mohaberabi.presentation.ui.views.asPrimarySheet
-import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
+import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
 import com.mohaberabi.presentation.ui.views.bottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -28,4 +28,14 @@
     <string name="time_weeks_ago">%d weeks ago</string>
     <string name="time_months_ago">%d months ago</string>
     <string name="time_years_ago">%d years ago</string>
+    <string name="funny">Funny</string>
+    <string name="like">Like</string>
+    <string name="thoughtful">%Thoughtful</string>
+    <string name="clap">Clap</string>
+    <string name="all">All</string>
+
+    <string name="love">Love</string>
+    <string name="comment_count">%1$d comments</string>
+    <string name="repost_count">%1$d reposts</string>
+
 </resources>

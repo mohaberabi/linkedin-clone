@@ -2,48 +2,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:paddingHorizontal="@dimen/margin_large">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/appBar"
-        android:layout_width="0dp"
+    <com.mohaberabi.presentation.ui.views.AppButton
+        android:id="@+id/postButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:paddingVertical="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:buttonHeight="36dp"
+        app:buttonWidth="100dp"
+        app:buttonText="Post" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/avatarImage"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:elevation="1dp"
-            android:src="@drawable/img_plcholder"
-            android:scaleType="centerCrop"
-            app:shapeAppearanceOverlay="@style/roundedImageView"
-            android:layout_gravity="start"
-            android:contentDescription="@string/user_avatar" />
-
-        <Button
-            android:id="@+id/postButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/post"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:backgroundTint="?attr/colorPrimary"
-            android:layout_gravity="end"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/prim_button_style"
-            android:contentDescription="@string/post_button" />
-    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:id="@+id/postScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/appBar"
+        app:layout_constraintTop_toBottomOf="@+id/postButton"
         app:layout_constraintBottom_toTopOf="@id/bottomToolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout

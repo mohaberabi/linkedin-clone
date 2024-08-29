@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/nav_graph_posts"
-    android:id="@+id/nav_graph_layout">
-    <include app:graph="@navigation/nav_graph_add_post" />
-    <include app:graph="@navigation/nav_graph_posts" />
-    <include app:graph="@navigation/nav_graph_jobs" />
-</navigation>

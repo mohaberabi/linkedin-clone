@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.mohaberabi.jobs.databinding.JobListItemBinding
 import com.mohaberabi.linkedin.core.domain.model.JobModel
 import com.mohaberabi.presentation.ui.util.AppListAdapter
-import com.mohaberabi.presentation.ui.util.cachedImage
+import com.mohaberabi.presentation.ui.util.extension.cachedImage
 import com.mohaberabi.presentation.ui.util.toTimeAgo
 
 

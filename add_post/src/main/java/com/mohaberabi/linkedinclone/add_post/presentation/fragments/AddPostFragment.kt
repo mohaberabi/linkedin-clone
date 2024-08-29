@@ -8,14 +8,15 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.mohaberabi.add_posts.databinding.FragmentAddPostBinding
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostActions
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostEvents
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostViewModel
-import com.mohaberabi.presentation.ui.util.asByteArray
-import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
-import com.mohaberabi.presentation.ui.util.createLoadingDialog
-import com.mohaberabi.presentation.ui.util.showSnackBar
+import com.mohaberabi.presentation.ui.util.extension.asByteArray
+import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
+import com.mohaberabi.presentation.ui.util.extension.createLoadingDialog
+import com.mohaberabi.presentation.ui.util.extension.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -85,9 +86,6 @@ class AddPostFragment : Fragment() {
 
             }
         }
-
-
-
 
         return binding.root
     }

@@ -9,8 +9,10 @@ import com.mohaberbai.linkedinclone.jobs.presentation.viewmodel.JobsState
 import com.mohaberbai.linkedinclone.jobs.presentation.viewmodel.JobsStatus
 import com.mohaberabi.presentation.ui.util.AppRecyclerViewScrollListener
 import com.mohaberabi.presentation.ui.util.UiText
-import com.mohaberabi.presentation.ui.util.submitIfDifferent
-import com.mohaberabi.presentation.ui.util.submitOnce
+import com.mohaberabi.presentation.ui.util.extension.hideAll
+import com.mohaberabi.presentation.ui.util.extension.show
+import com.mohaberabi.presentation.ui.util.extension.submitIfDifferent
+import com.mohaberabi.presentation.ui.util.extension.submitOnce
 
 
 fun FragmentJobsFragmentsBinding.bind(
@@ -18,10 +20,18 @@ fun FragmentJobsFragmentsBinding.bind(
     onActions: (JobsActions) -> Unit,
     adapter: JobsListAdapter,
 ) {
-
-
     when (state.state) {
-        JobsStatus.Error -> error(state.error)
+        JobsStatus.Error -> {
+            val errorString = state.error.asString(root.context)
+            hideAll(
+                recyclerView,
+                loader,
+            )
+            error.show()
+            error.setErrorTitle(errorString)
+            pullRefresh.isRefreshing = false
+        }
+
         JobsStatus.Populated -> populated(
             jobs = state.jobs,
             adapter = adapter,
@@ -29,25 +39,16 @@ fun FragmentJobsFragmentsBinding.bind(
             onRefresh = { onActions(JobsActions.Refresh) }
         )
 
-        else -> loading()
+        else -> {
+            loader.show()
+            hideAll(
+                recyclerView,
+                error
+            )
+        }
     }
 }
 
-private fun FragmentJobsFragmentsBinding.loading() {
-    loader.show()
-    recyclerView.visibility = android.view.View.GONE
-    error.hide()
-}
-
-private fun FragmentJobsFragmentsBinding.error(errorText: UiText) {
-    val errorString = errorText.asString(root.context)
-    error.show()
-    error.setErrorTitle(errorString)
-    loader.hide()
-    recyclerView.visibility = android.view.View.GONE
-    pullRefresh.isRefreshing = false
-
-}
 
 private fun FragmentJobsFragmentsBinding.populated(
     jobs: List<JobModel>,
@@ -71,10 +72,11 @@ private fun FragmentJobsFragmentsBinding.populated(
     pullRefresh.setOnRefreshListener {
         onRefresh()
     }
-    error.hide()
-    loader.hide()
-    recyclerView.visibility = View.VISIBLE
-
+    hideAll(
+        error,
+        loader,
+    )
+    recyclerView.show()
     pullRefresh.isRefreshing = false
 
 }

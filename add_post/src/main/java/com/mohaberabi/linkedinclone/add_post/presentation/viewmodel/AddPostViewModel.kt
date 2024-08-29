@@ -24,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AddPostViewModel @Inject constructor(
     private val addPostUseCase: AddPostUseCase,
-    listenToCurrentUserUseCase: ListenToCurrentUserUseCase
+    private val listenToCurrentUserUseCase: ListenToCurrentUserUseCase
 ) : ViewModel() {
 
 

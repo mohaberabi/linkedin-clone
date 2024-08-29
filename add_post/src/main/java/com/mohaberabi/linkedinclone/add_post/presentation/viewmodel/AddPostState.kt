@@ -28,4 +28,6 @@ data class AddPostState(
     }
 
 
+    val canAddPost: Boolean
+        get() = postImgByteArray.isNotEmpty() || postData.isNotEmpty()
 }

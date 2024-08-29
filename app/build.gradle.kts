@@ -62,4 +62,5 @@ dependencies {
     implementation(projects.userMedia)
     implementation(projects.core.remoteLogging)
     implementation(projects.core.remoteAnayltics)
+    implementation(projects.postDetail)
 }

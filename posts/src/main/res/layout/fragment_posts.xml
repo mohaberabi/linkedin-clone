@@ -5,39 +5,36 @@
     android:layout_height="match_parent"
     tools:context="com.mohaberbia.linkedinclone.posts.presentation.fragments.posts.PostsFragment">
 
+
     <com.mohaberabi.presentation.ui.views.AppLoader
+        android:id="@+id/loader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        android:id="@+id/loader"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-    </com.mohaberabi.presentation.ui.views.AppLoader>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.mohaberabi.presentation.ui.views.ErrorWidget
-        android:layout_width="match_parent"
         android:id="@+id/error"
-        android:visibility="gone"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-    </com.mohaberabi.presentation.ui.views.ErrorWidget>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:visibility="gone"
         tools:listitem="@layout/post_list_item"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -1,43 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_gravity="center">
 
     <Button
         android:id="@+id/button"
-
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="16dp"
-        android:enabled="true"
-        android:background="@drawable/prim_button_style"
         android:layout_marginHorizontal="@dimen/margin_small"
-        android:visibility="visible"
-        android:text=""
-        android:textColor="@color/white" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:id="@+id/buttonText"
-        android:layout_gravity="center"
-        android:textSize="16dp"
-        android:layout_marginTop="@dimen/margin_small"
-        android:textStyle="bold"
+        android:background="@drawable/app_button_selector"
+        android:enabled="true"
+        android:text="Login"
         android:textColor="@color/white"
-        android:text="TESTT"
-        android:layout_height="wrap_content">
+        android:visibility="visible">
 
-    </TextView>
+    </Button>
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_marginTop="@dimen/margin_small"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_gravity="center"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/white"
-        android:visibility="visible" />
+        android:backgroundTint="@color/primaryColor"
+        android:indeterminateTint="@color/primaryColor"
+        android:visibility="gone" />
 </FrameLayout>

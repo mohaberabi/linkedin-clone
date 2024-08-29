@@ -12,12 +12,6 @@ class RegisterRenderer(
 ) {
 
 
-    fun bind(
-        state: RegisterState,
-    ) {
-
-    }
-
     fun bind() {
         bindName()
         bindBio()

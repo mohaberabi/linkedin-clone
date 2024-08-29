@@ -10,9 +10,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.mohaberabi.linkedinclone.register.presentation.viewmodel.RegisterEvents
 import com.mohaberabi.linkedinclone.register.presentation.viewmodel.RegisterViewModel
-import com.mohaberabi.presentation.ui.navigation.NavDeepLinks
+import com.mohaberabi.presentation.ui.navigation.AppRoutes
 import com.mohaberabi.presentation.ui.navigation.popAllAndNavigate
-import com.mohaberabi.presentation.ui.util.showSnackBar
+import com.mohaberabi.presentation.ui.util.extension.showSnackBar
 import com.mohaberabi.register.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -61,7 +61,6 @@ class RegisterFragment : Fragment() {
 
 
     private fun goToLayout() {
-        findNavController().popAllAndNavigate(NavDeepLinks.LAYOUT)
-
+        findNavController().popAllAndNavigate(AppRoutes.Layout)
     }
 }

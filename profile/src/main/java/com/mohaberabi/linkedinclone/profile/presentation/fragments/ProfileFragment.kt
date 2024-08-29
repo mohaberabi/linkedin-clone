@@ -11,9 +11,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mohaberabi.profile.databinding.FragmentProfileBinding
 import com.mohaberabi.linkedinclone.profile.presentation.viewmodel.ProfileViewModel
-import com.mohaberabi.presentation.ui.navigation.NavDeepLinks
-import com.mohaberabi.presentation.ui.navigation.deepLinkNavigate
-import com.mohaberabi.presentation.ui.util.collectLifeCycleFlow
+import com.mohaberabi.presentation.ui.navigation.AppRoutes
+import com.mohaberabi.presentation.ui.navigation.goTo
+import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,9 +25,9 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val imgPickerLauncher =
-        createImagePickerLauncher(handleImageResult(NavDeepLinks.Profile_Pic))
+        createImagePickerLauncher(handleImageResult())
     private val coverPickerLauncher =
-        createImagePickerLauncher(handleImageResult(NavDeepLinks.ViewCover))
+        createImagePickerLauncher(handleImageResult())
 
 
     override fun onCreateView(
@@ -51,11 +51,11 @@ class ProfileFragment : Fragment() {
     }
 
 
-    private fun handleImageResult(fragId: String): (Uri?) -> Unit = { uri ->
+    private fun handleImageResult(
+    ): (Uri?) -> Unit = { uri ->
         if (uri != null) {
-            findNavController().deepLinkNavigate(
-                fragmentId = fragId,
-                args = listOf("imgUri" to uri)
+            findNavController().goTo(
+                route = AppRoutes.ProfilePic(imgUri = uri.toString()),
             )
         }
     }

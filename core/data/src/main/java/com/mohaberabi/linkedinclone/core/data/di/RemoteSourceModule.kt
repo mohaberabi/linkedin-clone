@@ -6,7 +6,7 @@ import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseJobsRemoteDa
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebasePostReactionsRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebasePostsRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseRegisterRemoteDataSource
-import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseStorageStorageClient
+import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseStorageClient
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseUserRemoteDataSource
 import dagger.Binds
 import dagger.Module
@@ -45,7 +45,7 @@ abstract class RemoteSourceModule {
     @Binds
     @Singleton
     abstract fun bindStorageClient(
-        firebaseStorageStorageClient: FirebaseStorageStorageClient
+        firebaseStorageStorageClient: FirebaseStorageClient
     ): StorageClient
 
     @Binds

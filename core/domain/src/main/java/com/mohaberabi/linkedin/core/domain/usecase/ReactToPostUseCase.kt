@@ -10,8 +10,10 @@ class ReactToPostUseCase(
     suspend operator fun invoke(
         reactionType: ReactionType,
         postId: String,
+        incrementCount: Int,
     ) = reactionRepository.reactToPost(
         postId = postId,
         reactionType = reactionType,
+        incrementCount = incrementCount
     )
 }

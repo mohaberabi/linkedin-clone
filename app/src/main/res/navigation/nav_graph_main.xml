@@ -1,16 +1,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph_main"
-    app:startDestination="@id/layoutFragment">
-    <fragment
-        android:id="@+id/layoutFragment"
-        android:name="com.mohaberabi.linkedinclone.presentation.fragments.layout.LayoutFragment"
-        android:label="layoutFragment">
-        <deepLink app:uri="android-app://linked.clone.app/layoutFragment" />
-    </fragment>
+    app:startDestination="@id/nav_graph_posts">
     <include app:graph="@navigation/nav_graph_profile" />
     <include app:graph="@navigation/nav_graph_user_media" />
-    <include app:graph="@navigation/nav_graph_layout" />
     <include app:graph="@navigation/nav_graph_add_post" />
+    <include app:graph="@navigation/nav_graph_post_detail" />
+    <include app:graph="@navigation/nav_graph_posts" />
+    <include app:graph="@navigation/nav_graph_jobs" />
 
 </navigation>

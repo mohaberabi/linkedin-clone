@@ -37,7 +37,12 @@ class MainActivityViewModel @Inject constructor(
 
     private fun listenToUser() {
         getUserUseCase().onEach { currentUser ->
-            _state.update { it.copy(user = currentUser, didLoad = true) }
+            _state.update {
+                it.copy(
+                    user = currentUser,
+                    didLoad = true
+                )
+            }
         }.launchIn(viewModelScope)
     }
 }

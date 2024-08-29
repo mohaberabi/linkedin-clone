@@ -7,7 +7,7 @@ import com.mohaberabi.linkedin.core.domain.model.JobDetailModel
 import com.mohaberabi.linkedinclone.job_detail.presentation.viewmodel.JobDetailState
 import com.mohaberabi.linkedinclone.job_detail.presentation.viewmodel.JobDetailStatus
 import com.mohaberabi.presentation.ui.util.UiText
-import com.mohaberabi.presentation.ui.util.cachedImage
+import com.mohaberabi.presentation.ui.util.extension.cachedImage
 
 fun FragmentJobDetailBinding.render(state: JobDetailState) {
     when (state.state) {

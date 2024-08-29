@@ -4,8 +4,10 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mohaberabi.posts.databinding.FragmentPostsBinding
 import com.mohaberabi.presentation.ui.util.AppRecyclerViewScrollListener
-import com.mohaberabi.presentation.ui.util.submitIfDifferent
-import com.mohaberabi.presentation.ui.util.submitOnce
+import com.mohaberabi.presentation.ui.util.extension.hideAll
+import com.mohaberabi.presentation.ui.util.extension.show
+import com.mohaberabi.presentation.ui.util.extension.submitIfDifferent
+import com.mohaberabi.presentation.ui.util.extension.submitOnce
 import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsActions
 import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsState
 import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsStatus
@@ -16,38 +18,46 @@ fun FragmentPostsBinding.bind(
     onAction: (PostsActions) -> Unit,
 ) {
 
-    recyclerView.submitOnce(
-        listAdapter = adapter,
-        newLayoutManager = LinearLayoutManager(root.context),
-        scrollListener = AppRecyclerViewScrollListener(
-            isLinear = true,
-        ) {
-            onAction(PostsActions.LoadMore)
-        }
-    )
 
-    adapter.submitIfDifferent(
-        state.posts,
-    )
     when (state.state) {
         PostsStatus.Error -> {
-            loader.hide()
-            error.show()
-            error.setErrorTitle(state.error.asString(root.context))
-            recyclerView.visibility = View.GONE
+            hideAll(
+                loader,
+                recyclerView,
+            )
+            error.apply {
+                show()
+                setErrorTitle(state.error.asString(root.context))
+            }
         }
 
         PostsStatus.Populated -> {
-            recyclerView.visibility = View.VISIBLE
-            error.hide()
-            loader.hide()
+            recyclerView.submitOnce(
+                listAdapter = adapter,
+                newLayoutManager = LinearLayoutManager(root.context),
+                scrollListener = AppRecyclerViewScrollListener(
+                    isLinear = true,
+                ) {
+                    onAction(PostsActions.LoadMore)
+                }
+            )
 
+            adapter.submitIfDifferent(
+                state.posts,
+            )
+            recyclerView.show()
+            hideAll(
+                error,
+                loader
+            )
         }
 
         else -> {
             loader.show()
-            recyclerView.visibility = View.GONE
-            error.hide()
+            hideAll(
+                recyclerView,
+                error,
+            )
         }
     }
 }

@@ -35,7 +35,10 @@ class FirebaseUserRemoteDataSource @Inject constructor(
         return withContext(dispatchers.io) {
             firestore.safeCall {
                 val user =
-                    collection(EndPoints.USERS).document(uid).get().await().toObject<UserDto>()
+                    collection(EndPoints.USERS)
+                        .document(uid)
+                        .get().await()
+                        .toObject<UserDto>()
                 user?.toUserModel()
             }
         }

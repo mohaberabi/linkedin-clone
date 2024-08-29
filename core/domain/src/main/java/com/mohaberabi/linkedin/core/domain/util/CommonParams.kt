@@ -7,5 +7,7 @@ object CommonParams {
     const val REACT_COUNT = "reactionsCount"
     const val COMMENT_COUNT = "commentsCount"
     const val REPOSTS_COUNT = "repostsCount"
+    const val COMMENTED_AT_MILLIS = "commentedAtMillis"
+    const val REACTION_TYPE = "reactionType"
 
 }
