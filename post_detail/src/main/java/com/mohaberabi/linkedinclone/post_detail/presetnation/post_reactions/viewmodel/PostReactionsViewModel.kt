@@ -58,6 +58,7 @@ class PostReactionsViewModel @Inject constructor(
                 it.copy(
                     state = PostReactionsStatus.Loading,
                     reactionType = reactionType,
+                    reactions = emptyList()
                 )
             }
             getPostReactionsUseCase(

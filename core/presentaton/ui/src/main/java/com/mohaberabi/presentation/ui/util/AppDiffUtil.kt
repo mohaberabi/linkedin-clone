@@ -18,7 +18,11 @@ class AppDiffCallBack<T : Any>(
     override fun areItemsTheSame(
         oldItem: T,
         newItem: T,
-    ): Boolean = predicate(oldItem) == predicate(newItem)
+    ): Boolean {
+        val oldPredicate = predicate(oldItem)
+        val newPredicate = predicate(newItem)
+        return oldPredicate == newPredicate
+    }
 
 }
 

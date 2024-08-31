@@ -32,7 +32,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:id="@+id/nestedScroll"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,7 +54,7 @@
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@drawable/img_plcholder"
+                    android:src="@drawable/img_plcholder"
                     android:scaleType="centerCrop" />
 
                 <LinearLayout
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
                         android:textColor="@android:color/darker_gray"
-                        android:text="Location" />
+                        android:text="@string/location" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -106,13 +106,12 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:tint="?attr/colorPrimaryInverse"
                         android:src="@drawable/ic_location" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Location"
+                        android:text="@string/location"
                         android:textStyle="bold"
                         android:textSize="14sp" />
 
@@ -120,7 +119,7 @@
                         android:id="@+id/jobLocation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Job Type"
+                        android:text="@string/job_type"
                         android:textSize="14sp"
                         android:textColor="@android:color/darker_gray" />
                 </LinearLayout>
@@ -135,7 +134,6 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:tint="?attr/colorPrimaryInverse"
                         android:src="@drawable/ic_time" />
 
                     <TextView
@@ -164,7 +162,6 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:tint="?attr/colorPrimaryInverse"
                         android:src="@drawable/ic_work" />
 
                     <TextView
@@ -188,7 +185,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="About the Job"
+                android:text="@string/about_the_job"
                 android:textStyle="bold"
                 android:textSize="18sp" />
 
@@ -197,13 +194,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Job Description" />
+                android:text="@string/job_description" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Skills Required"
+                android:text="@string/skills_required"
                 android:textStyle="bold"
                 android:textSize="18sp" />
 

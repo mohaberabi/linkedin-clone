@@ -11,8 +11,8 @@ fun ReactionDto.toReactionModel() = ReactionModel(
     reactorId = reactorId,
     reactorBio = reactorBio,
     reactorImg = reactorImg,
-    createdAtMillis = createdAtMillis
-
+    createdAtMillis = createdAtMillis,
+    reactorName = reactorName,
 )
 
 fun ReactionModel.toReactionDto() = ReactionDto(
@@ -21,5 +21,6 @@ fun ReactionModel.toReactionDto() = ReactionDto(
     reactorId = reactorId,
     reactorBio = reactorBio,
     reactorImg = reactorImg,
-    createdAtMillis = createdAtMillis
+    createdAtMillis = createdAtMillis,
+    reactorName = reactorName,
 )

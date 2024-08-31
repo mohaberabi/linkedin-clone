@@ -1,20 +1,19 @@
 package com.mohaberabi.presentation.ui.navigation
 
 private object NavDeepLinks {
-    const val LAYOUT = "layoutFragment"
     const val ADD_POST = "fragment_add_post"
     const val PROFILE = "profile_fragment"
     const val Profile_Pic = "ProfilePictureFragment"
     const val POST_DETAIL = "fragment_post_detail"
     const val POST_REACTIONS = "PostReactionsFragment"
-
+    const val POSTS = "fragment_posts"
 }
 
 sealed class AppRoutes(
     val route: String,
     val args: List<Pair<String, Any>> = listOf(),
 ) {
-    data object Layout : AppRoutes(NavDeepLinks.LAYOUT)
+    data object Posts : AppRoutes(NavDeepLinks.POSTS)
     data object AddPost : AppRoutes(NavDeepLinks.ADD_POST)
     data object Profile : AppRoutes(NavDeepLinks.PROFILE)
     data class ProfilePic(val imgUri: String) : AppRoutes(

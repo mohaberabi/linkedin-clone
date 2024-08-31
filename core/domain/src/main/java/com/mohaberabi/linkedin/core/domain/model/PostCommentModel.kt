@@ -8,4 +8,5 @@ data class PostCommentModel(
     val commentImg: String,
     val comment: String,
     val postId: String,
+    val commentorName: String,
 )

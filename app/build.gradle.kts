@@ -63,4 +63,6 @@ dependencies {
     implementation(projects.core.remoteLogging)
     implementation(projects.core.remoteAnayltics)
     implementation(projects.postDetail)
+    implementation(projects.core.data)
+
 }

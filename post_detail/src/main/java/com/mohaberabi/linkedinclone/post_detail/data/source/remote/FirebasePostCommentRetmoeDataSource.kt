@@ -12,9 +12,7 @@ import com.mohaberabi.linkedinclone.post_detail.data.source.dto.CommentDto
 import com.mohaberabi.linkedinclone.post_detail.data.source.dto.mapper.toCommentDto
 import com.mohaberabi.linkedinclone.post_detail.data.source.dto.mapper.toCommentModel
 import com.mohaberabi.linkedinclone.post_detail.domain.source.remote.PostCommentRemoteDataSource
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.joinAll
-import kotlinx.coroutines.launch
+
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -24,6 +22,8 @@ class FirebasePostCommentRemoteDataSource @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val dispatchers: DispatchersProvider,
 ) : PostCommentRemoteDataSource {
+
+
     override suspend fun leaveComment(
         comment: PostCommentModel,
     ) {

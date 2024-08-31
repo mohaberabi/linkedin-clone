@@ -28,7 +28,8 @@ class DefaultPostCommentRepository @Inject constructor(
                 commenterBio = user.bio,
                 commentedAtMillis = System.currentTimeMillis(),
                 comment = comment,
-                commentImg = user.img
+                commentImg = user.img,
+                commentorName = "${user.name} ${user.lastname}"
             )
             postCommentRemoteDataSource.leaveComment(postComment)
             postComment

@@ -9,6 +9,7 @@ import com.mohaberabi.linkedin.core.domain.usecase.ReactToPostUseCase
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.CommentOnPostUseCase
+import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostCommentsUseCase
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostDetailUseCase
 import com.mohaberabi.presentation.ui.util.UiText
 import com.mohaberabi.presentation.ui.util.asUiText
@@ -27,6 +28,7 @@ class PostDetailViewModel @Inject constructor(
     private val getPostDetailUseCase: GetPostDetailUseCase,
     private val commentOnPostUseCase: CommentOnPostUseCase,
     private val reactToPostUseCase: ReactToPostUseCase,
+    private val getPostCommentsUseCase: GetPostCommentsUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -46,7 +48,7 @@ class PostDetailViewModel @Inject constructor(
     fun onAction(action: PostDetailActions) {
         when (action) {
             is PostDetailActions.CommentChanged -> commentChanged(action.comment)
-            PostDetailActions.LoadMoreComments -> Unit
+            PostDetailActions.LoadMoreComments -> loadMoreComments()
             is PostDetailActions.ReactOnPost -> reactToPost(action.reactionType)
             PostDetailActions.SubmitComment -> commentOnPost()
         }
@@ -72,7 +74,9 @@ class PostDetailViewModel @Inject constructor(
                     _state.update {
                         it.copy(
                             state = PostDetailStatus.Populated,
-                            details = postDetails,
+                            currentPost = postDetails.post,
+                            topPostReactions = postDetails.topReactions,
+                            postComments = postDetails.topComments
                         )
                     }
                 }
@@ -80,10 +84,30 @@ class PostDetailViewModel @Inject constructor(
     }
 
 
+    private fun loadMoreComments() {
+
+
+        val stateVal = _state.value
+        viewModelScope.launch {
+            getPostCommentsUseCase(
+                postId = postId!!,
+                lastDocId = stateVal.postComments.lastOrNull()?.id
+            ).onSuccess { newComments ->
+                _state.update {
+                    it.copy(
+                        postComments = it.postComments + newComments
+                    )
+                }
+            }
+        }
+
+    }
+
     private fun reactToPost(
         reactionType: ReactionType,
     ) {
         viewModelScope.launch {
+
 
         }
     }
@@ -118,14 +142,12 @@ class PostDetailViewModel @Inject constructor(
         comment: PostCommentModel,
     ) {
         _state.update {
-            val currentDetails = it.details
-            val currentPost = currentDetails?.post
             it.copy(
                 postComment = "",
-                details = currentDetails?.copy(
-                    post = currentPost?.copy(commentsCount = currentPost.commentsCount + 1),
-                    topComments = listOf(comment) + currentDetails.topComments,
-                )
+                currentPost = it.currentPost?.copy(
+                    commentsCount = it.currentPost.commentsCount + 1,
+                ),
+                postComments = listOf(comment) + it.postComments
             )
         }
     }

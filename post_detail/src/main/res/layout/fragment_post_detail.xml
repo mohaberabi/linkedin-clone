@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:layout_marginBottom="80dp"
         android:layout_above="@id/leaveCommentArea">
 
         <LinearLayout
@@ -99,7 +99,6 @@
         android:layout_height="80dp"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
-        android:layout_margin="@dimen/margin_medium"
         android:id="@+id/leaveCommentArea"
         android:gravity="center_vertical">
 

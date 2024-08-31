@@ -8,6 +8,7 @@ import com.mohaberabi.linkedinclone.post_detail.presetnation.post_details.fragme
 import com.mohaberabi.linkedinclone.post_detail.presetnation.post_details.viewmodel.PostDetailActions
 import com.mohaberabi.linkedinclone.post_detail.presetnation.post_details.viewmodel.PostDetailState
 import com.mohaberabi.linkedinclone.post_detail.presetnation.post_details.viewmodel.PostDetailStatus
+import com.mohaberabi.presentation.ui.util.AppRecyclerViewScrollListener
 import com.mohaberabi.presentation.ui.util.extension.hideAll
 import com.mohaberabi.presentation.ui.util.extension.showAll
 import com.mohaberabi.presentation.ui.util.extension.submitIfDifferent
@@ -15,12 +16,24 @@ import com.mohaberabi.presentation.ui.util.extension.submitOnce
 import com.mohaberabi.presentation.ui.views.post_item.PostClickCallBacks
 
 
-fun FragmentPostDetailBinding.bind(
+fun FragmentPostDetailBinding.setup(
+    onAction: (PostDetailActions) -> Unit,
+) {
+    commentTextField.addTextChangedListener {
+        onAction(PostDetailActions.CommentChanged(it.toString()))
+    }
+    commentOnPostButton.setButtonClickListener {
+        onAction(PostDetailActions.SubmitComment)
+    }
+
+}
+
+fun FragmentPostDetailBinding.bindWithState(
     state: PostDetailState,
     reactorsAdapter: PostDetailReactorsAdapter,
     commentAdapter: CommentorListAdapter,
     onPostClickCallbacks: PostClickCallBacks = PostClickCallBacks(),
-    onAction: (PostDetailActions) -> Unit,
+    onLoadMoreComments: () -> Unit
 ) {
 
     val populatedViews = arrayOf(
@@ -49,31 +62,25 @@ fun FragmentPostDetailBinding.bind(
         }
 
         PostDetailStatus.Populated -> {
-            commentTextField.addTextChangedListener {
-                onAction(PostDetailActions.CommentChanged(it.toString()))
-            }
+
             with(
                 commentOnPostButton,
             ) {
                 setLoading(state.commentLoading)
                 setEnable(state.canComment)
-                setButtonClickListener {
-                    onAction(PostDetailActions.SubmitComment)
-                }
+
             }
-            state.details?.let { detail ->
-                reactorsAdapter.submitIfDifferent(
-                    detail.topReactions,
+            reactorsAdapter.submitIfDifferent(
+                state.topPostReactions,
+            )
+            commentAdapter.submitIfDifferent(
+                state.postComments,
+            )
+            state.currentPost?.let {
+                postData.bindFromPost(
+                    post = it,
+                    onClickCallBacks = onPostClickCallbacks
                 )
-                commentAdapter.submitIfDifferent(
-                    detail.topComments,
-                )
-                detail.post?.let { post ->
-                    postData.bindFromPost(
-                        post = post,
-                        onClickCallBacks = onPostClickCallbacks
-                    )
-                }
                 reactorsRecyclerView.submitOnce(
                     newLayoutManager = LinearLayoutManager(
                         root.context,
@@ -83,7 +90,13 @@ fun FragmentPostDetailBinding.bind(
                     listAdapter = reactorsAdapter
                 )
 
+                commentsRecyclerView.isNestedScrollingEnabled = false
                 commentsRecyclerView.submitOnce(
+                    scrollListener = AppRecyclerViewScrollListener(
+                        onPaginate = { onLoadMoreComments() },
+                        isLinear = true,
+                        threshold = 5,
+                    ),
                     newLayoutManager = LinearLayoutManager(
                         root.context,
                     ),

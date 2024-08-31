@@ -11,6 +11,7 @@ import com.mohaberabi.linkedinclone.post_detail.databinding.ReactorListItemBindi
 import com.mohaberabi.presentation.ui.util.AppListAdapter
 import com.mohaberabi.presentation.ui.util.extension.cachedImage
 import com.mohaberabi.presentation.ui.util.extension.icon
+import com.mohaberabi.presentation.ui.util.toTimeAgo
 
 class CommentorListAdapter :
     AppListAdapter<PostCommentModel, CommentorListAdapter.CommentViewHolder>(
@@ -24,8 +25,10 @@ class CommentorListAdapter :
     ) : ViewHolder(binding.root) {
         fun bind(comment: PostCommentModel) {
             with(binding) {
+                val timeAgo = comment.commentedAtMillis.toTimeAgo(root.context)
                 commenterAvatar.cachedImage(comment.commentImg)
                 commentText.text = comment.comment
+                commenterNameTime.text = "${comment.commentorName}-${timeAgo}"
             }
         }
     }

@@ -1,13 +1,32 @@
 {
   "project_info": {
-    "project_number": "775669415818",
-    "project_id": "linkedinclonedev",
-    "storage_bucket": "linkedinclonedev.appspot.com"
+    "project_number": "380475229809",
+    "project_id": "linkedinclonedevelopment",
+    "storage_bucket": "linkedinclonedevelopment.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:775669415818:android:66c1578c7afe2d7e6e5273",
+        "mobilesdk_app_id": "1:380475229809:android:b2ecb0bd7f1421d6a77dd0",
+        "android_client_info": {
+          "package_name": "com.mohaberabi.linkedinclone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHmLFrSjKjc05YfMAue2nNcJfasTGznJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380475229809:android:872ea6cdefcff6ffa77dd0",
         "android_client_info": {
           "package_name": "com.mohaberabi.linkedinclone.dev"
         }
@@ -15,7 +34,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBHT5j7nK6IF_2ynMIKTCN6Y7D77qZCWic"
+          "current_key": "AIzaSyAHmLFrSjKjc05YfMAue2nNcJfasTGznJI"
         }
       ],
       "services": {

@@ -41,10 +41,9 @@ class DefaultPostDetailRepository @Inject constructor(
                             postId = postId,
                         )
                     }.await()
-
                     val detail = PostDetailModel(
-                        topReactions = topReactions.ifEmpty { testReactions },
-                        topComments = topComments.ifEmpty { testComments },
+                        topReactions = topReactions,
+                        topComments = topComments,
                         post = it,
                     )
                     AppResult.Done(detail)
@@ -57,36 +56,3 @@ class DefaultPostDetailRepository @Inject constructor(
 
 }
 
-private val testComments = buildList {
-
-
-    repeat(40) {
-        add(
-            PostCommentModel(
-                postId = "",
-                comment = "Hey i found this lsoer mohab erbai he says that he is a programmer hahahahaahahah",
-                commentedAtMillis = System.currentTimeMillis(),
-                commenterId = "",
-                commenterBio = "I Am A Big Loser $it",
-                commentImg = "https://firebasestorage.googleapis.com/v0/b/linkedinclonedev.appspot.com/o/users%2Fimages%2FcBlQ5Lxj0Zgsl9D2wkQa1P0MSXz1?alt=media&token=9994412f-9fa9-440d-9560-36be31612b30",
-                id = "$it"
-            )
-        )
-    }
-}
-private val testReactions = buildList {
-
-
-    repeat(40) {
-        add(
-            ReactionModel(
-                postId = "",
-                reactionType = ReactionType.entries[Random.nextInt(ReactionType.entries.size)],
-                createdAtMillis = System.currentTimeMillis(),
-                reactorId = "",
-                reactorBio = "I Am A Big Loser $it",
-                reactorImg = "https://firebasestorage.googleapis.com/v0/b/linkedinclonedev.appspot.com/o/users%2Fimages%2FcBlQ5Lxj0Zgsl9D2wkQa1P0MSXz1?alt=media&token=9994412f-9fa9-440d-9560-36be31612b30"
-            )
-        )
-    }
-}

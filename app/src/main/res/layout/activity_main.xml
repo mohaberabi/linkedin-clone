@@ -4,53 +4,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <com.mohaberabi.presentation.ui.views.MainAppBar
             android:id="@+id/appBar"
             android:layout_width="match_parent"
-            android:layout_marginTop="60dp"
             android:layout_height="?attr/actionBarSize"
-            app:showBackArrow="false"
+            android:layout_alignParentTop="true"
             app:showAvatar="true"
-            android:visibility="visible"
             app:showTextField="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:visibility="visible" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appBar"
+            android:layout_above="@id/bottomNavigationView"
             app:defaultNavHost="true"
-            app:layout_constraintTop_toBottomOf="@id/appBar"
-            app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:navGraph="@navigation/nav_graph_main" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:background="@color/white"
-            app:menu="@menu/bottom_nav_menu"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:menu="@menu/bottom_nav_menu" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/appDrawerView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:layout_gravity="start"
+        android:background="@color/white"
         app:headerLayout="@layout/nav_header" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

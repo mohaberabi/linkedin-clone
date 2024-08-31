@@ -19,12 +19,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PostReactionsFragment : Fragment() {
 
-
-    private lateinit var reactorsListAdapter: ReactorsListAdapter
-
     private val viewModel by viewModels<PostReactionsViewModel>()
     private var _binding: FragmentPostReactionsBinding? = null
     private val binding get() = _binding!!
+    private lateinit var reactorsListAdapter: ReactorsListAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -38,26 +38,5 @@ class FirebaseJobsRemoteDataSource @Inject constructor(
         }
     }
 
-//    private fun addDummyData() {
-//        val dummyJobs = generateDummyJobs(100)
-//        dummyJobs.forEach { jobDto ->
-//            firestore.collection(EndPoints.JOBS)
-//                .document(jobDto.id)
-//                .set(jobDto)
-//        }
-//    }
-//
-//    private fun generateDummyJobs(count: Int): List<JobDto> {
-//        return (1..count).map { index ->
-//            JobDto(
-//                id = "job${index}",
-//                company = "Google LTD",
-//                companyLogo = "https://cdn2.hubspot.net/hubfs/53/image8-2.jpg",
-//                jobTitle = "Software Engineer not  mohab erabi ${index}",
-//                jobPlace = "Any Where mohab erabi is not at",
-//                postedAtMillis = System.currentTimeMillis() - (index * 1000L * 60 * 60 * 24)
-//            )
-//        }
-//    }
 }
 

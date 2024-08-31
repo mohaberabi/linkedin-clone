@@ -8,4 +8,5 @@ data class ReactionModel(
     val reactorImg: String,
     val reactionType: ReactionType,
     val createdAtMillis: Long,
+    val reactorName: String,
 )

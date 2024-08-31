@@ -1,7 +1,7 @@
 package com.mohaberabi.linkedinclone.presentation.activity
 
-import android.view.View
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import coil.transform.CircleCropTransformation
@@ -13,9 +13,7 @@ import com.mohaberabi.presentation.ui.navigation.AppRoutes
 import com.mohaberabi.presentation.ui.navigation.goTo
 import com.mohaberabi.presentation.ui.util.extension.cachedImage
 import com.mohaberabi.presentation.ui.util.extension.hide
-import com.mohaberabi.presentation.ui.util.extension.hideAll
 import com.mohaberabi.presentation.ui.util.extension.show
-import com.mohaberabi.presentation.ui.util.extension.showAll
 import com.mohaberabi.presentation.ui.util.openDrawer
 
 fun ActivityMainBinding.bind(
@@ -44,23 +42,24 @@ fun ActivityMainBinding.bind(
     }
 }
 
+
 fun ActivityMainBinding.listenToNavGraphDestinations(
     navController: NavController,
 ) {
-    bottomNavigationView.setupWithNavController(navController)
     navController.addOnDestinationChangedListener { _, destination, _ ->
         when (destination.id) {
+
             com.mohaberabi.posts.R.id.postsFragment,
             com.mohaberabi.jobs.R.id.jobsFragments -> {
                 bottomNavigationView.show()
-                appBar.showAvatar(true)
                 appBar.showSearchField(true)
+                appBar.showAvatar(true)
             }
 
             else -> {
-                appBar.showAvatar(false)
-                appBar.showSearchField(false)
                 bottomNavigationView.hide()
+                appBar.showSearchField(false)
+                appBar.showAvatar(false)
             }
         }
     }

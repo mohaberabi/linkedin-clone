@@ -9,6 +9,7 @@ data class CommentDto(
     val commentImg: String,
     val comment: String,
     val postId: String,
+    val commentorName: String,
 ) {
     constructor() : this(
         "",
@@ -18,5 +19,6 @@ data class CommentDto(
         "",
         "",
         "",
+        ""
     )
 }

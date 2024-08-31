@@ -1,17 +1,12 @@
 package com.mohaberabi.linkedinclone.presentation.activity
 
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.mohaberabi.linkedin.core.domain.util.AppBottomSheet
-import com.mohaberabi.linkedin.core.domain.util.AppDrawerActions
 import com.mohaberabi.linkedin.core.domain.util.BottomSheetAction
-import com.mohaberabi.linkedin.core.domain.util.NavigationCommand
 import com.mohaberabi.linkedinclone.R
 import com.mohaberabi.linkedinclone.job_detail.presentation.fragment.JobDetailFragment
-import com.mohaberabi.presentation.ui.navigation.goTo
 import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
-import kotlinx.coroutines.launch
 
 
 fun MainActivity.rootNavController(): NavController {

@@ -5,21 +5,23 @@ import com.mohaberabi.linkedinclone.post_detail.data.source.dto.CommentDto
 
 
 fun CommentDto.toCommentModel() = PostCommentModel(
-    id,
-    commenterId,
-    commenterBio,
-    commentedAtMillis,
-    commentImg,
-    comment,
-    postId
+    id = id,
+    commenterId = commenterId,
+    commenterBio = commenterBio,
+    commentedAtMillis = commentedAtMillis,
+    commentImg = commentImg,
+    comment = comment,
+    postId = postId,
+    commentorName = commentorName
 )
 
 fun PostCommentModel.toCommentDto() = CommentDto(
-    id,
-    commenterId,
-    commenterBio,
-    commentedAtMillis,
-    commentImg,
-    comment,
-    postId
+    id = id,
+    commenterId = commenterId,
+    commenterBio = commenterBio,
+    commentedAtMillis = commentedAtMillis,
+    commentImg = commentImg,
+    comment = comment,
+    postId = postId,
+    commentorName = commentorName
 )

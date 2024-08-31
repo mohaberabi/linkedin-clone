@@ -8,6 +8,11 @@ import androidx.navigation.NavOptions
 
 private const val APP_DOMAIN = "android-app://linked.clone.app/"
 
+
+private val defaultNavOptions = NavOptions.Builder()
+    .setRestoreState(true)
+    .build()
+
 fun NavController.goTo(
     route: AppRoutes,
 ) {
@@ -41,7 +46,7 @@ fun NavController.goTo(
     val request = NavDeepLinkRequest.Builder
         .fromUri(uri)
         .build()
-    navigate(request)
+    navigate(request, defaultNavOptions)
 }
 
 fun NavController.popAllAndNavigate(

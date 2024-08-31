@@ -1,4 +1,4 @@
-package com.mohaberabi.linkedinclone.register.presentation.fragment
+package com.mohaberabi.linkedinclone.register.presentation.register.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.mohaberabi.linkedinclone.register.presentation.viewmodel.RegisterEvents
-import com.mohaberabi.linkedinclone.register.presentation.viewmodel.RegisterViewModel
+import com.mohaberabi.linkedinclone.register.presentation.register.viewmodel.RegisterEvents
+import com.mohaberabi.linkedinclone.register.presentation.register.viewmodel.RegisterViewModel
 import com.mohaberabi.presentation.ui.navigation.AppRoutes
 import com.mohaberabi.presentation.ui.navigation.popAllAndNavigate
+import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
 import com.mohaberabi.presentation.ui.util.extension.showSnackBar
 import com.mohaberabi.register.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +24,6 @@ class RegisterFragment : Fragment() {
     private val viewmodel by viewModels<RegisterViewModel>()
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
-    private lateinit var renderer: RegisterRenderer
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,32 +35,33 @@ class RegisterFragment : Fragment() {
             false
         )
 
-        renderer = RegisterRenderer(
-            onAction = viewmodel::onAction,
-            binding = binding
-        ).also {
-            it.bind()
+        binding.setup(
+            onAction = viewmodel::onAction
+        )
+        collectLifeCycleFlow(
+            viewmodel.state,
+        ) { state ->
+            binding.bindWithRegisterState(
+                state,
+            )
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewmodel.event.collect { event ->
-                when (event) {
-                    is RegisterEvents.Error -> binding.root.showSnackBar(
-                        event.error.asString(
-                            requireContext()
-                        )
-                    )
 
-                    RegisterEvents.Registered -> goToLayout()
-                }
-
+        collectLifeCycleFlow(
+            viewmodel.event,
+        ) { event ->
+            when (event) {
+                is RegisterEvents.Error -> binding.root.showSnackBar(event.error)
+                RegisterEvents.Registered -> goHome()
             }
+
         }
+
         return binding.root
     }
 
 
-    private fun goToLayout() {
-        findNavController().popAllAndNavigate(AppRoutes.Layout)
+    private fun goHome() {
+        findNavController().popAllAndNavigate(AppRoutes.Posts)
     }
 }

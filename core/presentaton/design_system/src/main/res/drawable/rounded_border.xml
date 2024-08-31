@@ -1,5 +1,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <corners android:radius="24dp" />
-    <stroke android:width="1dp" android:color="@color/mediumGray" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/mediumGray" />
+    <item android:drawable="@android:color/transparent" />
 </shape>

@@ -96,7 +96,8 @@
         android:id="@+id/registerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="true"
+        app:buttonWidth="256dp"
+        app:buttonText="Create account"
         android:padding="12dp" />
 
 

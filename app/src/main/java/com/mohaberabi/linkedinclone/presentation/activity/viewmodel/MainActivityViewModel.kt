@@ -21,28 +21,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    private val getUserUseCase: ListenToCurrentUserUseCase,
+    getUserUseCase: ListenToCurrentUserUseCase,
 ) : ViewModel() {
+    val state =
+        getUserUseCase().map { user ->
+            MainActivityState(
+                didLoad = true,
+                user = user
+            )
+        }.stateIn(
+            viewModelScope,
+            SharingStarted.Eagerly,
+            MainActivityState()
+        )
 
-
-    private val _state = MutableStateFlow(MainActivityState())
-
-    val state = _state.asStateFlow()
-
-
-    init {
-        listenToUser()
-    }
-
-
-    private fun listenToUser() {
-        getUserUseCase().onEach { currentUser ->
-            _state.update {
-                it.copy(
-                    user = currentUser,
-                    didLoad = true
-                )
-            }
-        }.launchIn(viewModelScope)
-    }
 }

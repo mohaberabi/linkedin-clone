@@ -5,15 +5,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dp"
-    android:gravity="center_horizontal"
+    android:gravity="center"
     android:background="@color/white">
 
     <ImageView
         android:id="@+id/linkedinLogo"
 
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/img_plcholder"
+        android:layout_width="165dp"
+        android:layout_height="50dp"
+        android:src="@drawable/logo"
         android:contentDescription="@string/linkedin_logo"
         android:layout_gravity="center"
         android:layout_marginBottom="24dp" />
@@ -52,7 +52,7 @@
             android:id="@+id/emailOrPhoneField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email address"
+            android:hint="@string/email_address"
             android:textColor="@color/black"
             android:textColorHint="@color/gray" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -80,6 +80,7 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <TextView
         android:id="@+id/forgotPassword"
         android:layout_width="wrap_content"
@@ -89,53 +90,12 @@
         android:textColor="@color/primaryColor"
         android:layout_marginBottom="24dp" />
 
-    <Button
+    <com.mohaberabi.presentation.ui.views.AppButton
         android:id="@+id/signInButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign in"
-        android:textColor="@color/white"
-        android:background="@drawable/rounded"
-        android:textStyle="bold"
-        android:backgroundTint="@color/primaryColor"
-        android:layout_marginBottom="16dp"
-        android:padding="12dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginBottom="24dp">
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/lightGray" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="or"
-            android:textColor="@color/gray"
-            android:layout_marginHorizontal="8dp" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"
-            android:background="@color/lightGray" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/signInWithGoogle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_in_with_google"
-        android:padding="12dp"
-        android:drawableLeft="@drawable/ic_work"
-        android:background="@drawable/rounded_border"
-        android:gravity="center_horizontal" />
+        app:buttonHeight="50dp"
+        app:buttonWidth="300dp"
+        app:buttonText="Sign in" />
 
 </LinearLayout>

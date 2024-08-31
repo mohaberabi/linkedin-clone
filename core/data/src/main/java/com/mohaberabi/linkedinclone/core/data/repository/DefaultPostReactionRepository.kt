@@ -32,7 +32,8 @@ class DefaultPostReactionRepository @Inject constructor(
                 reactorImg = user.img,
                 reactorBio = user.bio,
                 createdAtMillis = System.currentTimeMillis(),
-                postId = postId
+                postId = postId,
+                reactorName = "${user.name} ${user.lastname}"
             )
             reactionsRemoteDataSource.reactToPost(
                 reaction = reaction,

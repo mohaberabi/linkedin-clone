@@ -3,4 +3,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="full_time">Full Time</string>
     <string name="time">Time</string>
+    <string name="location">Location</string>
+    <string name="job_type">Job Type</string>
+    <string name="about_the_job">About the Job</string>
+    <string name="job_description">Job Description</string>
+    <string name="skills_required">Skills Required</string>
 </resources>

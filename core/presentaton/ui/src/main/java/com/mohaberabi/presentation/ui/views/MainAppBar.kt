@@ -9,6 +9,7 @@ import coil.transform.CircleCropTransformation
 import com.mohaberabi.core.presentation.ui.R
 import com.mohaberabi.core.presentation.ui.databinding.MainAppBarBinding
 import com.mohaberabi.presentation.ui.util.extension.cachedImage
+import com.mohaberabi.presentation.ui.util.extension.show
 
 class MainAppBar @JvmOverloads constructor(
     context: Context,
@@ -30,6 +31,7 @@ class MainAppBar @JvmOverloads constructor(
             0
         ).apply {
             try {
+                setTitle(null)
                 val showAvatar = getBoolean(
                     R.styleable.MainAppBar_showAvatar,
                     true
@@ -62,9 +64,9 @@ class MainAppBar @JvmOverloads constructor(
     }
 
 
-    fun setTitle(text: String) {
+    fun setRouteTitle(text: String) {
+        binding.toolbarTitle.show()
         binding.toolbarTitle.text = text
-        binding.toolbarTitle.visibility = View.VISIBLE
     }
 
     fun showAvatar(show: Boolean) {

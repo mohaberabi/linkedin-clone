@@ -7,8 +7,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/avatarImage"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_margin="@dimen/margin_small"
         android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/roundedImageView"

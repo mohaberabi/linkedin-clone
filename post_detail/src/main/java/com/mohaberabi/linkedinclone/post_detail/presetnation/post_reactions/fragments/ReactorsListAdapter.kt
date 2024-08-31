@@ -30,7 +30,7 @@ class ReactorsListAdapter : AppListAdapter<ReactionModel, ReactorsListAdapter.Re
                 userAvatar.cachedImage(
                     reactor.reactorImg,
                 )
-                userName.text = "Mohab Erabi"
+                userName.text = reactor.reactorName
                 userBio.text = reactor.reactorBio
             }
         }

@@ -1,29 +1,39 @@
 package com.mohaberabi.linkedinclone.presentation.activity
 
 import android.os.Bundle
-import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.firestore.FirebaseFirestore
 import com.mohaberabi.linedinclone.core.remote_anayltics.domain.AppAnalytics
 import com.mohaberabi.linkedin.core.domain.util.AppBottomSheetShower
-import com.mohaberabi.linkedin.core.domain.util.DrawerController
-import com.mohaberabi.linkedin.core.domain.util.GlobalNavigator
-import com.mohaberabi.linkedinclone.R
+import com.mohaberabi.linkedin.core.domain.util.EndPoints
+import com.mohaberabi.linkedinclone.core.data.source.fake.FakeComments
+import com.mohaberabi.linkedinclone.core.data.source.fake.FakeJobDetails
+import com.mohaberabi.linkedinclone.core.data.source.fake.FakeJobs
+import com.mohaberabi.linkedinclone.core.data.source.fake.FakePosts
+import com.mohaberabi.linkedinclone.core.data.source.fake.FakeReactions
 import com.mohaberabi.linkedinclone.presentation.activity.viewmodel.MainActivityViewModel
 import com.mohaberabi.linkedinclone.databinding.ActivityMainBinding
 import com.mohaberabi.presentation.ui.navigation.AppRoutes
 import com.mohaberabi.presentation.ui.navigation.goTo
 import com.mohaberabi.presentation.ui.util.closeDrawer
-import com.mohaberabi.presentation.ui.util.openDrawer
 import com.mohaberabi.presentation.ui.util.extension.addDefaultPaddings
 import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -39,6 +49,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var sheetShower: AppBottomSheetShower
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         anayltics.logEvent(
@@ -47,30 +59,37 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         val splash = installSplashScreen()
         _binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(
+            binding.root,
+        )
+        setSupportActionBar(
+            binding.appBar,
+        )
+        setupAppBar()
         splash.setKeepOnScreenCondition {
             !viewmodel.state.value.didLoad
         }
         addDefaultPaddings(
             rootView = binding.root,
         )
-        setupAppBar()
         observeState()
         observeGlobalBottomSheet()
-        binding.listenToNavGraphDestinations(
-            rootNavController(),
-        )
+        with(
+            binding,
+        ) {
+            bottomNavigationView.setupWithNavController(
+                navController = rootNavController(),
+            )
+            listenToNavGraphDestinations(
+                navController = rootNavController(),
+            )
+        }
     }
-
 
     private fun observeState() {
         collectLifeCycleFlow(
             viewmodel.state,
         ) { state ->
-            handleStartNavGraph(
-                loggedIn = state.user != null,
-                didLoad = state.didLoad
-            )
             binding.bind(
                 state = state,
                 onGoProfile = { goToProfile() }
@@ -85,14 +104,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun handleStartNavGraph(
-        loggedIn: Boolean,
-        didLoad: Boolean
-    ) {
-
-    }
-
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
@@ -103,9 +114,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNavViews = setOf(
             com.mohaberabi.posts.R.id.postsFragment,
             com.mohaberabi.jobs.R.id.jobsFragments,
-        )
-        setSupportActionBar(
-            binding.appBar,
+            com.mohaberabi.user_media.R.id.profilePictureFragment,
         )
         appBarConfiguration = AppBarConfiguration(
             bottomNavViews,
@@ -117,9 +126,11 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+
     override fun onSupportNavigateUp(): Boolean {
         return rootNavController().navigateUp() || super.onSupportNavigateUp()
     }
+
 }
 
 

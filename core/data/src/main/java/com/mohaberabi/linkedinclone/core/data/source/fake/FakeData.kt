@@ -1,0 +1,90 @@
+package com.mohaberabi.linkedinclone.core.data.source.fake
+
+val images = listOf(
+    "https://hbr.org/resources/images/article_assets/2022/11/S5-E01_Roslansky_Thumbnail.jpg",
+    "https://cdn.britannica.com/99/236599-050-1199AD2C/Mark-Zuckerberg-2019.jpg",
+    "https://static.independent.co.uk/s3fs-public/thumbnails/image/2015/08/11/22/pg-53-google-ap.jpg"
+)
+
+val names = listOf(
+    "Mohamed Hassan", "Ahmed Ali", "Sara Youssef", "Khaled Ibrahim",
+    "Amr Diab", "Nour ElSherif", "Mona Zaki", "Tamer Hosny",
+    "Yasmine Abdelaziz", "Karim Abd ElAziz", "Mohab Erabi",
+    "Hend Sabry", "Sherif Mounir", "Ramy Emam", "Ahmed Mekky",
+    "Menna Shalaby", "Amr Youssef", "Hanan Turk", "Maged El Kedwany",
+    "Ahmed Helmy", "Yousra El Lozy", "Mohamed El Sharnouby",
+    "Asser Yassin", "Hana Shiha", "Ahmed Fahmy", "Ahmed El Sakka",
+    "Ahmed Ezz", "Khaled El Sawy", "Mohamed Ramadan",
+    "Mohamed Imam", "Dina El Sherbiny", "Amr Waked",
+    "Basem Youssef", "Mohamed Heneidy", "Ahmed Khairy",
+    "Ali Rabie", "Ahmed Zaher", "Aya Samir", "Hesham Maged",
+    "Mohamed Salah", "Abla Fahita", "Rania Youssef",
+    "Amr Khaled", "Hany Ramzy", "Mostafa Shaban",
+    "Mervat Amin", "Samiha Ayoub", "Ghada Adel",
+    "Mai Ezz Eldin", "Somaya El Khashab", "Yasmine Sabry"
+)
+
+val bios = listOf(
+    "Passionate Android developer with 5 years of experience.",
+    "Kotlin enthusiast and Android developer.",
+    "Android engineer focused on building seamless mobile experiences.",
+    "Senior Android developer with expertise in Kotlin.",
+    "Android architect specialized in mobile UX.",
+    "Android enthusiast and Kotlin lover.",
+    "Mobile developer with a passion for Android development.",
+    "Experienced Android developer, always learning.",
+    "Android and Kotlin developer with a knack for problem-solving.",
+    "Building awesome Android apps, one line of code at a time."
+)
+
+val postData = listOf(
+    "Just started working on a new Android project using Jetpack Compose!",
+    "Kotlin is a game-changer for Android development.",
+    "Exploring the new Android 12 features, and they are amazing!",
+    "Does anyone have tips for optimizing RecyclerView performance?",
+    "Recently migrated an old project to Kotlin. Loving the simplicity and safety.",
+    "Been experimenting with Coroutines in Android. It simplifies async code so much!",
+    "Jetpack Compose is the future of Android UI. Just tried it, and I’m impressed!",
+    "Debugging Android apps can be challenging, but the new tools are a big help.",
+    "Learning more about Android’s scoped storage. It’s crucial for privacy.",
+    "Released a new update for my Android app. The feedback has been great!",
+    "Finally mastered Android’s Navigation Component. No more manual backstack handling!",
+    "Started using WorkManager for background tasks. It’s powerful and flexible.",
+    "Working on implementing dynamic themes in my Android app.",
+    "Android development has come a long way. Excited about the future!",
+    "Tried Kotlin Multiplatform recently. Sharing code between Android and iOS is fantastic!",
+    "What’s your favorite Android library? Mine is Retrofit.",
+    "Do you prefer LiveData or StateFlow for Android development?",
+    "Optimizing an Android app’s performance is like solving a complex puzzle.",
+    "Working on an Android app that heavily uses Room. It’s a lifesaver for local storage.",
+    "Android’s WorkManager is great for handling background tasks reliably.",
+    "Have you tried Android’s new Jetpack libraries? They make development so much easier.",
+    "Kotlin’s extension functions are powerful! Made my Android code so much cleaner.",
+    "Android’s ViewModel and LiveData combo is great for managing UI-related data.",
+    "Created a custom view in Android today. It’s challenging but rewarding.",
+    "Been using Android’s Material Design components. They look great and are easy to use.",
+    "Async tasks in Android can be tricky, but Kotlin’s coroutines make them much easier.",
+    "Started exploring Android’s CameraX library. It’s super convenient for camera apps.",
+    "What’s your go-to architecture for Android apps? I’m using MVVM.",
+    "Migrating my Android app to Jetpack Compose. Loving the declarative UI approach!",
+    "Just integrated Firebase into my Android app. Realtime database is incredible!",
+    "Android’s WorkManager saved me a lot of time with background task management.",
+    "Kotlin’s Flow is fantastic for handling streams of data in Android.",
+    "Just implemented deep links in my Android app. Seamless user experience!",
+    "Trying out the new Android animations API. Smooth transitions everywhere!",
+    "Building a complex UI in Android? Jetpack Compose makes it much easier.",
+    "The Android community is awesome. Learned a lot from fellow developers!",
+    "Experimenting with Android’s In-App Review API. User feedback is so important.",
+    "Using Dagger-Hilt for dependency injection in my Android app. Simplifies a lot!",
+    "Just finished a big refactor in my Android codebase. Feels so satisfying!",
+    "The more I use Kotlin, the more I love Android development.",
+    "Been exploring Android’s accessibility features. Crucial for inclusive apps!",
+    "Just deployed my Android app to the Play Store. It’s live!",
+    "Working on an Android library for the first time. Exciting and challenging!",
+    "Just added in-app purchases to my Android app. The integration was smoother than I expected.",
+    "Using Jetpack Compose for a new Android project. UI development is so fast!",
+    "Tried Kotlin Multiplatform for shared code in Android and iOS. It’s promising!",
+    "Just implemented biometric authentication in my Android app. Security first!",
+    "Learning more about Android’s data binding. It’s powerful but can be tricky.",
+    "Excited about the new Jetpack Compose features in Android Studio Arctic Fox!"
+)

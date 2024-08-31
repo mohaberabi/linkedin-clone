@@ -14,6 +14,7 @@ import com.mohaberabi.linkedinclone.post_detail.domain.repository.PostCommentRep
 import com.mohaberabi.linkedinclone.post_detail.domain.repository.PostDetailRepository
 import com.mohaberabi.linkedinclone.post_detail.domain.source.remote.PostCommentRemoteDataSource
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.CommentOnPostUseCase
+import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostCommentsUseCase
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostDetailUseCase
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostReactionsUseCase
 import dagger.Module
@@ -76,4 +77,10 @@ object PostDetailModule {
     fun provideGetPostReactionsUseCase(
         repo: PostsReactionRepository
     ) = GetPostReactionsUseCase(repo)
+
+    @Singleton
+    @Provides
+    fun provideGetPostCommentUseCase(
+        repo: PostCommentRepository
+    ) = GetPostCommentsUseCase(repo)
 }

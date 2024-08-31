@@ -2,7 +2,7 @@ package com.mohaberabi.linkedinclone.register
 
 
 import com.mohaberabi.linkedin.core.domain.repository.RegisterRepository
-import com.mohaberabi.linkedinclone.register.usecase.RegisterUsecase
+import com.mohaberabi.linkedinclone.register.domain.usecase.RegisterUsecase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,5 +19,5 @@ object RegisterModule {
     ): RegisterUsecase {
         return RegisterUsecase(registerRepository)
     }
-    
+
 }

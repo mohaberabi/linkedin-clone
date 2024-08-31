@@ -1,4 +1,4 @@
-package com.mohaberabi.linkedinclone.register.presentation.viewmodel
+package com.mohaberabi.linkedinclone.register.presentation.register.viewmodel
 
 
 data class RegisterState(

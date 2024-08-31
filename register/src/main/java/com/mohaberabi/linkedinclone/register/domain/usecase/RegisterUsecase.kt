@@ -1,4 +1,4 @@
-package com.mohaberabi.linkedinclone.register.usecase
+package com.mohaberabi.linkedinclone.register.domain.usecase
 
 import com.mohaberabi.linkedin.core.domain.repository.RegisterRepository
 import javax.inject.Inject
