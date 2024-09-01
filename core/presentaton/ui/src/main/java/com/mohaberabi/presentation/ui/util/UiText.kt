@@ -7,6 +7,7 @@ import com.mohaberabi.linkedin.core.domain.error.AppError
 import com.mohaberabi.linkedin.core.domain.error.CommonError
 import com.mohaberabi.linkedin.core.domain.error.LocalError
 import com.mohaberabi.linkedin.core.domain.error.RemoteError
+import com.mohaberabi.linkedin.core.domain.model.InputInvalidReason
 
 
 sealed class UiText {
@@ -52,6 +53,7 @@ fun AppError.asUiText(): UiText {
             when (this) {
                 CommonError.IO_ERROR -> R.string.unknown_error
                 CommonError.UNKNOWN -> R.string.unknown_error
+                CommonError.ILLEGAL_STATE -> R.string.unknown_error
             }
         }
 
@@ -78,10 +80,7 @@ fun AppError.asUiText(): UiText {
         is LocalError -> {
             when (this) {
                 LocalError.DISK_FULL -> R.string.disk_full
-                LocalError.UNKNOWN -> R.string.unknown_error
-                LocalError.IO -> R.string.disk_full
                 LocalError.DATA_CORRUPTION -> R.string.unknown_error
-                LocalError.ILLEGAL_STATE -> R.string.unknown_error
             }
         }
 
@@ -89,3 +88,20 @@ fun AppError.asUiText(): UiText {
     }
     return UiText.StringResources(id)
 }
+
+
+fun InputInvalidReason.asUiText(): UiText {
+    val message = when (this) {
+        InputInvalidReason.EMPTY_FIELD -> R.string.invalid_email
+        InputInvalidReason.INVALID_EMAIL -> R.string.invalid_email
+        InputInvalidReason.WEAK_PASSWORD -> R.string.invalid_password
+    }
+    return UiText.StringResources(message)
+}
+
+val InputInvalidReason.stringId: Int
+    get() = when (this) {
+        InputInvalidReason.EMPTY_FIELD -> R.string.invalid_email
+        InputInvalidReason.INVALID_EMAIL -> R.string.invalid_email
+        InputInvalidReason.WEAK_PASSWORD -> R.string.invalid_password
+    }

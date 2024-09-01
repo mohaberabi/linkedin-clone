@@ -7,6 +7,11 @@ data class ErrorModel(
     val cause: Exception? = null,
     val type: AppError,
 ) : AppError {
+
+    companion object {
+        const val TAG = "appError"
+    }
+
     override fun toString(): String {
         val message = buildString {
             append("App Error ->")

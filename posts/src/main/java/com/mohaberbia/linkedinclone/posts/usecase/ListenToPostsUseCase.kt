@@ -8,10 +8,6 @@ class ListenToPostsUseCase(
 
 
     operator fun invoke(
-        limit: Int = 20,
-        lastDocId: String? = null,
     ) = postsRepository.listenToPosts(
-        limit = limit,
-        lastDocId = lastDocId
     )
 }

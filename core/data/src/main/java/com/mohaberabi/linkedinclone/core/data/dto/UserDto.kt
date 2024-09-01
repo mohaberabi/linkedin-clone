@@ -13,5 +13,7 @@ data class UserDto(
     val email: String,
     val img: String,
     val cover: String,
-)
+) {
+    constructor() : this("", "", "", "", "", "", "")
+}
 

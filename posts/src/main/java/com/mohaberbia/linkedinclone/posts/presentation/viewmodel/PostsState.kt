@@ -17,6 +17,7 @@ data class PostsState(
     val state: PostsStatus = PostsStatus.Initial,
     val posts: List<PostModel> = listOf(),
     val error: UiText = UiText.Empty,
+    val isRefreshing: Boolean = false
 )
 
 

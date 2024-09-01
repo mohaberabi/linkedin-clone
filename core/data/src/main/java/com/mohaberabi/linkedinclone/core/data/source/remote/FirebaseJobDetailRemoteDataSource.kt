@@ -10,6 +10,7 @@ import com.mohaberabi.linkedin.core.domain.source.remote.JobDetailRemoteDataSour
 import com.mohaberabi.linkedinclone.core.data.dto.JobDetailDto
 import com.mohaberabi.linkedinclone.core.data.dto.mapper.toJobDetailModel
 import com.mohaberabi.linkedinclone.core.data.util.safeCall
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

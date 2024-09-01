@@ -6,15 +6,13 @@ interface AppError
 
 enum class LocalError : AppError {
     DISK_FULL,
-    UNKNOWN,
-    IO,
     DATA_CORRUPTION,
-    ILLEGAL_STATE,
 }
 
 enum class CommonError : AppError {
     IO_ERROR,
     UNKNOWN,
+    ILLEGAL_STATE,
 }
 
 

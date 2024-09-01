@@ -42,10 +42,12 @@ object PostDetailModule {
         postCommentRemoteDataSource: PostCommentRemoteDataSource,
         postsRemoteDataSource: PostsRemoteDataSource,
         reactionsRemoteDataSource: PostReactionsRemoteDataSource,
+        userLocalDataSource: UserLocalDataSource,
     ): PostDetailRepository = DefaultPostDetailRepository(
         reactionsRemoteDataSource = reactionsRemoteDataSource,
         postsRemoteDataSource = postsRemoteDataSource,
-        postCommentRemoteDataSource = postCommentRemoteDataSource
+        postCommentRemoteDataSource = postCommentRemoteDataSource,
+        userLocalDataSource = userLocalDataSource
     )
 
     @Singleton

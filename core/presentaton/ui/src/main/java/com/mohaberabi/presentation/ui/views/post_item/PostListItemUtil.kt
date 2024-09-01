@@ -76,8 +76,8 @@ fun PostListItemBinding.bindFromPost(
         true
     }
     post.currentUserReaction?.let { react ->
-        likeButton.setIcon(react.reactionType.icon)
-        likeButton.setText(root.context.getString(react.reactionType.label))
+        likeButton.setIcon(react.icon)
+        likeButton.setText(root.context.getString(react.label))
     } ?: run {
         likeButton.setIcon(R.drawable.ic_react)
     }

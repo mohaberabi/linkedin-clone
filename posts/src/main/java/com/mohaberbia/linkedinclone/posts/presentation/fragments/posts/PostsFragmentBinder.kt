@@ -1,6 +1,5 @@
 package com.mohaberbia.linkedinclone.posts.presentation.fragments.posts
 
-import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mohaberabi.posts.databinding.FragmentPostsBinding
 import com.mohaberabi.presentation.ui.util.AppRecyclerViewScrollListener
@@ -12,13 +11,11 @@ import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsActions
 import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsState
 import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsStatus
 
-fun FragmentPostsBinding.bind(
+
+fun FragmentPostsBinding.bindWithPostsState(
     state: PostsState,
     adapter: PostsListAdapter,
-    onAction: (PostsActions) -> Unit,
 ) {
-
-
     when (state.state) {
         PostsStatus.Error -> {
             hideAll(
@@ -32,16 +29,7 @@ fun FragmentPostsBinding.bind(
         }
 
         PostsStatus.Populated -> {
-            recyclerView.submitOnce(
-                listAdapter = adapter,
-                newLayoutManager = LinearLayoutManager(root.context),
-                scrollListener = AppRecyclerViewScrollListener(
-                    isLinear = true,
-                ) {
-                    onAction(PostsActions.LoadMore)
-                }
-            )
-
+            pullRefresh.isRefreshing = state.isRefreshing
             adapter.submitIfDifferent(
                 state.posts,
             )

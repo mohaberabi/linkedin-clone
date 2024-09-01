@@ -23,7 +23,7 @@ fun RecyclerView.submitOnce(
 fun <T, VH : ViewHolder> ListAdapter<T, VH>.submitIfDifferent(
     data: List<T>,
 ) {
-    if (currentList != data) {
+    if (currentList.size != data.size || !currentList.containsAll(data)) {
         submitList(data)
     }
 }

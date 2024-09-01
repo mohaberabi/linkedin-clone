@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.mohaberabi.linkedin.core.domain.error.AppException
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -15,6 +16,7 @@ suspend fun <T> DataStore<Preferences>.safeCall(
     return try {
         operation()
     } catch (e: Exception) {
+        if (e is CancellationException) throw e
         throw AppException.LocalException(e.handleDataStore())
     }
 }

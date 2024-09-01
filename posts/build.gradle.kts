@@ -10,6 +10,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.database)
     implementation(projects.core.domain)
     implementation(projects.core.data)
     implementation(libs.androdix.pull.refresh)

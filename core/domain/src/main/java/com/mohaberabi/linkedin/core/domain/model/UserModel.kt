@@ -7,6 +7,6 @@ data class UserModel(
     val lastname: String,
     val bio: String,
     val email: String,
-    val img: String,
-    val cover: String,
+    val img: String = "",
+    val cover: String = "",
 )

@@ -10,7 +10,7 @@ class GetPostsUseCase(
     suspend operator fun invoke(
         limit: Int = 20,
         lastDocId: String? = null,
-    ) = postsRepository.getPosts(
+    ) = postsRepository.getPostsWithUserReaction(
         limit = limit,
         lastDocId = lastDocId
     )

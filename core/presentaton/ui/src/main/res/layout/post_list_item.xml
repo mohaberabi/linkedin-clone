@@ -8,8 +8,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/issuerAvatarImageView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
@@ -23,10 +23,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Mohab Erabi"
         android:textColor="@android:color/black"
         android:textStyle="bold"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@id/issuerAvatarImageView"
         app:layout_constraintTop_toTopOf="@id/issuerAvatarImageView"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -36,10 +37,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
         android:text="Software Developer | Innovator | Creator"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        android:textStyle="normal"
         app:layout_constraintStart_toEndOf="@id/issuerAvatarImageView"
         app:layout_constraintTop_toBottomOf="@id/issuerNameTextView"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -49,12 +52,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="28m"
-        android:textColor="@android:color/darker_gray"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/issuerNameTextView"
-        app:layout_constraintBottom_toBottomOf="@id/issuerNameTextView"
-        app:layout_constraintHorizontal_bias="1.0" />
+        android:textStyle="normal"
+        android:textColor="@color/mediumGray"
+        app:layout_constraintStart_toStartOf="@id/issuerBioTextView"
+        app:layout_constraintTop_toBottomOf="@id/issuerBioTextView" />
 
     <com.mohaberabi.presentation.ui.views.ReadMoreText
         android:id="@+id/postDataTextView"
@@ -62,17 +64,17 @@
         android:layout_height="wrap_content"
         android:text="asdasdkasdnlaksdnalskdnaslkd"
         android:textColor="@android:color/black"
-        android:textSize="14sp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/margin_large"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:readMoreTextColor="@android:color/black"
         app:toggleTextColor="?attr/colorPrimary"
         app:toggleTextSize="14sp"
+
         app:toggleTextReadMore="See more"
         app:toggleTextReadLess="See less"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/issuerAvatarImageView"
+        app:layout_constraintTop_toBottomOf="@id/issuerBioTextView"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
@@ -92,7 +94,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="8dp"
+        android:layout_marginVertical="@dimen/margin_medium"
         app:layout_constraintTop_toBottomOf="@id/postAttachedImageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -103,15 +105,6 @@
             android:orientation="horizontal"
             android:gravity="start"
             android:layout_marginStart="16dp">
-
-            <TextView
-                android:id="@+id/reactionsCountTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="12"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="14sp"
-                android:layout_marginEnd="4dp" />
 
             <ImageView
                 android:id="@+id/likeReact"
@@ -131,7 +124,16 @@
                 android:id="@+id/loveReact"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:src="@drawable/love" />
+                android:src="@drawable/love"
+                android:layout_marginEnd="4dp" />
+
+            <TextView
+                android:id="@+id/reactionsCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -149,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:text="12 comments"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:layout_marginEnd="8dp" />
 
             <TextView
@@ -158,9 +160,19 @@
                 android:layout_height="wrap_content"
                 android:text="5 reposts"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/reactionsCountsLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
         android:id="@+id/engagementButtonsLayout"
@@ -168,7 +180,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/margin_small"
         android:layout_marginHorizontal="16dp"
         app:layout_constraintTop_toBottomOf="@id/reactionsCountsLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -216,9 +228,9 @@
     <View
         android:id="@+id/postDivider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/darker_gray"
+        android:layout_height="@dimen/margin_small"
+        android:layout_marginTop="4dp"
+        android:background="@color/lightGray"
         app:layout_constraintTop_toBottomOf="@id/engagementButtonsLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

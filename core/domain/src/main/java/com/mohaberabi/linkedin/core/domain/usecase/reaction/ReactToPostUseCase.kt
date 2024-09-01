@@ -1,6 +1,5 @@
-package com.mohaberabi.linkedin.core.domain.usecase
+package com.mohaberabi.linkedin.core.domain.usecase.reaction
 
-import com.mohaberabi.linkedin.core.domain.model.ReactionModel
 import com.mohaberabi.linkedin.core.domain.model.ReactionType
 import com.mohaberabi.linkedin.core.domain.repository.PostsReactionRepository
 

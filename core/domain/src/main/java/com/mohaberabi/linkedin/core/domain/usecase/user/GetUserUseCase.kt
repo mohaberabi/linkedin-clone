@@ -1,4 +1,4 @@
-package com.mohaberabi.linkedin.core.domain.usecase
+package com.mohaberabi.linkedin.core.domain.usecase.user
 
 import com.mohaberabi.linkedin.core.domain.error.ErrorModel
 import com.mohaberabi.linkedin.core.domain.model.UserModel

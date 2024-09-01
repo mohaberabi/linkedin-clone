@@ -3,7 +3,7 @@ package com.mohaberabi.linkedinclone.add_post.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohaberabi.linkedin.core.domain.model.AppFile
-import com.mohaberabi.linkedin.core.domain.usecase.ListenToCurrentUserUseCase
+import com.mohaberabi.linkedin.core.domain.usecase.user.ListenToCurrentUserUseCase
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
 import com.mohaberabi.linkedinclone.add_post.usecase.AddPostUseCase

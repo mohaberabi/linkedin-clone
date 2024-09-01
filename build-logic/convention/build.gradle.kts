@@ -13,6 +13,7 @@ dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
+    compileOnly(libs.room.gradlePlugin)
 
 }
 enum class AppConvPlugins(
@@ -45,6 +46,11 @@ enum class AppConvPlugins(
         id = "linkedinclone.jvm.library",
         label = "jvmConventionPlugin",
         impl = "JvmLibraryConventionPlugin"
+    ),
+    Room(
+        id = "linkedinclone.room.android",
+        label = "androidRoomConventionPlugin",
+        impl = "AndroidRoomConventionPlugin"
     )
 }
 

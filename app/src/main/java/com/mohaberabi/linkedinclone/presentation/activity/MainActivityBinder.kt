@@ -13,8 +13,12 @@ import com.mohaberabi.presentation.ui.navigation.AppRoutes
 import com.mohaberabi.presentation.ui.navigation.goTo
 import com.mohaberabi.presentation.ui.util.extension.cachedImage
 import com.mohaberabi.presentation.ui.util.extension.hide
+import com.mohaberabi.presentation.ui.util.extension.hideAll
 import com.mohaberabi.presentation.ui.util.extension.show
+import com.mohaberabi.presentation.ui.util.extension.showAll
+import com.mohaberabi.presentation.ui.util.lock
 import com.mohaberabi.presentation.ui.util.openDrawer
+import com.mohaberabi.presentation.ui.util.unlock
 
 fun ActivityMainBinding.bind(
     state: MainActivityState,
@@ -47,20 +51,39 @@ fun ActivityMainBinding.listenToNavGraphDestinations(
     navController: NavController,
 ) {
     navController.addOnDestinationChangedListener { _, destination, _ ->
-        when (destination.id) {
 
-            com.mohaberabi.posts.R.id.postsFragment,
-            com.mohaberabi.jobs.R.id.jobsFragments -> {
+
+        when {
+            isNonAuthedRoute(destination.id) -> {
+                hideAll(
+                    appBar,
+                    bottomNavigationView,
+                )
+                appDrawerLayout.lock()
+            }
+
+            isTopLevelRoute(destination.id) -> {
                 bottomNavigationView.show()
-                appBar.showSearchField(true)
-                appBar.showAvatar(true)
+                with(appBar) {
+                    show()
+                    showSearchField(true)
+                    showAvatar(true)
+                }
+                appDrawerLayout.unlock()
             }
 
             else -> {
                 bottomNavigationView.hide()
-                appBar.showSearchField(false)
-                appBar.showAvatar(false)
+                bottomNavigationView.show()
+                with(appBar) {
+                    show()
+                    showSearchField(false)
+                    showAvatar(false)
+                }
+                appDrawerLayout.unlock()
             }
+
+
         }
     }
     bottomNavigationView.setOnItemSelectedListener { item ->
@@ -70,4 +93,18 @@ fun ActivityMainBinding.listenToNavGraphDestinations(
         }
         true
     }
+}
+
+private fun isNonAuthedRoute(id: Int) = when (id) {
+    com.mohaberabi.register.R.id.loginFragment,
+    com.mohaberabi.register.R.id.registerFragment -> true
+
+    else -> false
+}
+
+private fun isTopLevelRoute(id: Int) = when (id) {
+    com.mohaberabi.posts.R.id.postsFragment,
+    com.mohaberabi.jobs.R.id.jobsFragments -> true
+
+    else -> false
 }

@@ -6,8 +6,8 @@ import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Filter
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.snapshots
 import com.mohaberabi.linkedin.core.domain.model.ReactionModel
+import com.mohaberabi.linkedin.core.domain.model.ReactionType
 import com.mohaberabi.linkedin.core.domain.source.remote.PostReactionsRemoteDataSource
 import com.mohaberabi.linkedin.core.domain.util.CommonParams
 import com.mohaberabi.linkedin.core.domain.util.DispatchersProvider
@@ -18,8 +18,6 @@ import com.mohaberabi.linkedinclone.core.data.dto.mapper.toReactionModel
 import com.mohaberabi.linkedinclone.core.data.util.paginate
 import com.mohaberabi.linkedinclone.core.data.util.safeCall
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -99,22 +97,42 @@ class FirebasePostReactionsRemoteDataSource @Inject constructor(
         }
     }
 
+    override suspend fun getUserReactionOnPost(
+        postId: String,
+        uid: String
+    ): ReactionType? {
+        return withContext(dispatchers.io) {
+            firestore.safeCall {
+                collection(EndPoints.USERS)
+                    .document(uid)
+                    .collection(EndPoints.REACTIONS)
+                    .document(postId).get().await()
+                    .toObject(ReactionDto::class.java)?.toReactionModel()?.reactionType
+            }
+        }
+    }
 
-    override fun listenToUserPostReactions(
+    override suspend fun getUsersReactionsOnPosts(
         uid: String,
-        whereIn: List<String>
-    ): Flow<Map<String, ReactionModel?>> {
-        val filter = Filter.inArray(
-            FieldPath.documentId(),
-            whereIn
-        )
-        return userReactionsCollection(
-            uid = uid,
-        ).where(
-            filter
-        ).snapshots().map { snapshots ->
-            snapshots.map { it.toObject(ReactionDto::class.java).toReactionModel() }
-                .associateBy { it.postId }
+        postIds: List<String>
+    ): Map<String, ReactionType> {
+        return withContext(dispatchers.io) {
+            firestore.safeCall {
+                val filter = Filter.inArray(
+                    FieldPath.documentId(),
+                    postIds
+                )
+                val reactions = userReactionsCollection(
+                    uid = uid,
+                ).where(
+                    filter
+                ).get().await().map {
+                    it.toObject(ReactionDto::class.java).toReactionModel()
+                }
+                reactions.associateBy(
+                    keySelector = { it.postId },
+                    valueTransform = { it.reactionType })
+            }
         }
 
     }

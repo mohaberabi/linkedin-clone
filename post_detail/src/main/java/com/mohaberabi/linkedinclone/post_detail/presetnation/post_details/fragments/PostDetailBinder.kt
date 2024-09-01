@@ -18,6 +18,8 @@ import com.mohaberabi.presentation.ui.views.post_item.PostClickCallBacks
 
 fun FragmentPostDetailBinding.setup(
     onAction: (PostDetailActions) -> Unit,
+    commentAdapter: CommentorListAdapter,
+    reactorsAdapter: PostDetailReactorsAdapter
 ) {
     commentTextField.addTextChangedListener {
         onAction(PostDetailActions.CommentChanged(it.toString()))
@@ -25,6 +27,25 @@ fun FragmentPostDetailBinding.setup(
     commentOnPostButton.setButtonClickListener {
         onAction(PostDetailActions.SubmitComment)
     }
+    commentsRecyclerView.submitOnce(
+        scrollListener = AppRecyclerViewScrollListener(
+            onPaginate = { onAction(PostDetailActions.LoadMoreComments) },
+            isLinear = true,
+            threshold = 5,
+        ),
+        newLayoutManager = LinearLayoutManager(
+            root.context,
+        ),
+        listAdapter = commentAdapter
+    )
+    reactorsRecyclerView.submitOnce(
+        newLayoutManager = LinearLayoutManager(
+            root.context,
+            LinearLayoutManager.HORIZONTAL,
+            false,
+        ),
+        listAdapter = reactorsAdapter
+    )
 
 }
 
@@ -33,7 +54,6 @@ fun FragmentPostDetailBinding.bindWithState(
     reactorsAdapter: PostDetailReactorsAdapter,
     commentAdapter: CommentorListAdapter,
     onPostClickCallbacks: PostClickCallBacks = PostClickCallBacks(),
-    onLoadMoreComments: () -> Unit
 ) {
 
     val populatedViews = arrayOf(
@@ -62,13 +82,11 @@ fun FragmentPostDetailBinding.bindWithState(
         }
 
         PostDetailStatus.Populated -> {
-
             with(
                 commentOnPostButton,
             ) {
                 setLoading(state.commentLoading)
                 setEnable(state.canComment)
-
             }
             reactorsAdapter.submitIfDifferent(
                 state.topPostReactions,
@@ -80,27 +98,6 @@ fun FragmentPostDetailBinding.bindWithState(
                 postData.bindFromPost(
                     post = it,
                     onClickCallBacks = onPostClickCallbacks
-                )
-                reactorsRecyclerView.submitOnce(
-                    newLayoutManager = LinearLayoutManager(
-                        root.context,
-                        LinearLayoutManager.HORIZONTAL,
-                        false,
-                    ),
-                    listAdapter = reactorsAdapter
-                )
-
-                commentsRecyclerView.isNestedScrollingEnabled = false
-                commentsRecyclerView.submitOnce(
-                    scrollListener = AppRecyclerViewScrollListener(
-                        onPaginate = { onLoadMoreComments() },
-                        isLinear = true,
-                        threshold = 5,
-                    ),
-                    newLayoutManager = LinearLayoutManager(
-                        root.context,
-                    ),
-                    listAdapter = commentAdapter
                 )
             }
 

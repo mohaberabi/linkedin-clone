@@ -1,7 +1,10 @@
 package com.mohaberabi.linkedin.core.domain.source.remote
 
 import com.mohaberabi.linkedin.core.domain.model.ReactionModel
-import kotlinx.coroutines.flow.Flow
+import com.mohaberabi.linkedin.core.domain.model.ReactionType
+
+
+private typealias PostId = String
 
 interface PostReactionsRemoteDataSource {
     suspend fun reactToPost(
@@ -14,10 +17,15 @@ interface PostReactionsRemoteDataSource {
         reactorId: String,
     )
 
-    fun listenToUserPostReactions(
+    suspend fun getUserReactionOnPost(
+        postId: String,
         uid: String,
-        whereIn: List<String>
-    ): Flow<Map<String, ReactionModel?>>
+    ): ReactionType?
+
+    suspend fun getUsersReactionsOnPosts(
+        uid: String,
+        postIds: List<String>
+    ): Map<PostId, ReactionType>
 
     suspend fun getPostReactions(
         postId: String,

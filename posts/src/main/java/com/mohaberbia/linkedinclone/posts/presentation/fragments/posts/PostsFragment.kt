@@ -7,13 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mohaberabi.linkedin.core.domain.model.ReactionType
 import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsViewModel
 import com.mohaberabi.posts.databinding.FragmentPostsBinding
 import com.mohaberabi.presentation.ui.navigation.AppRoutes
 import com.mohaberabi.presentation.ui.navigation.goTo
+import com.mohaberabi.presentation.ui.util.AppRecyclerViewScrollListener
 import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
 import com.mohaberabi.presentation.ui.util.extension.showSnackBar
+import com.mohaberabi.presentation.ui.util.extension.submitIfDifferent
+import com.mohaberabi.presentation.ui.util.extension.submitOnce
 import com.mohaberabi.presentation.ui.views.post_item.PostClickCallBacks
 import com.mohaberabi.presentation.ui.views.showReactionDialog
 import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsActions
@@ -41,12 +45,12 @@ class PostsFragment : Fragment() {
         postsListAdapter = PostsListAdapter(
             onClickCallBacks = postClickCallBacks
         )
+        setupBinding()
         collectLifeCycleFlow(
             viewModel.state,
         ) { state ->
-            binding.bind(
+            binding.bindWithPostsState(
                 state = state,
-                onAction = viewModel::onAction,
                 adapter = postsListAdapter,
             )
         }
@@ -72,11 +76,11 @@ class PostsFragment : Fragment() {
                 goToPostDetail(post.id)
             },
             onLikeClick = { post ->
-                val reaction = post.currentUserReaction?.reactionType ?: ReactionType.Like
+                val reaction = post.currentUserReaction ?: ReactionType.Like
                 reactToPost(
                     postId = post.id,
                     reactionType = reaction,
-                    previousReactionType = post.currentUserReaction?.reactionType
+                    previousReactionType = post.currentUserReaction
                 )
             },
             onLongClickLike = { post ->
@@ -84,7 +88,7 @@ class PostsFragment : Fragment() {
                     reactToPost(
                         postId = post.id,
                         reactionType = reaction,
-                        previousReactionType = post.currentUserReaction?.reactionType
+                        previousReactionType = post.currentUserReaction
                     )
                 }
             }
@@ -106,7 +110,25 @@ class PostsFragment : Fragment() {
 
     private fun goToPostDetail(
         postId: String,
-    ) {
-        findNavController().goTo(AppRoutes.PostDetail(postId))
+    ) = findNavController().goTo(AppRoutes.PostDetail(postId))
+
+
+    private fun setupBinding() {
+        with(
+            binding,
+        ) {
+            recyclerView.submitOnce(
+                listAdapter = postsListAdapter,
+                scrollListener = AppRecyclerViewScrollListener(
+                    isLinear = true,
+                ) {
+                    viewModel.onAction(PostsActions.LoadMore)
+                },
+                newLayoutManager = LinearLayoutManager(root.context)
+            )
+            pullRefresh.setOnRefreshListener {
+                viewModel.onAction(PostsActions.Refresh)
+            }
+        }
     }
 }

@@ -3,9 +3,10 @@ package com.mohaberabi.linkedinclone.post_detail.presetnation.post_details.viewm
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mohaberabi.linkedin.core.domain.model.PostCommentModel
 import com.mohaberabi.linkedin.core.domain.model.ReactionType
-import com.mohaberabi.linkedin.core.domain.usecase.ReactToPostUseCase
+import com.mohaberabi.linkedin.core.domain.usecase.reaction.PostReactionHandler
+import com.mohaberabi.linkedin.core.domain.usecase.reaction.ReactToPostUseCase
+import com.mohaberabi.linkedin.core.domain.usecase.reaction.UndoReactToPostUseCase
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.CommentOnPostUseCase
@@ -14,7 +15,9 @@ import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostDetailUseC
 import com.mohaberabi.presentation.ui.util.UiText
 import com.mohaberabi.presentation.ui.util.asUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -29,9 +32,16 @@ class PostDetailViewModel @Inject constructor(
     private val commentOnPostUseCase: CommentOnPostUseCase,
     private val reactToPostUseCase: ReactToPostUseCase,
     private val getPostCommentsUseCase: GetPostCommentsUseCase,
+    private val undoReactToPostUseCase: UndoReactToPostUseCase,
+    private val postReactionHandler: PostReactionHandler,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
+    private var reactJob: Job? = null
 
+    companion object {
+        private const val DEBOUNCE_DELAY = 300L
+
+    }
 
     private val postId = savedStateHandle.get<String>("postId")
 
@@ -42,14 +52,18 @@ class PostDetailViewModel @Inject constructor(
     val event = _event.receiveAsFlow()
 
     init {
-        getPostDetails(postId!!)
+        postId?.let {
+            getPostDetails(it)
+        } ?: run {
+            emitError(UiText.unknown)
+        }
     }
 
     fun onAction(action: PostDetailActions) {
         when (action) {
             is PostDetailActions.CommentChanged -> commentChanged(action.comment)
             PostDetailActions.LoadMoreComments -> loadMoreComments()
-            is PostDetailActions.ReactOnPost -> reactToPost(action.reactionType)
+            is PostDetailActions.ReactOnPost -> handleReactionDebounced(action)
             PostDetailActions.SubmitComment -> commentOnPost()
         }
     }
@@ -63,12 +77,7 @@ class PostDetailViewModel @Inject constructor(
             getPostDetailUseCase(
                 postId = postId,
             ).onFailure { fail ->
-                _state.update {
-                    it.copy(
-                        state = PostDetailStatus.Error,
-                        error = fail.asUiText()
-                    )
-                }
+                emitError(fail.asUiText())
             }
                 .onSuccess { postDetails ->
                     _state.update {
@@ -85,8 +94,6 @@ class PostDetailViewModel @Inject constructor(
 
 
     private fun loadMoreComments() {
-
-
         val stateVal = _state.value
         viewModelScope.launch {
             getPostCommentsUseCase(
@@ -103,13 +110,53 @@ class PostDetailViewModel @Inject constructor(
 
     }
 
-    private fun reactToPost(
-        reactionType: ReactionType,
+    private fun handleReactionDebounced(
+        action: PostDetailActions.ReactOnPost,
     ) {
-        viewModelScope.launch {
-
-
+        reactJob?.cancel()
+        reactJob = viewModelScope.launch {
+            delay(DEBOUNCE_DELAY)
+            postReactionHandler(
+                postId = postId!!,
+                previousReactionType = action.previousReactionType,
+                reactionType = action.reactionType,
+                onReactToPost = { postId, reaction, incrementedCount ->
+                    reactToPost(
+                        postId = postId,
+                        reactionType = reaction,
+                        incrementedCount = incrementedCount,
+                    )
+                },
+                onUndoReaction = { postId ->
+                    undoReactToPost(postId)
+                }
+            )
         }
+    }
+
+
+    private suspend fun undoReactToPost(
+        postId: String,
+    ) = undoReactToPostUseCase(
+        postId = postId,
+    ).onFailure { fail ->
+        sendErrorEvent(fail.asUiText())
+    }.onSuccess {
+        _state.update { it.undoReaction() }
+    }
+
+    private suspend fun reactToPost(
+        postId: String,
+        reactionType: ReactionType,
+        incrementedCount: Int,
+    ) = reactToPostUseCase(
+        postId = postId,
+        reactionType = reactionType,
+        incrementCount = incrementedCount
+    ).onFailure { fail ->
+        sendErrorEvent(fail.asUiText())
+    }.onSuccess {
+        _state.update { it.submitReaction(reactionType) }
     }
 
     private fun commentChanged(
@@ -128,9 +175,19 @@ class PostDetailViewModel @Inject constructor(
                     sendErrorEvent(fail.asUiText())
                 }
                 .onSuccess { comment ->
-                    onCommentDone(comment)
+                    _state.update { it.addNewComment(comment) }
                 }
             _state.update { it.copy(commentLoading = false) }
+        }
+    }
+
+
+    private fun emitError(fail: UiText) {
+        _state.update {
+            it.copy(
+                state = PostDetailStatus.Error,
+                error = fail,
+            )
         }
     }
 
@@ -138,17 +195,5 @@ class PostDetailViewModel @Inject constructor(
         _event.send(PostDetailsEvents.Error(fail))
     }
 
-    private fun onCommentDone(
-        comment: PostCommentModel,
-    ) {
-        _state.update {
-            it.copy(
-                postComment = "",
-                currentPost = it.currentPost?.copy(
-                    commentsCount = it.currentPost.commentsCount + 1,
-                ),
-                postComments = listOf(comment) + it.postComments
-            )
-        }
-    }
+
 }

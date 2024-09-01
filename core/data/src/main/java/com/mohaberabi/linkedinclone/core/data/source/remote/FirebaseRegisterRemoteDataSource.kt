@@ -5,10 +5,13 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.mohaberabi.linkedin.core.domain.error.AppException
 import com.mohaberabi.linkedin.core.domain.error.ErrorModel
 import com.mohaberabi.linkedin.core.domain.error.RemoteError
+import com.mohaberabi.linkedin.core.domain.model.UserModel
 import com.mohaberabi.linkedin.core.domain.util.DispatchersProvider
 import com.mohaberabi.linkedin.core.domain.util.EndPoints
-import com.mohaberabi.linkedin.core.domain.source.remote.RegisterRemoteDataSource
+import com.mohaberabi.linkedin.core.domain.source.remote.AuthRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.dto.RegisterRequest
+import com.mohaberabi.linkedinclone.core.data.dto.UserDto
+import com.mohaberabi.linkedinclone.core.data.dto.mapper.toUserModel
 import com.mohaberabi.linkedinclone.core.data.util.safeCall
 import kotlinx.coroutines.async
 import kotlinx.coroutines.tasks.await
@@ -20,7 +23,7 @@ class FirebaseRegisterRemoteDataSource @Inject constructor(
     private val dispatchers: DispatchersProvider,
     private val auth: FirebaseAuth,
     private val firestore: FirebaseFirestore
-) : RegisterRemoteDataSource {
+) : AuthRemoteDataSource {
     override suspend fun createUserWithEmailAndPassword(
         email: String,
         password: String,
@@ -29,29 +32,56 @@ class FirebaseRegisterRemoteDataSource @Inject constructor(
         bio: String
     ): String {
         return withContext(dispatchers.io) {
-            val registerDeferred = async {
+            val registerResponse = async {
                 auth.safeCall {
                     createUserWithEmailAndPassword(email, password).await()
                 }
             }.await()
-            registerDeferred?.let { authed ->
+            registerResponse?.let { authed ->
                 firestore.safeCall {
                     val request = RegisterRequest(
                         uid = authed.user!!.uid,
                         name = name,
                         lastname = lastname,
                         bio = bio,
-                        img = "",
-                        cover = "",
                         email = email
                     )
-                    collection(EndPoints.USERS).document(request.uid).set(request).await()
+                    collection(EndPoints.USERS)
+                        .document(request.uid)
+                        .set(request).await()
                     request.uid
                 }
             } ?: throw AppException.RemoteException(ErrorModel(type = RemoteError.UNKNOWN_ERROR))
 
         }
 
+    }
+
+    override suspend fun loginWithEmailAndPassword(
+        email: String,
+        password: String
+    ): UserModel {
+
+        return withContext(dispatchers.io) {
+            val uid = async {
+                auth.safeCall {
+                    signInWithEmailAndPassword(
+                        email,
+                        password,
+                    ).await()
+                }.user?.uid
+            }.await()
+            uid?.let {
+                firestore.safeCall {
+                    collection(EndPoints.USERS)
+                        .document(it)
+                        .get()
+                        .await()
+                        .toObject(UserDto::class.java)?.toUserModel()
+                }
+            } ?: throw AppException.RemoteException(ErrorModel(type = RemoteError.UNKNOWN_ERROR))
+
+        }
     }
 
 }

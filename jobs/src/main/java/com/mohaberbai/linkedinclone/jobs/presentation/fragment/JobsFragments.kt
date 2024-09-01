@@ -7,13 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mohaberabi.jobs.databinding.FragmentJobsFragmentsBinding
 import com.mohaberabi.linkedin.core.domain.util.AppBottomSheet
 import com.mohaberabi.linkedin.core.domain.util.AppBottomSheetShower
 import com.mohaberabi.linkedin.core.domain.util.BottomSheetAction
 import com.mohaberabi.linkedin.core.domain.util.DrawerController
+import com.mohaberabi.presentation.ui.util.AppRecyclerViewScrollListener
 import com.mohaberbai.linkedinclone.jobs.presentation.viewmodel.JobsViewModel
 import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
+import com.mohaberabi.presentation.ui.util.extension.submitOnce
+import com.mohaberbai.linkedinclone.jobs.presentation.viewmodel.JobsActions
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -48,11 +52,13 @@ class JobsFragments : Fragment() {
             },
         )
 
-        collectLifeCycleFlow(viewModel.state) { state ->
-            binding.bind(
+        setupBinding()
+        collectLifeCycleFlow(
+            viewModel.state,
+        ) { state ->
+            binding.bindWithState(
                 state = state,
-                onActions = viewModel::onAction,
-                adapter = adapter,
+                jobsListAdapter = adapter
             )
 
         }
@@ -66,12 +72,33 @@ class JobsFragments : Fragment() {
         _binding = null
     }
 
-    private fun showJobDetailSheet(jobId: String) {
+    private fun showJobDetailSheet(
+        jobId: String,
+    ) {
         viewLifecycleOwner.lifecycleScope.launch {
-            sheetShower.sendAction(BottomSheetAction.Show(AppBottomSheet.JobDetailSheet(jobId = jobId)))
+            val sheet = AppBottomSheet.JobDetailSheet(jobId = jobId)
+            val action = BottomSheetAction.Show(sheet)
+            sheetShower.sendAction(action)
         }
     }
 
+    private fun setupBinding() {
+        with(binding) {
+            recyclerView.submitOnce(
+                listAdapter = adapter,
+                scrollListener = AppRecyclerViewScrollListener(
+                    isLinear = true,
+                    onPaginate = {
+                        viewModel.onAction(JobsActions.LoadMore)
+                    }
+                ),
+                newLayoutManager = LinearLayoutManager(requireContext())
+            )
+            pullRefresh.setOnRefreshListener {
+                viewModel.onAction(JobsActions.Refresh)
+            }
+        }
+    }
 
 }
 

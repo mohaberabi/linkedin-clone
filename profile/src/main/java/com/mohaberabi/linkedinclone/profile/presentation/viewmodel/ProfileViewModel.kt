@@ -1,12 +1,11 @@
 package com.mohaberabi.linkedinclone.profile.presentation.viewmodel
 
-import androidx.core.R
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohaberabi.linkedin.core.domain.model.UserModel
-import com.mohaberabi.linkedin.core.domain.usecase.GetUserUseCase
-import com.mohaberabi.linkedin.core.domain.usecase.ListenToCurrentUserUseCase
+import com.mohaberabi.linkedin.core.domain.usecase.user.GetUserUseCase
+import com.mohaberabi.linkedin.core.domain.usecase.user.ListenToCurrentUserUseCase
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
 import com.mohaberabi.presentation.ui.util.UiText

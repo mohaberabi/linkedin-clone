@@ -4,19 +4,18 @@ import com.mohaberabi.linkedin.core.domain.repository.JobDetailRepository
 import com.mohaberabi.linkedin.core.domain.repository.JobRepository
 import com.mohaberabi.linkedin.core.domain.repository.PostsReactionRepository
 import com.mohaberabi.linkedin.core.domain.repository.PostsRepository
-import com.mohaberabi.linkedin.core.domain.repository.RegisterRepository
+import com.mohaberabi.linkedin.core.domain.repository.AuthRepository
 import com.mohaberabi.linkedin.core.domain.repository.UserMediaRepository
 import com.mohaberabi.linkedin.core.domain.repository.UserRepository
 import com.mohaberabi.linkedinclone.core.data.repository.DefaultJobDetailRepository
 import com.mohaberabi.linkedinclone.core.data.repository.DefaultJobRepository
 import com.mohaberabi.linkedinclone.core.data.repository.DefaultPostReactionRepository
-import com.mohaberabi.linkedinclone.core.data.repository.DefaultPostsRepository
+import com.mohaberabi.linkedinclone.core.data.repository.OfflineFirstPostsRepository
 import com.mohaberabi.linkedinclone.core.data.repository.DefaultRegisterRepository
 import com.mohaberabi.linkedinclone.core.data.repository.DefaultUserMediaRepository
 import com.mohaberabi.linkedinclone.core.data.repository.DefaultUserRepository
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
@@ -53,13 +52,13 @@ abstract class RepositoryModule {
     @Singleton
     abstract fun bindRegisterRepository(
         defaultRegisterRepository: DefaultRegisterRepository,
-    ): RegisterRepository
+    ): AuthRepository
 
 
     @Binds
     @Singleton
     abstract fun bindPostRepository(
-        defaultPosRepository: DefaultPostsRepository,
+        defaultPosRepository: OfflineFirstPostsRepository,
     ): PostsRepository
 
     @Binds

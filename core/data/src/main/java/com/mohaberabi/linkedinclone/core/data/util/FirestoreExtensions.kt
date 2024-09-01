@@ -6,7 +6,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import com.mohaberabi.linkedin.core.domain.error.AppException
+import com.mohaberabi.linkedin.core.domain.error.ErrorModel
 import com.mohaberabi.linkedin.core.domain.error.RemoteError
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.tasks.await
 
 
@@ -56,12 +58,14 @@ suspend fun <T> FirebaseFirestore.safeCall(
     } catch (e: FirebaseFirestoreException) {
         throw AppException.RemoteException(e.toErrorModel())
     } catch (e: Exception) {
+        if (e is CancellationException) throw e
         e.printStackTrace()
         throw AppException.RemoteException(
-            errorModel(RemoteError.UNKNOWN_ERROR) {
-                message = e.message
+            ErrorModel(
+                type = RemoteError.UNKNOWN_ERROR,
+                message = e.message,
                 cause = e
-            }
+            )
         )
     }
 }

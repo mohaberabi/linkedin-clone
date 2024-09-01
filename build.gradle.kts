@@ -7,4 +7,6 @@ plugins {
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.kotlin.serilization) apply false
     alias(libs.plugins.safe.args) apply false
+    alias(libs.plugins.room) apply false
+
 }

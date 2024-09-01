@@ -1,11 +1,10 @@
 package com.mohaberabi.linkedinclone.register.domain.usecase
 
-import com.mohaberabi.linkedin.core.domain.repository.RegisterRepository
-import javax.inject.Inject
+import com.mohaberabi.linkedin.core.domain.repository.AuthRepository
 
 
 class RegisterUsecase(
-    private val registerRepository: RegisterRepository,
+    private val registerRepository: AuthRepository,
 ) {
     suspend operator fun invoke(
         email: String,

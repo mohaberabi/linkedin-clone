@@ -27,6 +27,6 @@ fun FirebaseAuthException.toErrorModel(): ErrorModel {
         cause = this@toErrorModel,
         type = remoteError
     )
-    Log.e("appError", error.toString())
+    Log.e(ErrorModel.TAG, error.toString())
     return error
 }

@@ -3,7 +3,7 @@ package com.mohaberbai.linkedinclone.jobs.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mohaberabi.linkedin.core.domain.usecase.ListenToCurrentUserUseCase
+import com.mohaberabi.linkedin.core.domain.usecase.user.ListenToCurrentUserUseCase
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
 import com.mohaberbai.linkedinclone.jobs.usecase.GetJobsUseCase

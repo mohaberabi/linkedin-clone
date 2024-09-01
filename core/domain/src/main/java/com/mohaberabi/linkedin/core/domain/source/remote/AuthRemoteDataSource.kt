@@ -1,9 +1,11 @@
 package com.mohaberabi.linkedin.core.domain.source.remote
 
+import com.mohaberabi.linkedin.core.domain.model.UserModel
+
 
 typealias RegisteredUserId = String
 
-interface RegisterRemoteDataSource {
+interface AuthRemoteDataSource {
     suspend fun createUserWithEmailAndPassword(
         email: String,
         password: String,
@@ -11,4 +13,9 @@ interface RegisterRemoteDataSource {
         lastname: String,
         bio: String,
     ): RegisteredUserId
+
+    suspend fun loginWithEmailAndPassword(
+        email: String,
+        password: String,
+    ): UserModel
 }

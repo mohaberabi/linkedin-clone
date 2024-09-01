@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.mohaberabi.linedinclone.core.remote_anayltics.domain.AppAnalytics
 import com.mohaberabi.linkedin.core.domain.util.AppBottomSheetShower
 import com.mohaberabi.linkedin.core.domain.util.EndPoints
+import com.mohaberabi.linkedinclone.R
 import com.mohaberabi.linkedinclone.core.data.source.fake.FakeComments
 import com.mohaberabi.linkedinclone.core.data.source.fake.FakeJobDetails
 import com.mohaberabi.linkedinclone.core.data.source.fake.FakeJobs
@@ -43,6 +44,11 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     private val viewmodel by viewModels<MainActivityViewModel>()
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private val bottomNavViews = setOf(
+        com.mohaberabi.posts.R.id.postsFragment,
+        com.mohaberabi.jobs.R.id.jobsFragments,
+        com.mohaberabi.user_media.R.id.profilePictureFragment,
+    )
 
     @Inject
     lateinit var anayltics: AppAnalytics
@@ -90,6 +96,10 @@ class MainActivity : AppCompatActivity() {
         collectLifeCycleFlow(
             viewmodel.state,
         ) { state ->
+            handleStartRoute(
+                loadedData = state.didLoad,
+                loggedIn = state.user != null
+            )
             binding.bind(
                 state = state,
                 onGoProfile = { goToProfile() }
@@ -104,18 +114,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
-
     private fun setupAppBar() {
-        val bottomNavViews = setOf(
-            com.mohaberabi.posts.R.id.postsFragment,
-            com.mohaberabi.jobs.R.id.jobsFragments,
-            com.mohaberabi.user_media.R.id.profilePictureFragment,
-        )
+
         appBarConfiguration = AppBarConfiguration(
             bottomNavViews,
         )
@@ -127,10 +127,25 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private fun handleStartRoute(
+        loggedIn: Boolean,
+        loadedData: Boolean,
+    ) {
+        if (!loggedIn && loadedData) {
+            val graph = rootNavController().navInflater.inflate(R.navigation.nav_graph_main)
+            graph.setStartDestination(com.mohaberabi.register.R.id.nav_graph_register)
+            rootNavController().graph = graph
+        }
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         return rootNavController().navigateUp() || super.onSupportNavigateUp()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }
 
 

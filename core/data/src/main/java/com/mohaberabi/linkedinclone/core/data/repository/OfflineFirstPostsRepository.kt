@@ -5,37 +5,52 @@ import com.mohaberabi.linkedin.core.domain.model.AppFile
 import com.mohaberabi.linkedin.core.domain.model.PostModel
 import com.mohaberabi.linkedin.core.domain.util.AppResult
 import com.mohaberabi.linkedin.core.domain.repository.PostsRepository
-import com.mohaberabi.linkedin.core.domain.source.local.compressor.FileCompressor
 import com.mohaberabi.linkedin.core.domain.source.local.compressor.FileCompressorFactory
+import com.mohaberabi.linkedin.core.domain.source.local.posts.PostsLocalDataSource
 import com.mohaberabi.linkedin.core.domain.source.local.user.UserLocalDataSource
+import com.mohaberabi.linkedin.core.domain.source.remote.PostReactionsRemoteDataSource
 import com.mohaberabi.linkedin.core.domain.source.remote.PostsRemoteDataSource
 import com.mohaberabi.linkedin.core.domain.source.remote.StorageClient
-import com.mohaberabi.linkedin.core.domain.source.remote.UserReactionId
 import com.mohaberabi.linkedin.core.domain.util.EmptyDataResult
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
-class DefaultPostsRepository @Inject constructor(
+
+class OfflineFirstPostsRepository @Inject constructor(
     private val postRemoteDataSource: PostsRemoteDataSource,
     private val userLocalDataSource: UserLocalDataSource,
     private val storageClient: StorageClient,
     private val fileCompressor: FileCompressorFactory,
+    private val postsLocalDataSource: PostsLocalDataSource,
+    private val reactionsRemoteDataSource: PostReactionsRemoteDataSource,
 ) : PostsRepository {
-    override suspend fun getPosts(
+    override suspend fun getPostsWithUserReaction(
         limit: Int,
-        lastDocId: String?,
-    ): AppResult<List<PostModel>, ErrorModel> {
+        lastDocId: String?
+    ): EmptyDataResult<ErrorModel> {
         return AppResult.handle {
-            postRemoteDataSource.getPosts(
-                lastDocId = lastDocId,
-                limit = limit
+            val posts = postRemoteDataSource.getPosts(
+                limit = limit,
+                lastDocId = lastDocId
             )
+            val postsIds = posts.map { it.id }
+            val uid = userLocalDataSource.getUser().first()!!.uid
+            val reactions =
+                reactionsRemoteDataSource.getUsersReactionsOnPosts(
+                    postIds = postsIds,
+                    uid = uid
+                )
+            val upsertPosts = posts.map {
+                it.copy(currentUserReaction = reactions[it.id])
+            }
+            postsLocalDataSource.upsertPosts(upsertPosts)
+
         }
+
+
     }
+
 
     override suspend fun addPost(
         postData: String,
@@ -48,35 +63,30 @@ class DefaultPostsRepository @Inject constructor(
                 storageClient.upload(compressed, it.reference)
             }
             val user = userLocalDataSource.getUser().first()!!
-            postRemoteDataSource.addPost(
+            val post = PostModel(
                 issuerBio = user.bio,
                 issuerUid = user.uid,
                 issuerAvatar = user.img,
                 issuerName = "${user.name} ${user.lastname}",
-                postAttachedImg = fileOrNull,
+                postAttachedImg = fileOrNull ?: "",
                 postData = postData,
-                postId = postId,
+                id = postId,
             )
+            postRemoteDataSource.addPost(
+                issuerBio = post.issuerBio,
+                issuerUid = post.issuerUid,
+                issuerAvatar = post.issuerAvatar,
+                issuerName = post.issuerName,
+                postAttachedImg = post.postAttachedImg,
+                postData = post.postData,
+                postId = post.id,
+            )
+            postsLocalDataSource.upsertPost(post)
         }
 
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     override fun listenToPosts(
-        limit: Int,
-        lastDocId: String?,
-    ): Flow<List<PostModel>> {
-        return userLocalDataSource.getUser()
-            .flatMapLatest { user ->
-                if (user == null) {
-                    flowOf()
-                } else {
-                    postRemoteDataSource.listenToPosts(
-                        limit = limit,
-                        lastDocId = lastDocId,
-                        userId = user.uid
-                    )
-                }
-            }
-    }
+    ): Flow<List<PostModel>> = postsLocalDataSource.getPosts()
+
 }

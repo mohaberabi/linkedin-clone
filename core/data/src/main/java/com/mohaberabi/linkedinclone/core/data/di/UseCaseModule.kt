@@ -1,20 +1,17 @@
 package com.mohaberabi.linkedinclone.core.data.di
 
-import com.mohaberabi.linkedin.core.domain.error.ErrorModel
-import com.mohaberabi.linkedin.core.domain.model.UserModel
 import com.mohaberabi.linkedin.core.domain.repository.PostsReactionRepository
 import com.mohaberabi.linkedin.core.domain.repository.UserRepository
-import com.mohaberabi.linkedin.core.domain.usecase.GetUserUseCase
-import com.mohaberabi.linkedin.core.domain.usecase.ListenToCurrentUserUseCase
-import com.mohaberabi.linkedin.core.domain.usecase.ListenToUserReactionsUseCase
-import com.mohaberabi.linkedin.core.domain.usecase.ReactToPostUseCase
-import com.mohaberabi.linkedin.core.domain.usecase.UndoReactToPostUseCase
-import com.mohaberabi.linkedin.core.domain.util.AppResult
+import com.mohaberabi.linkedin.core.domain.usecase.user.GetUserUseCase
+import com.mohaberabi.linkedin.core.domain.usecase.user.ListenToCurrentUserUseCase
+import com.mohaberabi.linkedin.core.domain.usecase.reaction.PostReactionHandler
+import com.mohaberabi.linkedin.core.domain.usecase.reaction.ReactToPostUseCase
+import com.mohaberabi.linkedin.core.domain.usecase.reaction.UndoReactToPostUseCase
+import com.mohaberabi.linkedin.core.domain.usecase.validator.ValidatorUseCases
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Singleton
 
 
@@ -49,17 +46,24 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideListenToReactions(
-        postPostsReactionRepository: PostsReactionRepository,
-    ): ListenToUserReactionsUseCase {
-        return ListenToUserReactionsUseCase(postPostsReactionRepository)
-    }
-
-    @Singleton
-    @Provides
     fun provideUndoReactToPostUseCase(
         postPostsReactionRepository: PostsReactionRepository,
     ): UndoReactToPostUseCase {
         return UndoReactToPostUseCase(postPostsReactionRepository)
     }
+
+    @Singleton
+    @Provides
+    fun providePostReactionHandler(
+    ): PostReactionHandler {
+        return PostReactionHandler()
+    }
+
+    @Singleton
+    @Provides
+    fun provideValidaotrUseCase(
+    ): ValidatorUseCases {
+        return ValidatorUseCases()
+    }
+
 }

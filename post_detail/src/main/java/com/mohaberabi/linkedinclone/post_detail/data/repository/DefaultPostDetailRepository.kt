@@ -24,6 +24,7 @@ class DefaultPostDetailRepository @Inject constructor(
     private val postCommentRemoteDataSource: PostCommentRemoteDataSource,
     private val postsRemoteDataSource: PostsRemoteDataSource,
     private val reactionsRemoteDataSource: PostReactionsRemoteDataSource,
+    private val userLocalDataSource: UserLocalDataSource,
 ) : PostDetailRepository {
     override suspend fun getPostDetail(
         postId: String,
@@ -32,6 +33,7 @@ class DefaultPostDetailRepository @Inject constructor(
             coroutineScope {
                 val post = postsRemoteDataSource.getPost(postId)
                 post?.let {
+                    val uid = userLocalDataSource.getUser().first()!!.uid
                     val topComments =
                         async {
                             postCommentRemoteDataSource.getPostComments(postId = postId)
@@ -41,10 +43,17 @@ class DefaultPostDetailRepository @Inject constructor(
                             postId = postId,
                         )
                     }.await()
+
+                    val userReaction = async {
+                        reactionsRemoteDataSource.getUserReactionOnPost(
+                            postId = postId,
+                            uid = uid
+                        )
+                    }.await()
                     val detail = PostDetailModel(
                         topReactions = topReactions,
                         topComments = topComments,
-                        post = it,
+                        post = it.copy(currentUserReaction = userReaction),
                     )
                     AppResult.Done(detail)
                 } ?: AppResult.Error(ErrorModel(type = RemoteError.UNKNOWN_ERROR))

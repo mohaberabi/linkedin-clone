@@ -9,4 +9,7 @@ sealed interface PostsActions {
         val postId: String,
         val previousReactionType: ReactionType?
     ) : PostsActions
+
+    data object Refresh : PostsActions
+
 }

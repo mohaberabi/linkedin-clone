@@ -26,7 +26,5 @@ interface PostsReactionRepository {
         lastDocId: String? = null,
     ): AppResult<List<ReactionModel>, ErrorModel>
 
-    fun listenToUserReactions(
-        whereIn: List<String>,
-    ): kotlinx.coroutines.flow.Flow<Map<String, ReactionModel?>>
+ 
 }

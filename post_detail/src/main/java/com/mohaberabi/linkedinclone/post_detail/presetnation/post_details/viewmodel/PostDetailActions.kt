@@ -4,15 +4,13 @@ import com.mohaberabi.linkedin.core.domain.model.ReactionType
 
 
 sealed interface PostDetailActions {
-
-
     data class CommentChanged(
         val comment: String,
     ) : PostDetailActions
 
-
     data class ReactOnPost(
         val reactionType: ReactionType,
+        val previousReactionType: ReactionType? = null,
     ) : PostDetailActions
 
     data object LoadMoreComments : PostDetailActions

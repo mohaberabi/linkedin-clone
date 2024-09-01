@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.Flow
 interface PostsRepository {
 
 
-    suspend fun getPosts(
+    suspend fun getPostsWithUserReaction(
         limit: Int = 20,
         lastDocId: String? = null,
-    ): AppResult<List<PostModel>, ErrorModel>
+    ): EmptyDataResult<ErrorModel>
 
     suspend fun addPost(
         postData: String,
@@ -23,7 +23,5 @@ interface PostsRepository {
     ): EmptyDataResult<ErrorModel>
 
     fun listenToPosts(
-        limit: Int,
-        lastDocId: String?,
     ): Flow<List<PostModel>>
 }

@@ -40,7 +40,7 @@ abstract class RemoteSourceModule {
     @Singleton
     abstract fun bindRegisterRemoteDataSource(
         firebaseRegisterRemoteDataSource: FirebaseRegisterRemoteDataSource
-    ): RegisterRemoteDataSource
+    ): AuthRemoteDataSource
 
     @Binds
     @Singleton

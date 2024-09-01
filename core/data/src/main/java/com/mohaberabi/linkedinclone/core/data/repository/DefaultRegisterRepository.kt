@@ -5,14 +5,14 @@ import com.mohaberabi.linkedin.core.domain.model.UserModel
 import com.mohaberabi.linkedin.core.domain.source.local.user.UserLocalDataSource
 import com.mohaberabi.linkedin.core.domain.util.AppResult
 import com.mohaberabi.linkedin.core.domain.util.EmptyDataResult
-import com.mohaberabi.linkedin.core.domain.repository.RegisterRepository
-import com.mohaberabi.linkedin.core.domain.source.remote.RegisterRemoteDataSource
+import com.mohaberabi.linkedin.core.domain.repository.AuthRepository
+import com.mohaberabi.linkedin.core.domain.source.remote.AuthRemoteDataSource
 import javax.inject.Inject
 
 class DefaultRegisterRepository @Inject constructor(
-    private val registerRemoteDataSource: RegisterRemoteDataSource,
+    private val authRemoteDataSource: AuthRemoteDataSource,
     private val userLocalDataSource: UserLocalDataSource,
-) : RegisterRepository {
+) : AuthRepository {
     override suspend fun createUserWithEmailAndPassword(
         email: String,
         password: String,
@@ -21,7 +21,7 @@ class DefaultRegisterRepository @Inject constructor(
         bio: String
     ): EmptyDataResult<ErrorModel> {
         return AppResult.handle {
-            val uid = registerRemoteDataSource.createUserWithEmailAndPassword(
+            val uid = authRemoteDataSource.createUserWithEmailAndPassword(
                 email = email,
                 password = password,
                 name = name,
@@ -33,12 +33,23 @@ class DefaultRegisterRepository @Inject constructor(
                 lastname = lastname,
                 name = name,
                 bio = bio,
-                cover = "",
-                img = "",
                 uid = uid
             )
             userLocalDataSource.saveUser(user)
         }
 
+    }
+
+    override suspend fun loginWithEmailAndPassword(
+        email: String,
+        password: String
+    ): EmptyDataResult<ErrorModel> {
+        return AppResult.handle {
+            val user = authRemoteDataSource.loginWithEmailAndPassword(
+                email = email,
+                password = password
+            )
+            userLocalDataSource.saveUser(user)
+        }
     }
 }

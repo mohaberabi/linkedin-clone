@@ -1,0 +1,100 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "5584b6b613dd3c17cfe96f7bb69a40e9",
+    "entities": [
+      {
+        "tableName": "posts",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `createdAtMillis` INTEGER NOT NULL, `issuerName` TEXT NOT NULL, `issuerUid` TEXT NOT NULL, `issuerAvatar` TEXT NOT NULL, `issuerBio` TEXT NOT NULL, `postData` TEXT NOT NULL, `postAttachedImg` TEXT NOT NULL, `commentsCount` INTEGER NOT NULL, `reactionsCount` INTEGER NOT NULL, `repostsCount` INTEGER NOT NULL, `currentUserReaction` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAtMillis",
+            "columnName": "createdAtMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "issuerName",
+            "columnName": "issuerName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "issuerUid",
+            "columnName": "issuerUid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "issuerAvatar",
+            "columnName": "issuerAvatar",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "issuerBio",
+            "columnName": "issuerBio",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "postData",
+            "columnName": "postData",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "postAttachedImg",
+            "columnName": "postAttachedImg",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "commentsCount",
+            "columnName": "commentsCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reactionsCount",
+            "columnName": "reactionsCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "repostsCount",
+            "columnName": "repostsCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "currentUserReaction",
+            "columnName": "currentUserReaction",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5584b6b613dd3c17cfe96f7bb69a40e9')"
+    ]
+  }
+}
