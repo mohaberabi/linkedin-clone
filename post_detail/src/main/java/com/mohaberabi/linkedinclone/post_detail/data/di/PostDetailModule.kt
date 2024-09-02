@@ -15,8 +15,8 @@ import com.mohaberabi.linkedinclone.post_detail.domain.repository.PostDetailRepo
 import com.mohaberabi.linkedinclone.post_detail.domain.source.remote.PostCommentRemoteDataSource
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.CommentOnPostUseCase
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostCommentsUseCase
-import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostDetailUseCase
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostReactionsUseCase
+import com.mohaberabi.linkedinclone.post_detail.domain.usecase.ListenToPostDetailUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,7 +34,9 @@ object PostDetailModule {
     fun provideCommentsRemoteSource(
         firebase: FirebaseFirestore,
         dispatchers: DispatchersProvider
-    ): PostCommentRemoteDataSource = FirebasePostCommentRemoteDataSource(firebase, dispatchers)
+    ): PostCommentRemoteDataSource = FirebasePostCommentRemoteDataSource(
+        firebase, dispatchers,
+    )
 
     @Singleton
     @Provides
@@ -67,12 +69,6 @@ object PostDetailModule {
         repo: PostCommentRepository
     ) = CommentOnPostUseCase(repo)
 
-    @Singleton
-    @Provides
-    fun provideGetPostDetailUserCase(
-        repo: PostDetailRepository
-    ) = GetPostDetailUseCase(repo)
-
 
     @Singleton
     @Provides
@@ -85,4 +81,10 @@ object PostDetailModule {
     fun provideGetPostCommentUseCase(
         repo: PostCommentRepository
     ) = GetPostCommentsUseCase(repo)
+
+    @Singleton
+    @Provides
+    fun provideListenToPostDetailUseCase(
+        repo: PostDetailRepository
+    ) = ListenToPostDetailUseCase(repo)
 }

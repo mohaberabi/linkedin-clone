@@ -2,6 +2,9 @@ package com.mohaberabi.linkedinclone.post_detail.data.source.remote
 
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.snapshots
+import com.google.firebase.firestore.toObject
 import com.mohaberabi.linkedin.core.domain.model.PostCommentModel
 import com.mohaberabi.linkedin.core.domain.util.CommonParams
 import com.mohaberabi.linkedin.core.domain.util.DispatchersProvider
@@ -12,6 +15,9 @@ import com.mohaberabi.linkedinclone.post_detail.data.source.dto.CommentDto
 import com.mohaberabi.linkedinclone.post_detail.data.source.dto.mapper.toCommentDto
 import com.mohaberabi.linkedinclone.post_detail.data.source.dto.mapper.toCommentModel
 import com.mohaberabi.linkedinclone.post_detail.domain.source.remote.PostCommentRemoteDataSource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -69,5 +75,20 @@ class FirebasePostCommentRemoteDataSource @Inject constructor(
             }
             comments.map { it.toCommentModel() }
         }
+    }
+
+    override fun listenToPostComments(
+        postId: String,
+        limit: Int
+    ): Flow<List<PostCommentModel>> {
+        return firestore.collection(EndPoints.Posts)
+            .document(postId)
+            .collection(EndPoints.COMMENTS)
+            .limit(limit.toLong())
+            .orderBy(CommonParams.COMMENTED_AT_MILLIS, Query.Direction.DESCENDING)
+            .snapshots()
+            .map { snaps -> snaps.map { it.toObject(CommentDto::class.java).toCommentModel() } }
+            .flowOn(dispatchers.io)
+
     }
 }

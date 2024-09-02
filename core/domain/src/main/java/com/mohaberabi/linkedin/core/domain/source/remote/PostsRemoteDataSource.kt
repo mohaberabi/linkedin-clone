@@ -27,10 +27,8 @@ interface PostsRemoteDataSource {
     ): PostModel?
 
 
-    fun listenToPosts(
-        limit: Int = 20,
-        lastDocId: String? = null,
-        userId: UserReactionId
-    ): Flow<List<PostModel>>
-
+    fun listenToPost(
+        postId: String,
+        uid: String,
+    ): Flow<PostModel?>
 }

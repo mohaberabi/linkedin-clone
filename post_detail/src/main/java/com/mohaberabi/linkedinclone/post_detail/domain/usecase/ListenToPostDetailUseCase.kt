@@ -2,12 +2,12 @@ package com.mohaberabi.linkedinclone.post_detail.domain.usecase
 
 import com.mohaberabi.linkedinclone.post_detail.domain.repository.PostDetailRepository
 
-class GetPostDetailUseCase(
-    private val postDetailRepository: PostDetailRepository
+class ListenToPostDetailUseCase(
+    private val postDetailRepository: PostDetailRepository,
 ) {
-    suspend operator fun invoke(
+    operator fun invoke(
         postId: String,
-    ) = postDetailRepository.getPostDetail(
+    ) = postDetailRepository.listenToPostDetails(
         postId = postId,
     )
 }

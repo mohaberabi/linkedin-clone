@@ -59,30 +59,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        anayltics.logEvent(
-            "activityCreated",
-        )
+        anayltics.logEvent("activityCreated")
         enableEdgeToEdge()
         val splash = installSplashScreen()
+        splash.setKeepOnScreenCondition { !viewmodel.state.value.didLoad }
         _binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(
-            binding.root,
-        )
-        setSupportActionBar(
-            binding.appBar,
-        )
+        setContentView(binding.root)
+        setSupportActionBar(binding.appBar)
         setupAppBar()
-        splash.setKeepOnScreenCondition {
-            !viewmodel.state.value.didLoad
-        }
-        addDefaultPaddings(
-            rootView = binding.root,
-        )
+        addDefaultPaddings(rootView = binding.root)
         observeState()
         observeGlobalBottomSheet()
-        with(
-            binding,
-        ) {
+        with(binding) {
             bottomNavigationView.setupWithNavController(
                 navController = rootNavController(),
             )
@@ -90,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                 navController = rootNavController(),
             )
         }
+
     }
 
     private fun observeState() {
@@ -115,7 +104,6 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setupAppBar() {
-
         appBarConfiguration = AppBarConfiguration(
             bottomNavViews,
         )

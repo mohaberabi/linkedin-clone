@@ -11,7 +11,7 @@ import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.CommentOnPostUseCase
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostCommentsUseCase
-import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostDetailUseCase
+import com.mohaberabi.linkedinclone.post_detail.domain.usecase.ListenToPostDetailUseCase
 import com.mohaberabi.presentation.ui.util.UiText
 import com.mohaberabi.presentation.ui.util.asUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +20,10 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -28,12 +32,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PostDetailViewModel @Inject constructor(
-    private val getPostDetailUseCase: GetPostDetailUseCase,
     private val commentOnPostUseCase: CommentOnPostUseCase,
     private val reactToPostUseCase: ReactToPostUseCase,
     private val getPostCommentsUseCase: GetPostCommentsUseCase,
     private val undoReactToPostUseCase: UndoReactToPostUseCase,
     private val postReactionHandler: PostReactionHandler,
+    private val listenToPostDetailUseCase: ListenToPostDetailUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     private var reactJob: Job? = null
@@ -41,9 +45,10 @@ class PostDetailViewModel @Inject constructor(
     companion object {
         private const val DEBOUNCE_DELAY = 300L
 
+        private const val POST_NAV_ARG = "postId"
     }
 
-    private val postId = savedStateHandle.get<String>("postId")
+    private val postId = savedStateHandle.get<String>(POST_NAV_ARG)
 
     private val _state = MutableStateFlow(PostDetailState())
     val state = _state.asStateFlow()
@@ -52,10 +57,20 @@ class PostDetailViewModel @Inject constructor(
     val event = _event.receiveAsFlow()
 
     init {
-        postId?.let {
-            getPostDetails(it)
-        } ?: run {
-            emitError(UiText.unknown)
+        postId?.let { id ->
+            listenToPostDetailUseCase(id)
+                .onStart { _state.update { it.copy(state = PostDetailStatus.Loading) } }
+                .catch { _state.update { it.copy(state = PostDetailStatus.Error) } }
+                .onEach { detail ->
+                    _state.update {
+                        it.copy(
+                            topPostReactions = detail.topReactions,
+                            postComments = detail.topComments,
+                            currentPost = detail.post,
+                            state = PostDetailStatus.Populated
+                        )
+                    }
+                }.launchIn(viewModelScope)
         }
     }
 
@@ -65,30 +80,6 @@ class PostDetailViewModel @Inject constructor(
             PostDetailActions.LoadMoreComments -> loadMoreComments()
             is PostDetailActions.ReactOnPost -> handleReactionDebounced(action)
             PostDetailActions.SubmitComment -> commentOnPost()
-        }
-    }
-
-
-    private fun getPostDetails(
-        postId: String,
-    ) {
-        _state.update { it.copy(state = PostDetailStatus.Loading) }
-        viewModelScope.launch {
-            getPostDetailUseCase(
-                postId = postId,
-            ).onFailure { fail ->
-                emitError(fail.asUiText())
-            }
-                .onSuccess { postDetails ->
-                    _state.update {
-                        it.copy(
-                            state = PostDetailStatus.Populated,
-                            currentPost = postDetails.post,
-                            topPostReactions = postDetails.topReactions,
-                            postComments = postDetails.topComments
-                        )
-                    }
-                }
         }
     }
 
@@ -141,8 +132,6 @@ class PostDetailViewModel @Inject constructor(
         postId = postId,
     ).onFailure { fail ->
         sendErrorEvent(fail.asUiText())
-    }.onSuccess {
-        _state.update { it.undoReaction() }
     }
 
     private suspend fun reactToPost(
@@ -155,8 +144,6 @@ class PostDetailViewModel @Inject constructor(
         incrementCount = incrementedCount
     ).onFailure { fail ->
         sendErrorEvent(fail.asUiText())
-    }.onSuccess {
-        _state.update { it.submitReaction(reactionType) }
     }
 
     private fun commentChanged(
@@ -170,26 +157,13 @@ class PostDetailViewModel @Inject constructor(
             commentOnPostUseCase(
                 postId = postId!!,
                 comment = _state.value.postComment
-            )
-                .onFailure { fail ->
-                    sendErrorEvent(fail.asUiText())
-                }
-                .onSuccess { comment ->
-                    _state.update { it.addNewComment(comment) }
-                }
+            ).onFailure { fail ->
+                sendErrorEvent(fail.asUiText())
+            }
             _state.update { it.copy(commentLoading = false) }
         }
     }
 
-
-    private fun emitError(fail: UiText) {
-        _state.update {
-            it.copy(
-                state = PostDetailStatus.Error,
-                error = fail,
-            )
-        }
-    }
 
     private suspend fun sendErrorEvent(fail: UiText) {
         _event.send(PostDetailsEvents.Error(fail))

@@ -2,6 +2,7 @@ package com.mohaberabi.linkedin.core.domain.source.remote
 
 import com.mohaberabi.linkedin.core.domain.model.ReactionModel
 import com.mohaberabi.linkedin.core.domain.model.ReactionType
+import kotlinx.coroutines.flow.Flow
 
 
 private typealias PostId = String
@@ -34,5 +35,9 @@ interface PostReactionsRemoteDataSource {
         lastDocId: String? = null,
     ): List<ReactionModel>
 
+    fun listenToPostReactions(
+        postId: String,
+        limit: Int = 20,
+    ): Flow<List<ReactionModel>>
 }
 

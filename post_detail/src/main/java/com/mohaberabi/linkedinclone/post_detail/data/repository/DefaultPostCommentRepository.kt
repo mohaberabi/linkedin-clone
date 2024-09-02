@@ -4,7 +4,6 @@ import com.mohaberabi.linkedin.core.domain.error.ErrorModel
 import com.mohaberabi.linkedin.core.domain.model.PostCommentModel
 import com.mohaberabi.linkedin.core.domain.source.local.user.UserLocalDataSource
 import com.mohaberabi.linkedin.core.domain.util.AppResult
-import com.mohaberabi.linkedin.core.domain.util.EmptyDataResult
 import com.mohaberabi.linkedinclone.post_detail.domain.repository.PostCommentRepository
 import com.mohaberabi.linkedinclone.post_detail.domain.source.remote.PostCommentRemoteDataSource
 import kotlinx.coroutines.flow.first

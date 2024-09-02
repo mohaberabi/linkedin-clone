@@ -6,6 +6,8 @@ import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Filter
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.snapshots
 import com.mohaberabi.linkedin.core.domain.model.ReactionModel
 import com.mohaberabi.linkedin.core.domain.model.ReactionType
 import com.mohaberabi.linkedin.core.domain.source.remote.PostReactionsRemoteDataSource
@@ -18,6 +20,9 @@ import com.mohaberabi.linkedinclone.core.data.dto.mapper.toReactionModel
 import com.mohaberabi.linkedinclone.core.data.util.paginate
 import com.mohaberabi.linkedinclone.core.data.util.safeCall
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -164,6 +169,20 @@ class FirebasePostReactionsRemoteDataSource @Inject constructor(
             }
 
         }
+    }
+
+    override fun listenToPostReactions(
+        postId: String,
+        limit: Int
+    ): Flow<List<ReactionModel>> {
+        return firestore.collection(EndPoints.Posts)
+            .document(postId)
+            .collection(EndPoints.REACTIONS)
+            .limit(limit.toLong())
+            .orderBy(CommonParams.CREATED_AT_MILLIS, Query.Direction.DESCENDING)
+            .snapshots()
+            .map { docs -> docs.map { it.toObject(ReactionDto::class.java).toReactionModel() } }
+            .flowOn(dispatchers.io)
     }
 
 

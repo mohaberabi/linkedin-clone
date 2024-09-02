@@ -32,11 +32,9 @@ class FirebaseRegisterRemoteDataSource @Inject constructor(
         bio: String
     ): String {
         return withContext(dispatchers.io) {
-            val registerResponse = async {
-                auth.safeCall {
-                    createUserWithEmailAndPassword(email, password).await()
-                }
-            }.await()
+            val registerResponse = auth.safeCall {
+                createUserWithEmailAndPassword(email, password).await()
+            }
             registerResponse?.let { authed ->
                 firestore.safeCall {
                     val request = RegisterRequest(
@@ -63,14 +61,13 @@ class FirebaseRegisterRemoteDataSource @Inject constructor(
     ): UserModel {
 
         return withContext(dispatchers.io) {
-            val uid = async {
+            val uid =
                 auth.safeCall {
                     signInWithEmailAndPassword(
                         email,
                         password,
                     ).await()
                 }.user?.uid
-            }.await()
             uid?.let {
                 firestore.safeCall {
                     collection(EndPoints.USERS)

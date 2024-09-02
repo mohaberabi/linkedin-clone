@@ -8,6 +8,7 @@ import com.mohaberabi.add_posts.databinding.FragmentAddPostBinding
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostActions
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostState
 import com.mohaberabi.presentation.ui.util.extension.cachedImage
+import com.mohaberabi.presentation.ui.util.extension.hide
 
 
 fun FragmentAddPostBinding.render(
@@ -15,7 +16,7 @@ fun FragmentAddPostBinding.render(
     onAction: (AddPostActions) -> Unit,
 ) {
     if (state.postImgByteArray.isNotEmpty()) {
-        imagePreview.visibility = View.VISIBLE
+        imagePreview.hide()
         imagePreview.setImageBitmap(
             BitmapFactory.decodeByteArray(
                 state.postImgByteArray,

@@ -24,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AddPostViewModel @Inject constructor(
     private val addPostUseCase: AddPostUseCase,
-    private val listenToCurrentUserUseCase: ListenToCurrentUserUseCase
+    listenToCurrentUserUseCase: ListenToCurrentUserUseCase
 ) : ViewModel() {
 
 
@@ -76,7 +76,7 @@ class AddPostViewModel @Inject constructor(
                 )
             else null
             addPostUseCase(
-                postData = stateVal.postData,
+                postData = stateVal.postData.trim(),
                 postAttachedImg = postImgFile,
                 postId = generatedId
             ).onFailure { fail ->

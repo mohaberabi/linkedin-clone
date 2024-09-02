@@ -8,6 +8,7 @@ import com.mohaberabi.linkedinclone.job_detail.presentation.viewmodel.JobDetailS
 import com.mohaberabi.linkedinclone.job_detail.presentation.viewmodel.JobDetailStatus
 import com.mohaberabi.presentation.ui.util.UiText
 import com.mohaberabi.presentation.ui.util.extension.cachedImage
+import com.mohaberabi.presentation.ui.util.extension.hideAll
 import com.mohaberabi.presentation.ui.util.extension.show
 
 fun FragmentJobDetailBinding.render(state: JobDetailState) {
@@ -19,8 +20,11 @@ fun FragmentJobDetailBinding.render(state: JobDetailState) {
 }
 
 private fun FragmentJobDetailBinding.loading() {
-    error.hide()
-    nestedScroll.visibility = View.GONE
+
+    hideAll(
+        error,
+        nestedScroll
+    )
     loader.show()
 }
 
@@ -31,7 +35,9 @@ private fun FragmentJobDetailBinding.error(errorText: UiText) {
     error.setErrorTitle(errorVal)
 }
 
-private fun FragmentJobDetailBinding.populated(detail: JobDetailModel) {
+private fun FragmentJobDetailBinding.populated(
+    detail: JobDetailModel,
+) {
     loader.hide()
     error.hide()
     nestedScroll.show()

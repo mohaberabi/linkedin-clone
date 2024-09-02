@@ -29,5 +29,5 @@ data class AddPostState(
 
 
     val canAddPost: Boolean
-        get() = postImgByteArray.isNotEmpty() || postData.isNotEmpty()
+        get() = postImgByteArray.isNotEmpty() || postData.trim().isNotEmpty()
 }

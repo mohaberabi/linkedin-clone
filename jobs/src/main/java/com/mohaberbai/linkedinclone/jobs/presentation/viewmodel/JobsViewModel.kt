@@ -80,7 +80,6 @@ class JobsViewModel @Inject constructor(
                     }
                 }
                 .onSuccess { jbs ->
-                    Log.d("jobs", jbs.size.toString())
                     _state.update {
                         it.copy(
                             jobs = jbs,

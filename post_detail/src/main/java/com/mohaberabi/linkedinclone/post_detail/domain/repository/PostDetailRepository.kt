@@ -1,16 +1,12 @@
 package com.mohaberabi.linkedinclone.post_detail.domain.repository
 
-import com.mohaberabi.linkedin.core.domain.error.ErrorModel
-import com.mohaberabi.linkedin.core.domain.model.PostCommentModel
 import com.mohaberabi.linkedin.core.domain.model.PostDetailModel
-import com.mohaberabi.linkedin.core.domain.util.AppResult
-import com.mohaberabi.linkedin.core.domain.util.EmptyDataResult
+import kotlinx.coroutines.flow.Flow
 
 
 interface PostDetailRepository {
-    suspend fun getPostDetail(
+
+    fun listenToPostDetails(
         postId: String,
-    ): AppResult<PostDetailModel, ErrorModel>
-
-
+    ): Flow<PostDetailModel>
 }

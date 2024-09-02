@@ -37,4 +37,5 @@ fun FragmentRegisterBinding.bindWithRegisterState(
     state: RegisterState
 ) {
     registerButton.setLoading(state.loading)
+
 }

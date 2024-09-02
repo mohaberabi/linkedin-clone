@@ -6,7 +6,7 @@ import com.mohaberabi.linkedin.core.domain.util.EmptyDataResult
 
 
 class PostReactionHandler {
-    suspend inline operator fun invoke(
+    inline operator fun invoke(
         postId: String,
         reactionType: ReactionType,
         previousReactionType: ReactionType?,

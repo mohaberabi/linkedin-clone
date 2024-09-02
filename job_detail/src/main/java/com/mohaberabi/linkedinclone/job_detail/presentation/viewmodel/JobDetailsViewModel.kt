@@ -19,12 +19,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class JobDetailsViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
     private val getJobDetailsUseCase: GetJobDetailsUseCase,
 ) : ViewModel() {
     private val _state = MutableStateFlow(JobDetailState())
     val state = _state.asStateFlow()
-    private val id = savedStateHandle.get<String>("jobId")
     fun onAction(action: JobDetailActions) {
         when (action) {
             is JobDetailActions.JobIdChanged -> getJobDetail(action.id)

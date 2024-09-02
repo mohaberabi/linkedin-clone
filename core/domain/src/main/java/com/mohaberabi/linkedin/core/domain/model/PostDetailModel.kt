@@ -5,5 +5,4 @@ data class PostDetailModel(
     val post: PostModel?,
     val topComments: List<PostCommentModel>,
     val topReactions: List<ReactionModel>,
-    val currentUserReaction: ReactionType? = null,
 )

@@ -51,8 +51,6 @@ fun ActivityMainBinding.listenToNavGraphDestinations(
     navController: NavController,
 ) {
     navController.addOnDestinationChangedListener { _, destination, _ ->
-
-
         when {
             isNonAuthedRoute(destination.id) -> {
                 hideAll(
@@ -74,7 +72,6 @@ fun ActivityMainBinding.listenToNavGraphDestinations(
 
             else -> {
                 bottomNavigationView.hide()
-                bottomNavigationView.show()
                 with(appBar) {
                     show()
                     showSearchField(false)
