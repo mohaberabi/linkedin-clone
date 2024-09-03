@@ -64,5 +64,7 @@ dependencies {
     implementation(projects.core.remoteAnayltics)
     implementation(projects.postDetail)
     implementation(projects.core.data)
+    implementation(projects.onboarding)
+    implementation(projects.login)
 
 }

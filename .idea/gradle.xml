@@ -36,6 +36,8 @@
             <option value="$PROJECT_DIR$/core/remote_anayltics" />
             <option value="$PROJECT_DIR$/job_detail" />
             <option value="$PROJECT_DIR$/jobs" />
+            <option value="$PROJECT_DIR$/login" />
+            <option value="$PROJECT_DIR$/onboarding" />
             <option value="$PROJECT_DIR$/post_detail" />
             <option value="$PROJECT_DIR$/posts" />
             <option value="$PROJECT_DIR$/profile" />

@@ -2,19 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph_register"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/registerFragment">
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.mohaberabi.linkedinclone.register.presentation.register.fragment.RegisterFragment"
-        android:label="RegisterFragment" />
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.mohaberabi.linkedinclone.register.presentation.login.fragments.LoginFragment"
-        android:label="LoginFragment">
-        <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+        android:name="com.mohaberabi.linkedinclone.register.presentation.fragment.RegisterFragment">
+        <deepLink app:uri="android-app://linked.clone.app/register" />
+
     </fragment>
 
 

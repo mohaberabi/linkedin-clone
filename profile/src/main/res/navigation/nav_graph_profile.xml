@@ -8,6 +8,6 @@
         android:id="@+id/profileFragment"
         android:name="com.mohaberabi.linkedinclone.profile.presentation.fragments.ProfileFragment"
         android:label="profile_fragment">
-        <deepLink app:uri="android-app://linked.clone.app/profile_fragment" />
+        <deepLink app:uri="android-app://linked.clone.app/profile" />
     </fragment>
 </navigation>

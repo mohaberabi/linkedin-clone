@@ -1,0 +1,10 @@
+<resources>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_in">Sign in</string>
+    <string name="onboaring_one_ttl">Find and land your next job</string>
+    <string name="onboaring_two_ttl">Build your network on the go</string>
+    <string name="onboaring_three_ttl">Stay ahead with your content for next crear</string>
+
+    <string name="find_and_land_your_next_job">Find and land your next job</string>
+    <string name="auth_policy">By joining or signing in you agree on our privacy policy , terms and conditions</string>
+</resources>

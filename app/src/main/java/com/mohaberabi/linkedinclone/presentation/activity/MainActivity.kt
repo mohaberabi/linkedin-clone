@@ -5,20 +5,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import com.google.firebase.firestore.FirebaseFirestore
 import com.mohaberabi.linedinclone.core.remote_anayltics.domain.AppAnalytics
 import com.mohaberabi.linkedin.core.domain.util.AppBottomSheetShower
-import com.mohaberabi.linkedin.core.domain.util.EndPoints
 import com.mohaberabi.linkedinclone.R
-import com.mohaberabi.linkedinclone.core.data.source.fake.FakeComments
-import com.mohaberabi.linkedinclone.core.data.source.fake.FakeJobDetails
-import com.mohaberabi.linkedinclone.core.data.source.fake.FakeJobs
-import com.mohaberabi.linkedinclone.core.data.source.fake.FakePosts
-import com.mohaberabi.linkedinclone.core.data.source.fake.FakeReactions
 import com.mohaberabi.linkedinclone.presentation.activity.viewmodel.MainActivityViewModel
 import com.mohaberabi.linkedinclone.databinding.ActivityMainBinding
 import com.mohaberabi.presentation.ui.navigation.AppRoutes
@@ -27,14 +19,6 @@ import com.mohaberabi.presentation.ui.util.closeDrawer
 import com.mohaberabi.presentation.ui.util.extension.addDefaultPaddings
 import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.joinAll
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -44,10 +28,11 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     private val viewmodel by viewModels<MainActivityViewModel>()
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private val bottomNavViews = setOf(
+    private val nonAutoHandledAppBarViews = setOf(
         com.mohaberabi.posts.R.id.postsFragment,
         com.mohaberabi.jobs.R.id.jobsFragments,
         com.mohaberabi.user_media.R.id.profilePictureFragment,
+        com.mohaberabi.onboarding.R.id.onBoardingFragment,
     )
 
     @Inject
@@ -105,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupAppBar() {
         appBarConfiguration = AppBarConfiguration(
-            bottomNavViews,
+            nonAutoHandledAppBarViews,
         )
         NavigationUI.setupActionBarWithNavController(
             this,
@@ -121,7 +106,7 @@ class MainActivity : AppCompatActivity() {
     ) {
         if (!loggedIn && loadedData) {
             val graph = rootNavController().navInflater.inflate(R.navigation.nav_graph_main)
-            graph.setStartDestination(com.mohaberabi.register.R.id.nav_graph_register)
+            graph.setStartDestination(com.mohaberabi.onboarding.R.id.nav_graph_onboarding)
             rootNavController().graph = graph
         }
     }

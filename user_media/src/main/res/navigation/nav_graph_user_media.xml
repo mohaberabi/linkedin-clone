@@ -7,12 +7,11 @@
 
     <fragment
         android:id="@+id/profilePictureFragment"
-        android:name="com.mohaberabi.linkedinclone.usermedida.presentation.fragments.UserMediaFragment"
-        android:label="ProfilePictureFragment">
+        android:name="com.mohaberabi.linkedinclone.usermedida.presentation.fragments.UserMediaFragment">
         <argument
             android:name="imgUri"
             app:argType="string" />
-        <deepLink app:uri="android-app://linked.clone.app/ProfilePictureFragment?imgUri={imgUri}" />
+        <deepLink app:uri="android-app://linked.clone.app/profilePic?imgUri={imgUri}" />
 
     </fragment>
 

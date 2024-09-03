@@ -33,9 +33,13 @@
     <string name="thoughtful">%Thoughtful</string>
     <string name="clap">Clap</string>
     <string name="all">All</string>
+    <string name="email">Email</string>
 
     <string name="love">Love</string>
     <string name="comment_count">%1$d comments</string>
     <string name="repost_count">%1$d reposts</string>
-
+    <string name="forgot_password">Forgot password?</string>
+    <string name="password">Password</string>
+    <string name="or_join_linkedin">or join linkedin</string>
+    <string name="sign_in">Sign in</string>
 </resources>

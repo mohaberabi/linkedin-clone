@@ -9,6 +9,6 @@
         android:id="@+id/addPostFragment"
         android:name="com.mohaberabi.linkedinclone.add_post.presentation.fragments.AddPostFragment"
         tools:layout="@layout/fragment_add_post">
-        <deepLink app:uri="android-app://linked.clone.app/fragment_add_post" />
+        <deepLink app:uri="android-app://linked.clone.app/addPost" />
     </fragment>
 </navigation>

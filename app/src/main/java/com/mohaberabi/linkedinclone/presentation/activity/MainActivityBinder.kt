@@ -52,14 +52,6 @@ fun ActivityMainBinding.listenToNavGraphDestinations(
 ) {
     navController.addOnDestinationChangedListener { _, destination, _ ->
         when {
-            isNonAuthedRoute(destination.id) -> {
-                hideAll(
-                    appBar,
-                    bottomNavigationView,
-                )
-                appDrawerLayout.lock()
-            }
-
             isTopLevelRoute(destination.id) -> {
                 bottomNavigationView.show()
                 with(appBar) {
@@ -92,12 +84,11 @@ fun ActivityMainBinding.listenToNavGraphDestinations(
     }
 }
 
-private fun isNonAuthedRoute(id: Int) = when (id) {
-    com.mohaberabi.register.R.id.loginFragment,
-    com.mohaberabi.register.R.id.registerFragment -> true
-
-    else -> false
-}
+//private fun isNonAuthedRoute(id: Int) = when (id) {
+//    com.mohaberabi.register.R.id.registerFragment -> true
+//    com.mohaberabi.login.R.id.loginFragment -> true
+//    else -> false
+//}
 
 private fun isTopLevelRoute(id: Int) = when (id) {
     com.mohaberabi.posts.R.id.postsFragment,
