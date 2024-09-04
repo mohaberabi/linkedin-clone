@@ -7,5 +7,6 @@ interface UserLocalDataSource {
     suspend fun saveUser(user: UserModel)
     fun getUser(): Flow<UserModel?>
     suspend fun delete()
+    suspend fun getUid(): String
 
 }

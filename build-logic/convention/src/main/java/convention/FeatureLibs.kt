@@ -11,6 +11,8 @@ internal fun DependencyHandlerScope.addFeatureDips(
     val libs = project.libs
     add("implementation", libs.findLibrary("lifecycleViewModel").get())
     add("implementation", libs.findLibrary("lifecycleRuntime").get())
+    add("implementation", libs.findLibrary("androidxFragment").get())
+
 }
 
 

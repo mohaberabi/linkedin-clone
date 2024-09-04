@@ -3,7 +3,7 @@ package com.mohaberabi.presentation.ui.navigation
 private object NavDeepLinks {
     const val ADD_POST = "addPost"
     const val PROFILE = "profile"
-    const val Profile_Pic = "profilePic"
+    const val User_Media = "userMedia"
     const val POST_DETAIL = "postDetails"
     const val POSTS = "posts"
     const val Login = "login"
@@ -20,9 +20,15 @@ sealed class AppRoutes(
     data object Posts : AppRoutes(NavDeepLinks.POSTS)
     data object AddPost : AppRoutes(NavDeepLinks.ADD_POST)
     data object Profile : AppRoutes(NavDeepLinks.PROFILE)
-    data class ProfilePic(val imgUri: String) : AppRoutes(
-        route = NavDeepLinks.Profile_Pic,
-        args = listOf("imgUri" to imgUri)
+    data class UserMedia(
+        val imgUri: String,
+        val isCover: Boolean = false,
+    ) : AppRoutes(
+        route = NavDeepLinks.User_Media,
+        args = listOf(
+            "imgUri" to imgUri,
+            "isCover" to isCover,
+        )
     )
 
     data class PostDetail(

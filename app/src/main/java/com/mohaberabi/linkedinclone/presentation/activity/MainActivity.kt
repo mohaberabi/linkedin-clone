@@ -11,23 +11,32 @@ import androidx.navigation.ui.setupWithNavController
 import com.mohaberabi.linedinclone.core.remote_anayltics.domain.AppAnalytics
 import com.mohaberabi.linkedin.core.domain.util.AppBottomSheetShower
 import com.mohaberabi.linkedinclone.R
-import com.mohaberabi.linkedinclone.presentation.activity.viewmodel.MainActivityViewModel
+import com.mohaberabi.linkedinclone.current_user.CurrentUserViewModel
 import com.mohaberabi.linkedinclone.databinding.ActivityMainBinding
+import com.mohaberabi.linkedinclone.databinding.NavHeaderBinding
 import com.mohaberabi.presentation.ui.navigation.AppRoutes
 import com.mohaberabi.presentation.ui.navigation.goTo
 import com.mohaberabi.presentation.ui.util.closeDrawer
 import com.mohaberabi.presentation.ui.util.extension.addDefaultPaddings
 import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
+import com.mohaberabi.presentation.ui.util.openDrawer
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import androidx.fragment.app.activityViewModels
 
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
-    private val viewmodel by viewModels<MainActivityViewModel>()
+    private val currentUserViewModel by viewModels<CurrentUserViewModel>()
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    @Inject
+    lateinit var anayltics: AppAnalytics
+
+    @Inject
+    lateinit var sheetShower: AppBottomSheetShower
     private val nonAutoHandledAppBarViews = setOf(
         com.mohaberabi.posts.R.id.postsFragment,
         com.mohaberabi.jobs.R.id.jobsFragments,
@@ -35,27 +44,34 @@ class MainActivity : AppCompatActivity() {
         com.mohaberabi.onboarding.R.id.onBoardingFragment,
     )
 
-    @Inject
-    lateinit var anayltics: AppAnalytics
-
-    @Inject
-    lateinit var sheetShower: AppBottomSheetShower
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         anayltics.logEvent("activityCreated")
         enableEdgeToEdge()
         val splash = installSplashScreen()
-        splash.setKeepOnScreenCondition { !viewmodel.state.value.didLoad }
+        splash.setKeepOnScreenCondition { !currentUserViewModel.state.value.didLoad }
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.appBar)
         setupAppBar()
+        setupBinding()
         addDefaultPaddings(rootView = binding.root)
         observeState()
         observeGlobalBottomSheet()
+    }
+
+    private fun setupBinding() {
+
         with(binding) {
+            val headerView = appDrawerView.getHeaderView(0)
+            val mainDrawerBinding = NavHeaderBinding.bind(headerView)
+            appBar.setOnAvatarClickListener {
+                appDrawerLayout.openDrawer()
+            }
+            mainDrawerBinding.avatarImage.setOnClickListener {
+                goToProfile()
+            }
             bottomNavigationView.setupWithNavController(
                 navController = rootNavController(),
             )
@@ -68,16 +84,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeState() {
         collectLifeCycleFlow(
-            viewmodel.state,
+            currentUserViewModel.state,
         ) { state ->
             handleStartRoute(
                 loadedData = state.didLoad,
                 loggedIn = state.user != null
             )
-            binding.bind(
-                state = state,
-                onGoProfile = { goToProfile() }
-            )
+            binding.bindWithCurrentUserState(state = state)
         }
     }
 

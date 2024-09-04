@@ -48,6 +48,7 @@ dependencies {
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity)
+    implementation(libs.androidxFragment)
 
     implementation(projects.core.presentaton.designSystem)
     implementation(projects.core.presentaton.ui)
@@ -66,5 +67,6 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.onboarding)
     implementation(projects.login)
+    implementation(projects.core.currentUser)
 
 }

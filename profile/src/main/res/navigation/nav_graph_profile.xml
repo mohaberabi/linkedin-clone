@@ -6,8 +6,11 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.mohaberabi.linkedinclone.profile.presentation.fragments.ProfileFragment"
-        android:label="profile_fragment">
-        <deepLink app:uri="android-app://linked.clone.app/profile" />
+        android:name="com.mohaberabi.linkedinclone.profile.presentation.fragments.ProfileFragment">
+        <deepLink app:uri="android-app://linked.clone.app/profile?uid={uid}" />
     </fragment>
+    <argument
+        android:name="uid"
+        app:argType="string"
+        app:nullable="true" />
 </navigation>

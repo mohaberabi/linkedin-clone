@@ -57,8 +57,9 @@ class RegisterViewModel @Inject constructor(
                 email = stateVal.email,
                 password = stateVal.password,
                 bio = stateVal.bio
-            ).onFailure { fail -> _event.send(RegisterEvents.Error(fail.asUiText())) }
-                .onSuccess { _event.send(RegisterEvents.Registered) }
+            ).onFailure { fail ->
+                _event.send(RegisterEvents.Error(fail.asUiText()))
+            }.onSuccess { _event.send(RegisterEvents.Registered) }
         }
         _state.update { it.copy(loading = false) }
 

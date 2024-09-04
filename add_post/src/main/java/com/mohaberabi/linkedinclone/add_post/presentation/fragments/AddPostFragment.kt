@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -16,7 +17,9 @@ import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostActio
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostEvents
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostState
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostViewModel
+import com.mohaberabi.linkedinclone.current_user.CurrentUserViewModel
 import com.mohaberabi.presentation.ui.util.extension.asByteArray
+import com.mohaberabi.presentation.ui.util.extension.cachedImage
 import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
 import com.mohaberabi.presentation.ui.util.extension.createLoadingDialog
 import com.mohaberabi.presentation.ui.util.extension.show
@@ -26,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddPostFragment : Fragment() {
+    private val currentUserViewModel by activityViewModels<CurrentUserViewModel>()
     private var _binding: FragmentAddPostBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<AddPostViewModel>()
@@ -59,6 +63,15 @@ class AddPostFragment : Fragment() {
             } else {
                 loadingDialog.dismiss()
             }
+        }
+
+        collectLifeCycleFlow(
+            currentUserViewModel.state,
+        ) { state ->
+            state.user?.let {
+                binding.profilePic.cachedImage(it.img)
+            }
+
         }
         collectLifeCycleFlow(
             viewModel.events,
@@ -95,9 +108,11 @@ class AddPostFragment : Fragment() {
 
     }
 
-    private fun bindWithState(state: AddPostState) {
-        if (state.postImgByteArray.isNotEmpty()) {
-            with(binding) {
+    private fun bindWithState(
+        state: AddPostState,
+    ) {
+        with(binding) {
+            if (state.postImgByteArray.isNotEmpty()) {
                 imagePreview.show()
                 imagePreview.setImageBitmap(
                     BitmapFactory.decodeByteArray(
@@ -106,9 +121,9 @@ class AddPostFragment : Fragment() {
                         state.postImgByteArray.size,
                     )
                 )
-                postButton.setLoading(state.loading)
-                postButton.setEnable(state.canAddPost)
             }
+            postButton.setLoading(state.loading)
+            postButton.setEnable(state.canAddPost)
         }
 
     }

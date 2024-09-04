@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_user_media"
     app:startDestination="@id/profilePictureFragment">
 
     <fragment
         android:id="@+id/profilePictureFragment"
         android:name="com.mohaberabi.linkedinclone.usermedida.presentation.fragments.UserMediaFragment">
+
         <argument
             android:name="imgUri"
-            app:argType="string" />
-        <deepLink app:uri="android-app://linked.clone.app/profilePic?imgUri={imgUri}" />
+            app:argType="string"
+            app:nullable="false" />
 
+        <argument
+            android:name="isCover"
+            app:argType="boolean"
+            android:defaultValue="false" />
+
+        <deepLink app:uri="android-app://linked.clone.app/userMedia?imgUri={imgUri}&amp;isCover={isCover}" />
     </fragment>
 
 </navigation>

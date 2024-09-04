@@ -18,11 +18,6 @@ interface PostReactionsRemoteDataSource {
         reactorId: String,
     )
 
-    suspend fun getUserReactionOnPost(
-        postId: String,
-        uid: String,
-    ): ReactionType?
-
     suspend fun getUsersReactionsOnPosts(
         uid: String,
         postIds: List<String>

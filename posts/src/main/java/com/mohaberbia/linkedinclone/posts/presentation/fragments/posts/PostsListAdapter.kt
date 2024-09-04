@@ -26,6 +26,10 @@ class PostsListAdapter(
         predicate = { it.id },
         contentPredicate = { old, new -> old == new }
     ) {
+    init {
+
+        setHasStableIds(true)
+    }
 
     inner class PostViewHolder(
         private val binding: PostListItemBinding,
@@ -57,4 +61,8 @@ class PostsListAdapter(
         holder: PostViewHolder,
         position: Int
     ) = holder.bind(getItem(position))
+
+    override fun getItemId(position: Int): Long {
+        return getItem(position).id.hashCode().toLong()
+    }
 }

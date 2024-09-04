@@ -5,21 +5,65 @@
     android:paddingHorizontal="@dimen/margin_large">
 
 
-    <com.mohaberabi.presentation.ui.views.AppButton
-        android:id="@+id/postButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:buttonHeight="36dp"
-        app:buttonWidth="100dp"
+    <LinearLayout
+        android:id="@+id/postActions"
+        android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:buttonText="Post" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/postScrollView"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="42dp"
+            android:id="@+id/profilePic"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="@dimen/margin_small"
+            android:src="@drawable/img_plcholder"
+            app:shapeAppearanceOverlay="@style/roundedImageView"
+            android:layout_height="42dp">
+
+
+        </com.google.android.material.imageview.ShapeableImageView>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:textColor="@color/black"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:text="Anyone"
+            android:layout_height="wrap_content">
+
+        </TextView>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="0dp">
+
+        </View>
+
+        <com.mohaberabi.presentation.ui.views.AppButton
+            android:id="@+id/postButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:buttonHeight="36dp"
+            app:buttonWidth="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:buttonText="Post" />
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/postScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/postButton"
+        android:layout_marginTop="@dimen/margin_medium"
+        app:layout_constraintTop_toBottomOf="@+id/postActions"
         app:layout_constraintBottom_toTopOf="@id/bottomToolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout

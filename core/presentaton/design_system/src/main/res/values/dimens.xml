@@ -6,8 +6,8 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_large">24dp</dimen>
-    <dimen name="margin_xlarge">42dp</dimen>
-
+    <dimen name="margin_xlarge">30dp</dimen>
+    <dimen name="margin_xxl">42dp</dimen>
     <dimen name="text_size_small">12sp</dimen>
     <dimen name="text_size_medium">14sp</dimen>
     <dimen name="text_size_large">18sp</dimen>

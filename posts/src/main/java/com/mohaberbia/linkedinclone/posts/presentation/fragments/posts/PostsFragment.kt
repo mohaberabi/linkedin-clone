@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
+import com.mohaberabi.core.presentation.ui.R
 import com.mohaberabi.linkedin.core.domain.model.ReactionType
 import com.mohaberbia.linkedinclone.posts.presentation.viewmodel.PostsViewModel
 import com.mohaberabi.posts.databinding.FragmentPostsBinding
@@ -110,7 +112,13 @@ class PostsFragment : Fragment() {
 
     private fun goToPostDetail(
         postId: String,
-    ) = findNavController().goTo(AppRoutes.PostDetail(postId))
+    ) = findNavController()
+        .goTo(AppRoutes.PostDetail(postId)) {
+            setEnterAnim(R.anim.enter_left_right)
+            setExitAnim(R.anim.exit_left_right)
+            setPopEnterAnim(R.anim.enter_left_right)
+            setPopExitAnim(R.anim.exit_left_right)
+        }
 
 
     private fun setupBinding() {
@@ -126,6 +134,8 @@ class PostsFragment : Fragment() {
                 },
                 newLayoutManager = LinearLayoutManager(root.context)
             )
+
+            (recyclerView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
             pullRefresh.setOnRefreshListener {
                 viewModel.onAction(PostsActions.Refresh)
             }

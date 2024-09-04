@@ -24,24 +24,9 @@ import javax.inject.Inject
 @HiltViewModel
 class AddPostViewModel @Inject constructor(
     private val addPostUseCase: AddPostUseCase,
-    listenToCurrentUserUseCase: ListenToCurrentUserUseCase
 ) : ViewModel() {
-
-
     private val _state = MutableStateFlow(AddPostState())
     val state = _state.asStateFlow()
-
-    init {
-        listenToCurrentUserUseCase()
-            .onEach { user ->
-                _state.update {
-                    it.copy(
-                        userImg = user?.img ?: "",
-                    )
-                }
-            }.launchIn(viewModelScope)
-    }
-
     private val _events = Channel<AddPostEvents>()
     val events = _events.receiveAsFlow()
     fun action(action: AddPostActions) {

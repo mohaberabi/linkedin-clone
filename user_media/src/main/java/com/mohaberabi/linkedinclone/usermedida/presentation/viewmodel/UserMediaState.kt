@@ -4,5 +4,5 @@ import com.mohaberabi.linkedin.core.domain.model.AppFile
 
 data class UserMediaState(
     val loading: Boolean = false,
-    val avatar: AppFile = AppFile(),
+    val pickedMedia: AppFile = AppFile(),
 )

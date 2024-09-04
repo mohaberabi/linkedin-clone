@@ -4,7 +4,6 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface PersistenceClient {
-
     suspend fun write(key: String, value: String)
     suspend fun delete(key: String)
     suspend fun clear()

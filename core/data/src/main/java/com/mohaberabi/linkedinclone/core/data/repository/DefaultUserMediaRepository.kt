@@ -57,7 +57,9 @@ class DefaultUserMediaRepository @Inject constructor(
                 val remoteUpdate = launch {
                     userRemoteDataSource.updateUser(user.copy(img = url))
                 }
-                val localResult = launch { userLocalDataSource.saveUser(user.copy(img = url)) }
+                val localResult = launch {
+                    userLocalDataSource.saveUser(user.copy(img = url))
+                }
                 joinAll(
                     remoteUpdate,
                     localResult,
@@ -70,7 +72,9 @@ class DefaultUserMediaRepository @Inject constructor(
         file: AppFile,
         reference: String
     ): String {
-        val compressed = fileCompressorFactory.create(file.type).compress(file)
+        val compressed = fileCompressorFactory
+            .create(file.type)
+            .compress(file)
         val url = storageClient.upload(
             bytes = compressed,
             reference = reference

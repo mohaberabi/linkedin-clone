@@ -9,16 +9,14 @@ import androidx.navigation.NavOptions
 private const val APP_DOMAIN = "android-app://linked.clone.app/"
 
 
-private val defaultNavOptions = NavOptions.Builder()
-    .setRestoreState(true)
-    .build()
-
 fun NavController.goTo(
     route: AppRoutes,
+    builder: NavOptions.Builder.() -> Unit = {},
 ) {
     goTo(
         fragmentId = route.route,
-        args = route.args
+        args = route.args,
+        builder = builder,
     )
 }
 
@@ -30,9 +28,10 @@ fun NavController.popAllAndNavigate(
     )
 }
 
-fun NavController.goTo(
+private fun NavController.goTo(
     fragmentId: String,
     args: List<Pair<String, Any>> = listOf(),
+    builder: NavOptions.Builder.() -> Unit = {},
 ) {
     val uri = buildString {
         append(APP_DOMAIN)
@@ -46,7 +45,8 @@ fun NavController.goTo(
     val request = NavDeepLinkRequest.Builder
         .fromUri(uri)
         .build()
-    navigate(request, defaultNavOptions)
+    val navOptions = NavOptions.Builder().apply(builder).build()
+    navigate(request, navOptions)
 }
 
 fun NavController.popAllAndNavigate(

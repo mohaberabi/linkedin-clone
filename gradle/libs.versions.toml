@@ -73,6 +73,7 @@ firebase-firestore = { module = "com.google.firebase:firebase-firestore-ktx", ve
 firebase-auth = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuth" }
 prefs-datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "prefsVersion" }
 firebase-storage = { module = "com.google.firebase:firebase-storage-ktx", version.ref = "storageVersion" }
+androidxFragment = { group = "androidx.fragment", name = "fragment-ktx", version = "1.7.0" }
 firebase-anayltics = { module = "com.google.firebase:firebase-analytics", version.ref = "anaytlicsVersion" }
 
 

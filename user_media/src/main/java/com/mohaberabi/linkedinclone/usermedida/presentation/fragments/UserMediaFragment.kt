@@ -16,6 +16,7 @@ import com.mohaberabi.presentation.ui.util.extension.asByteArray
 import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
 import com.mohaberabi.presentation.ui.util.extension.createLoadingDialog
 import com.mohaberabi.presentation.ui.util.extension.showSnackBar
+import com.mohaberabi.presentation.ui.views.post_item.showIf
 import com.mohaberabi.user_media.databinding.FragmentProfilePictureBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,7 +37,7 @@ class UserMediaFragment : Fragment() {
             false
         )
         imageChanged()
-        bind()
+        setupBinding()
         val loadingDialog = requireContext().createLoadingDialog()
         collectLifeCycleFlow(
             viewmodel.state,
@@ -48,10 +49,12 @@ class UserMediaFragment : Fragment() {
             }
         }
 
-        collectLifeCycleFlow(viewmodel.events) { event ->
+        collectLifeCycleFlow(
+            viewmodel.events,
+        ) { event ->
             when (event) {
                 is UserMediaEvents.Error -> {
-                    binding.root.showSnackBar(event.error.asString(requireContext()))
+                    binding.root.showSnackBar(event.error)
                 }
 
                 UserMediaEvents.Uploaded -> {
@@ -64,7 +67,8 @@ class UserMediaFragment : Fragment() {
 
 
     private fun imageChanged() {
-        val bytes = Uri.parse(args.imgUri).asByteArray(requireContext().contentResolver)
+        val bytes = Uri.parse(args.imgUri)
+            .asByteArray(requireContext().contentResolver)
         bytes?.let {
             viewmodel.onAction(
                 UserMediaActions.ProfilePictureChanged(
@@ -74,17 +78,16 @@ class UserMediaFragment : Fragment() {
         }
     }
 
-    private fun bind() {
-        binding.imageProfilePicture.setImageURI(
-            Uri.parse(
-                args.imgUri,
-            ),
-        )
+    private fun setupBinding() {
+        val isCover = args.isCover
+        val uri = Uri.parse(args.imgUri)
+        binding.imageProfilePicture.showIf(!isCover) { setImageURI(uri) }
+        binding.landScacpeImg.showIf(isCover) { setImageURI(uri) }
         binding.cancelButton.setOnClickListener {
             findNavController().popBackStack()
         }
         binding.confirmButton.setOnClickListener {
-            viewmodel.onAction(UserMediaActions.ConfirmUpload)
+            viewmodel.onAction(UserMediaActions.ConfirmUpload(isCover))
         }
     }
 }

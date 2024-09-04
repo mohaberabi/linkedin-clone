@@ -7,28 +7,35 @@
 
 
     <ImageView
-        android:layout_width="24dp"
+        android:layout_width="36dp"
+        android:elevation="2dp"
+
         android:src="@drawable/like"
         android:layout_margin="@dimen/margin_small"
-        android:layout_height="24dp">
+        android:layout_height="36dp">
 
     </ImageView>
 
     <ImageView
-        android:layout_width="24dp"
+        android:layout_width="36dp"
+        android:elevation="2dp"
         android:src="@drawable/love"
         android:layout_margin="@dimen/margin_small"
-        android:layout_height="24dp"></ImageView>
+        android:layout_height="36dp"></ImageView>
 
     <ImageView
-        android:layout_width="24dp"
+        android:layout_width="36dp"
         android:src="@drawable/clap"
+        android:elevation="2dp"
+
         android:layout_margin="@dimen/margin_small"
-        android:layout_height="24dp"></ImageView>
+        android:layout_height="36dp"></ImageView>
 
     <ImageView
-        android:layout_width="24dp"
+        android:layout_width="36dp"
         android:src="@drawable/funny"
+        android:elevation="2dp"
+
         android:layout_margin="@dimen/margin_small"
-        android:layout_height="24dp"></ImageView>
+        android:layout_height="36dp"></ImageView>
 </LinearLayout>

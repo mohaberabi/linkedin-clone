@@ -55,20 +55,15 @@ class PostsViewModel @Inject constructor(
     init {
         listenToPostsUseCase()
             .onStart {
-                if (_state.value.posts.isEmpty()) {
-                    _state.update { it.copy(state = PostsStatus.Loading) }
-                }
-            }
-            .catch {
+                _state.update { it.copy(state = PostsStatus.Loading) }
+            }.catch {
                 _state.update {
                     it.copy(state = PostsStatus.Error)
                 }
-            }
-            .onEach { posts ->
+            }.onEach { posts ->
                 updatePosts(posts)
             }.retry(retries = 3)
             .launchIn(viewModelScope)
-
     }
 
 

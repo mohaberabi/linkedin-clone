@@ -40,12 +40,18 @@ class ReactionSelector @JvmOverloads constructor(
             val imageView = ImageView(context).apply {
                 setImageDrawable(ContextCompat.getDrawable(context, reaction.icon))
                 layoutParams = LayoutParams(
-                    resources.getDimensionPixelSize(com.mohaberabi.core.presentation.design_system.R.dimen.margin_large),
-                    resources.getDimensionPixelSize(com.mohaberabi.core.presentation.design_system.R.dimen.margin_large)
+                    resources.getDimensionPixelSize(com.mohaberabi.core.presentation.design_system.R.dimen.margin_xlarge),
+                    resources.getDimensionPixelSize(com.mohaberabi.core.presentation.design_system.R.dimen.margin_xlarge)
                 ).apply {
                     val marginSize =
-                        resources.getDimensionPixelSize(com.mohaberabi.core.presentation.design_system.R.dimen.margin_small)
-                    setMargins(marginSize, marginSize, marginSize, marginSize)
+                        resources.getDimensionPixelSize(com.mohaberabi.core.presentation.design_system.R.dimen.margin_medium)
+                    setMargins(
+                        marginSize,
+                        marginSize,
+                        marginSize,
+                        marginSize
+                    )
+                    elevation = 2f
                 }
                 setOnClickListener {
                     onReactionSelected?.invoke(reaction)

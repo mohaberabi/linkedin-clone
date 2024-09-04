@@ -14,9 +14,6 @@ enum class InputValidatorStatus {
 
     val isValid: Boolean
         get() = this == Valid
-
-    val notValid: Boolean
-        get() = this == NOT_VALID
 }
 
 enum class InputInvalidReason {

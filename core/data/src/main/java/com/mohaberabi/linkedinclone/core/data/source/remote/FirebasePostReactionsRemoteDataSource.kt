@@ -102,20 +102,6 @@ class FirebasePostReactionsRemoteDataSource @Inject constructor(
         }
     }
 
-    override suspend fun getUserReactionOnPost(
-        postId: String,
-        uid: String
-    ): ReactionType? {
-        return withContext(dispatchers.io) {
-            firestore.safeCall {
-                collection(EndPoints.USERS)
-                    .document(uid)
-                    .collection(EndPoints.REACTIONS)
-                    .document(postId).get().await()
-                    .toObject(ReactionDto::class.java)?.toReactionModel()?.reactionType
-            }
-        }
-    }
 
     override suspend fun getUsersReactionsOnPosts(
         uid: String,

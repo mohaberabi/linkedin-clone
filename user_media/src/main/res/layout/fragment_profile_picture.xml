@@ -16,6 +16,17 @@
         android:scaleType="centerCrop" />
 
 
+    <ImageView
+        android:id="@+id/landScacpeImg"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:visibility="gone"
+        android:src="@drawable/img_plcholder"
+        app:shapeAppearanceOverlay="@style/roundedImageView"
+        android:layout_gravity="center"
+        android:padding="0dp"
+        android:scaleType="centerCrop" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

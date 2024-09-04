@@ -17,79 +17,50 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val listenToUserUseCase: ListenToCurrentUserUseCase,
     private val getUserUseCase: GetUserUseCase,
-    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
 
     private val _state = MutableStateFlow(ProfileState())
     val state = _state.asStateFlow()
-    private val uid = savedStateHandle.get<String>("uid")
 
 
-    init {
-        handleUser()
+    fun onAction(action: ProfileActions) {
+        when (action) {
+            is ProfileActions.GetUser -> getOtherUser(action.uid)
+        }
     }
 
-
-    private fun handleUser() {
-        listenToUserUseCase()
-            .onStart {
-                _state.update { it.copy(state = ProfileStatus.Loading) }
-            }
-            .catch {
-                handleFailure()
-            }
-            .onEach { user ->
-                if (uid == null) {
-                    handleUser(user)
-                } else {
-                    if (uid == user?.uid) {
-                        handleUser(user)
-                    } else {
-                        getOtherUser(uid)
+    private fun getOtherUser(uid: String) {
+        _state.update { it.copy(state = ProfileStatus.Loading) }
+        viewModelScope.launch {
+            getUserUseCase(uid)
+                .onFailure {
+                    _state.update {
+                        it.copy(
+                            state = ProfileStatus.Error,
+                            error = UiText.userDeleted
+                        )
                     }
                 }
-            }.launchIn(viewModelScope)
-    }
-
-
-    private suspend fun getOtherUser(uid: String) {
-        getUserUseCase(uid)
-            .onFailure { handleFailure() }
-            .onSuccess { otherUser -> handleUser(otherUser, false) }
-    }
-
-    private fun handleFailure() {
-        _state.update {
-            it.copy(
-                state = ProfileStatus.Error,
-                error = UiText.userDeleted
-            )
+                .onSuccess { otherUser ->
+                    _state.update {
+                        it.copy(
+                            user = otherUser,
+                            canEdit = false,
+                            state = ProfileStatus.Populated,
+                        )
+                    }
+                }
         }
+
     }
 
-    private fun handleUser(
-        user: UserModel?,
-        canEdit: Boolean = true
-    ) {
-        val status = if (user == null) {
-            ProfileStatus.Error
-        } else {
-            ProfileStatus.Populated
-        }
-        _state.update {
-            it.copy(
-                user = user,
-                canEdit = canEdit,
-                state = status,
-            )
-        }
-    }
+
 }
