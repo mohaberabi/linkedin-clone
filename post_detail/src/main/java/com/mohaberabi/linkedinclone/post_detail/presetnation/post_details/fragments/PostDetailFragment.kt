@@ -50,12 +50,9 @@ class PostDetailFragment : Fragment() {
         binding.setup(
             onAction = viewModel::onAction,
             commentAdapter = commentorListAdapter,
-            reactorsAdapter = reactorsListAdapter
+            reactorsAdapter = reactorsListAdapter,
+            onMoreReactionsClick = { goToPostReactions() }
         )
-        binding.moreIcon.setOnClickListener {
-            goToPostReactions()
-        }
-
         val postClickCallBacks = PostClickCallBacks(
             onLikeClick = { post ->
                 val reaction = post.currentUserReaction ?: ReactionType.Like

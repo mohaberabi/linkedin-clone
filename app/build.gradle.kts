@@ -68,5 +68,7 @@ dependencies {
     implementation(projects.onboarding)
     implementation(projects.login)
     implementation(projects.core.currentUser)
+    implementation(projects.suggestedConnection)
+    implementation(projects.inAppNotifications)
 
 }

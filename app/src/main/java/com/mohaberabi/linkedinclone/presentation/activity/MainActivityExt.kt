@@ -9,13 +9,13 @@ import com.mohaberabi.linkedinclone.job_detail.presentation.fragment.JobDetailFr
 import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
 
 
-fun MainActivity.rootNavController(): NavController {
-    val navHostFragment = supportFragmentManager
-        .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-    val navController = navHostFragment.navController
-    return navController
-}
-
+val MainActivity.rootNavController: NavController
+    get() {
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        return navController
+    }
 
 fun MainActivity.observeGlobalBottomSheet() {
     collectLifeCycleFlow(

@@ -13,25 +13,27 @@ fun NavController.goTo(
     route: AppRoutes,
     builder: NavOptions.Builder.() -> Unit = {},
 ) {
+    val navOptions = NavOptions.Builder().apply {
+        route.navTransition?.let { transition ->
+            setEnterAnim(transition.enterAnim)
+            setExitAnim(transition.exitAnim)
+            setPopEnterAnim(transition.popEnterAnim)
+            setPopExitAnim(transition.popExitAnim)
+        }
+        builder()
+    }.build()
     goTo(
         fragmentId = route.route,
         args = route.args,
-        builder = builder,
+        navOptions = navOptions,
     )
 }
 
-fun NavController.popAllAndNavigate(
-    route: AppRoutes,
-) {
-    popAllAndNavigate(
-        fragmentId = route.route,
-    )
-}
 
 private fun NavController.goTo(
     fragmentId: String,
     args: List<Pair<String, Any>> = listOf(),
-    builder: NavOptions.Builder.() -> Unit = {},
+    navOptions: NavOptions = NavOptions.Builder().build()
 ) {
     val uri = buildString {
         append(APP_DOMAIN)
@@ -45,9 +47,13 @@ private fun NavController.goTo(
     val request = NavDeepLinkRequest.Builder
         .fromUri(uri)
         .build()
-    val navOptions = NavOptions.Builder().apply(builder).build()
     navigate(request, navOptions)
 }
+
+
+fun NavController.popAllAndNavigate(
+    route: AppRoutes,
+) = popAllAndNavigate(route.route)
 
 fun NavController.popAllAndNavigate(
     fragmentId: String,

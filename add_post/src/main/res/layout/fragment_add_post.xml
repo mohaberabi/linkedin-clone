@@ -21,7 +21,7 @@
             android:scaleType="centerCrop"
             android:layout_marginTop="@dimen/margin_small"
             android:src="@drawable/img_plcholder"
-            app:shapeAppearanceOverlay="@style/roundedImageView"
+            app:shapeAppearanceOverlay="@style/cropedCircle"
             android:layout_height="42dp">
 
 

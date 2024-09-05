@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_border"
+    android:layout_margin="@dimen/margin_small"
+    android:clipChildren="true"
+    android:clipToPadding="true">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/coverImage"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:src="@drawable/img_plcholder"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/topCornersRounded"
+
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profileImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:shapeAppearanceOverlay="@style/cropedCircle"
+        android:src="@drawable/img_plcholder"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/coverImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="-40dp" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Name"
+        android:textStyle="bold"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:ellipsize="end"
+
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/profileImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/userBio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bio information"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:paddingHorizontal="@dimen/padding_small"
+        android:textAlignment="center"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/userName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/userBio"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingHorizontal="@dimen/padding_large"
+        android:paddingVertical="@dimen/padding_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/connectButton"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/connect"
+            android:gravity="center"
+            android:paddingVertical="@dimen/padding_small"
+            android:textColor="@color/primaryColor"
+            android:background="@drawable/rounded_border_color"
+
+            android:layout_marginTop="@dimen/margin_medium" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,10 +29,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddPostFragment : Fragment() {
-    private val currentUserViewModel by activityViewModels<CurrentUserViewModel>()
     private var _binding: FragmentAddPostBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<AddPostViewModel>()
+    private val currentUserViewModel by activityViewModels<CurrentUserViewModel>()
     private val imagePicker = registerForActivityResult(
         ActivityResultContracts.GetContent(),
     ) { uri ->

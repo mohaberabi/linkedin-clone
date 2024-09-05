@@ -4,6 +4,8 @@
     <string name="home">Home</string>
     <string name="post">Post</string>
     <string name="jobs">Jobs</string>
+    <string name="network">Network</string>
+
     <string name="user_deleted">User deleted or not exist</string>
 
     <string name="unknown_error">Unknown error occurred</string>

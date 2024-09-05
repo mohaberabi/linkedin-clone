@@ -10,7 +10,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:src="@drawable/img_plcholder"
-        app:shapeAppearanceOverlay="@style/roundedImageView"
+        app:shapeAppearanceOverlay="@style/cropedCircle"
         android:layout_gravity="center"
         android:padding="16dp"
         android:scaleType="centerCrop" />
@@ -22,7 +22,7 @@
         android:layout_height="300dp"
         android:visibility="gone"
         android:src="@drawable/img_plcholder"
-        app:shapeAppearanceOverlay="@style/roundedImageView"
+        app:shapeAppearanceOverlay="@style/cropedCircle"
         android:layout_gravity="center"
         android:padding="0dp"
         android:scaleType="centerCrop" />

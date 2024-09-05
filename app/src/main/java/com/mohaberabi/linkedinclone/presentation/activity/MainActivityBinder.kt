@@ -14,6 +14,9 @@ import com.mohaberabi.presentation.ui.util.extension.hide
 import com.mohaberabi.presentation.ui.util.extension.show
 import com.mohaberabi.presentation.ui.util.unlock
 
+import com.mohaberabi.posts.R.id.postsFragment
+import com.mohaberabi.suggested_connection.R.id.suggestedConnectionFragment
+import com.mohaberabi.jobs.R.id.jobsFragments
 
 fun ActivityMainBinding.bindWithCurrentUserState(
     state: CurrentUserState,
@@ -41,44 +44,15 @@ fun ActivityMainBinding.listenToNavGraphDestinations(
     navController: NavController,
 ) {
     navController.addOnDestinationChangedListener { _, destination, _ ->
-        when {
-            isTopLevelRoute(destination.id) -> {
-                bottomNavigationView.show()
-                with(appBar) {
-                    show()
-                    showSearchField(true)
-                    showAvatar(true)
-                }
-                appDrawerLayout.unlock()
-            }
-
-            else -> {
-                bottomNavigationView.hide()
-                with(appBar) {
-                    show()
-                    showSearchField(false)
-                    showAvatar(false)
-                }
-                appDrawerLayout.unlock()
-            }
-
-
+        if (destination.id.isTopLevelRoute) {
+            showTopLevelUI()
+        } else {
+            showSecondaryUI()
         }
     }
     bottomNavigationView.setOnItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.nav_item_addPost -> {
-                val enterAnim = com.mohaberabi.core.presentation.ui.R.anim.enter_bottom_top
-                val exitAnim = com.mohaberabi.core.presentation.ui.R.anim.exit_bottom_to_top
-                navController
-                    .goTo(AppRoutes.AddPost) {
-                        setEnterAnim(enterAnim)
-                        setExitAnim(exitAnim)
-                        setPopEnterAnim(enterAnim)
-                        setPopExitAnim(exitAnim)
-                    }
-            }
-
+            R.id.nav_item_addPost -> navController.goTo(AppRoutes.AddPost)
             else -> NavigationUI.onNavDestinationSelected(item, navController)
         }
         true
@@ -86,9 +60,31 @@ fun ActivityMainBinding.listenToNavGraphDestinations(
 }
 
 
-private fun isTopLevelRoute(id: Int) = when (id) {
-    com.mohaberabi.posts.R.id.postsFragment,
-    com.mohaberabi.jobs.R.id.jobsFragments -> true
+private val Int.isTopLevelRoute
+    get() = when (this) {
+        postsFragment,
+        suggestedConnectionFragment,
+        jobsFragments -> true
 
-    else -> false
+        else -> false
+    }
+
+private fun ActivityMainBinding.showTopLevelUI() {
+    bottomNavigationView.show()
+    with(appBar) {
+        show()
+        showSearchField(true)
+        showAvatar(true)
+    }
+    appDrawerLayout.unlock()
+}
+
+private fun ActivityMainBinding.showSecondaryUI() {
+    bottomNavigationView.hide()
+    with(appBar) {
+        show()
+        showSearchField(false)
+        showAvatar(false)
+    }
+    appDrawerLayout.unlock()
 }

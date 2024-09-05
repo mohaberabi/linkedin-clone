@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/img_plcholder"
             android:scaleType="centerCrop"
-            app:shapeAppearanceOverlay="@style/roundedImageView" />
+            app:shapeAppearanceOverlay="@style/cropedCircle" />
 
         <ImageView
             android:id="@+id/reactionIcon"

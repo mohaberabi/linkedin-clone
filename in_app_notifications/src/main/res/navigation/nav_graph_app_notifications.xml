@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_app_notifications"
+    app:startDestination="@id/inAppNotificationsFragment">
+
+    <fragment
+        android:id="@+id/inAppNotificationsFragment"
+        android:name="com.mohaberabi.linkedinclone.in_app_notifications.InAppNotificationsFragment"
+        android:label="fragment_in_app_notifications"
+        tools:layout="@layout/fragment_in_app_notifications" />
+</navigation>

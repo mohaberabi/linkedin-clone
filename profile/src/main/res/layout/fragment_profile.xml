@@ -49,7 +49,7 @@
             android:src="@drawable/img_plcholder"
             android:scaleType="centerCrop"
             android:elevation="2dp"
-            app:shapeAppearanceOverlay="@style/roundedImageView"
+            app:shapeAppearanceOverlay="@style/cropedCircle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cover_image" />
 

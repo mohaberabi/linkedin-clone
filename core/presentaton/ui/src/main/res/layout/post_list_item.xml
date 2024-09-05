@@ -16,7 +16,7 @@
         android:src="@drawable/img_plcholder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/roundedImageView" />
+        app:shapeAppearanceOverlay="@style/cropedCircle" />
 
     <TextView
         android:id="@+id/issuerNameTextView"

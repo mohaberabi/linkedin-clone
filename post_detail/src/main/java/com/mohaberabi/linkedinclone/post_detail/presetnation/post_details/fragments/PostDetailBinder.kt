@@ -19,8 +19,12 @@ import com.mohaberabi.presentation.ui.views.post_item.PostClickCallBacks
 fun FragmentPostDetailBinding.setup(
     onAction: (PostDetailActions) -> Unit,
     commentAdapter: CommentorListAdapter,
-    reactorsAdapter: PostDetailReactorsAdapter
+    reactorsAdapter: PostDetailReactorsAdapter,
+    onMoreReactionsClick: () -> Unit,
 ) {
+    moreIcon.setOnClickListener {
+        onMoreReactionsClick()
+    }
     commentTextField.addTextChangedListener {
         onAction(PostDetailActions.CommentChanged(it.toString()))
     }

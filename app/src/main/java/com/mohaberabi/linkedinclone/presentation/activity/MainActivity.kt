@@ -22,8 +22,12 @@ import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
 import com.mohaberabi.presentation.ui.util.openDrawer
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import androidx.fragment.app.activityViewModels
-
+import com.mohaberabi.onboarding.R.id.nav_graph_onboarding
+import com.mohaberabi.posts.R.id.postsFragment
+import com.mohaberabi.jobs.R.id.jobsFragments
+import com.mohaberabi.user_media.R.id.profilePictureFragment
+import com.mohaberabi.onboarding.R.id.onBoardingFragment
+import com.mohaberabi.suggested_connection.R.id.suggestedConnectionFragment
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -38,10 +42,11 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var sheetShower: AppBottomSheetShower
     private val nonAutoHandledAppBarViews = setOf(
-        com.mohaberabi.posts.R.id.postsFragment,
-        com.mohaberabi.jobs.R.id.jobsFragments,
-        com.mohaberabi.user_media.R.id.profilePictureFragment,
-        com.mohaberabi.onboarding.R.id.onBoardingFragment,
+        postsFragment,
+        jobsFragments,
+        profilePictureFragment,
+        onBoardingFragment,
+        suggestedConnectionFragment,
     )
 
 
@@ -62,7 +67,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBinding() {
-
         with(binding) {
             val headerView = appDrawerView.getHeaderView(0)
             val mainDrawerBinding = NavHeaderBinding.bind(headerView)
@@ -72,12 +76,8 @@ class MainActivity : AppCompatActivity() {
             mainDrawerBinding.avatarImage.setOnClickListener {
                 goToProfile()
             }
-            bottomNavigationView.setupWithNavController(
-                navController = rootNavController(),
-            )
-            listenToNavGraphDestinations(
-                navController = rootNavController(),
-            )
+            bottomNavigationView.setupWithNavController(rootNavController)
+            listenToNavGraphDestinations(rootNavController)
         }
 
     }
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun goToProfile() {
         binding.appDrawerLayout.closeDrawer()
-        rootNavController().goTo(AppRoutes.Profile)
+        rootNavController.goTo(AppRoutes.Profile)
     }
 
 
@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         )
         NavigationUI.setupActionBarWithNavController(
             this,
-            rootNavController(),
+            rootNavController,
             appBarConfiguration
         )
     }
@@ -118,14 +118,14 @@ class MainActivity : AppCompatActivity() {
         loadedData: Boolean,
     ) {
         if (!loggedIn && loadedData) {
-            val graph = rootNavController().navInflater.inflate(R.navigation.nav_graph_main)
-            graph.setStartDestination(com.mohaberabi.onboarding.R.id.nav_graph_onboarding)
-            rootNavController().graph = graph
+            val graph = rootNavController.navInflater.inflate(R.navigation.nav_graph_main)
+            graph.setStartDestination(nav_graph_onboarding)
+            rootNavController.graph = graph
         }
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return rootNavController().navigateUp() || super.onSupportNavigateUp()
+        return rootNavController.navigateUp() || super.onSupportNavigateUp()
     }
 
     override fun onDestroy() {

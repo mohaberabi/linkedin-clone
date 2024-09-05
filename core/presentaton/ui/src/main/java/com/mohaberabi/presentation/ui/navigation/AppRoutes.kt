@@ -1,5 +1,7 @@
 package com.mohaberabi.presentation.ui.navigation
 
+import com.mohaberabi.presentation.ui.util.NavTransition
+
 private object NavDeepLinks {
     const val ADD_POST = "addPost"
     const val PROFILE = "profile"
@@ -14,11 +16,17 @@ private object NavDeepLinks {
 sealed class AppRoutes(
     val route: String,
     val args: List<Pair<String, Any>> = listOf(),
+    var navTransition: NavTransition? = null,
 ) {
     data object Login : AppRoutes(NavDeepLinks.Login)
     data object Register : AppRoutes(NavDeepLinks.Register)
     data object Posts : AppRoutes(NavDeepLinks.POSTS)
-    data object AddPost : AppRoutes(NavDeepLinks.ADD_POST)
+    data object AddPost :
+        AppRoutes(
+            NavDeepLinks.ADD_POST,
+            navTransition = NavTransition.BottomToTop
+        )
+
     data object Profile : AppRoutes(NavDeepLinks.PROFILE)
     data class UserMedia(
         val imgUri: String,
@@ -34,9 +42,8 @@ sealed class AppRoutes(
     data class PostDetail(
         val postId: String
     ) : AppRoutes(
-        NavDeepLinks.POST_DETAIL,
-        args = listOf("postId" to postId)
+        route = NavDeepLinks.POST_DETAIL,
+        args = listOf("postId" to postId),
+        navTransition = NavTransition.LeftToRight,
     )
-
-
 }

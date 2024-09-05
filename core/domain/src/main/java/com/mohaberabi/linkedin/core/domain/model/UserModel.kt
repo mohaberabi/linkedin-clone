@@ -9,4 +9,5 @@ data class UserModel(
     val email: String,
     val img: String = "",
     val cover: String = "",
+    val pushToken: String = ""
 )
