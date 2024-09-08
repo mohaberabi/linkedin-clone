@@ -35,7 +35,7 @@ class OfflineFirstPostsRepository @Inject constructor(
                 lastDocId = lastDocId
             )
             val postsIds = posts.map { it.id }
-            val uid = userLocalDataSource.getUser().first()!!.uid
+            val uid = userLocalDataSource.getUid()
             val reactions =
                 reactionsRemoteDataSource.getUsersReactionsOnPosts(
                     postIds = postsIds,
@@ -45,7 +45,6 @@ class OfflineFirstPostsRepository @Inject constructor(
                 it.copy(currentUserReaction = reactions[it.id])
             }
             postsLocalDataSource.upsertPosts(upsertPosts)
-
         }
 
 

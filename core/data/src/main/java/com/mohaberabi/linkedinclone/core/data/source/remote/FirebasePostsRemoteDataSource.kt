@@ -1,7 +1,10 @@
 package com.mohaberabi.linkedinclone.core.data.source.remote
 
+import com.google.firebase.firestore.FieldPath
+import com.google.firebase.firestore.Filter
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.snapshots
+import com.google.firebase.firestore.toObject
 import com.mohaberabi.linkedin.core.domain.model.PostModel
 import com.mohaberabi.linkedin.core.domain.util.CommonParams
 import com.mohaberabi.linkedin.core.domain.util.DispatchersProvider
@@ -18,6 +21,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -74,17 +78,18 @@ class FirebasePostsRemoteDataSource @Inject constructor(
         }
     }
 
-    override suspend fun getPost(
-        postId: String,
-    ): PostModel? {
+    override suspend fun getPostsByIds(
+        postsIds: List<String>,
+    ): List<PostModel> {
         return withContext(dispatchers.io) {
-            firestore.safeCall {
-                collection(EndPoints.Posts)
-                    .document(postId).get().await()
-                    .toObject(PostDto::class.java)?.toPostModel()
-            }
+            firestore.collection(EndPoints.Posts)
+                .where(Filter.inArray(FieldPath.documentId(), postsIds))
+                .get()
+                .await()
+                .mapNotNull { it.toObject<PostDto>().toPostModel() }
         }
     }
+
 
     override fun listenToPost(
         postId: String,

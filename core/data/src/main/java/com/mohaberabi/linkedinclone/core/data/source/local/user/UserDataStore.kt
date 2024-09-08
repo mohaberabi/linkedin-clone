@@ -6,8 +6,8 @@ import com.mohaberabi.linkedin.core.domain.source.local.user.UserLocalDataSource
 import com.mohaberabi.linkedinclone.core.data.dto.UserDto
 import com.mohaberabi.linkedinclone.core.data.dto.mapper.toUserDto
 import com.mohaberabi.linkedinclone.core.data.dto.mapper.toUserModel
-import com.mohaberabi.linkedinclone.core.data.util.decode
-import com.mohaberabi.linkedinclone.core.data.util.encode
+import com.mohaberabi.linkedinclone.core.data.util.serialization_util.decode
+import com.mohaberabi.linkedinclone.core.data.util.serialization_util.encode
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map

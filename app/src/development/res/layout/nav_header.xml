@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_large"
+    android:layout_marginTop="42dp"
+    android:gravity="fill_horizontal">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/avatar_image"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/cropedCircle"
+        android:src="@drawable/img_plcholder" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/user_name"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/user_bio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Bio"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/profileViews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_views"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/savedPosts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/saved_posts"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:text="@string/settings"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:layout_marginTop="4dp" />
+</LinearLayout>
+

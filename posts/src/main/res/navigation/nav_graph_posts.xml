@@ -7,7 +7,6 @@
     <fragment
         android:id="@+id/postsFragment"
         android:name="com.mohaberbia.linkedinclone.posts.presentation.fragments.posts.PostsFragment"
-        android:label="fragment_posts"
         tools:layout="@layout/fragment_posts">
         <deepLink app:uri="android-app://linked.clone.app/posts" />
 

@@ -10,6 +10,7 @@ import com.mohaberabi.core.presentation.ui.R
 import com.mohaberabi.core.presentation.ui.databinding.MainAppBarBinding
 import com.mohaberabi.presentation.ui.util.extension.cachedImage
 import com.mohaberabi.presentation.ui.util.extension.show
+import com.mohaberabi.presentation.ui.util.extension.showIf
 
 class MainAppBar @JvmOverloads constructor(
     context: Context,
@@ -68,6 +69,11 @@ class MainAppBar @JvmOverloads constructor(
         binding.toolbarTitle.show()
         binding.toolbarTitle.text = text
     }
+
+    fun toggleTitleVisiblity(show: Boolean) {
+        binding.toolbarTitle.showIf(show)
+    }
+
 
     fun showAvatar(show: Boolean) {
         binding.profileAvatar.visibility = if (show) View.VISIBLE else View.GONE

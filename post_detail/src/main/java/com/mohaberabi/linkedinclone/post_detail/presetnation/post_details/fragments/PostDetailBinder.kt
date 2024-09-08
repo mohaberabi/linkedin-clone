@@ -10,10 +10,11 @@ import com.mohaberabi.linkedinclone.post_detail.presetnation.post_details.viewmo
 import com.mohaberabi.linkedinclone.post_detail.presetnation.post_details.viewmodel.PostDetailStatus
 import com.mohaberabi.presentation.ui.util.AppRecyclerViewScrollListener
 import com.mohaberabi.presentation.ui.util.extension.hideAll
+import com.mohaberabi.presentation.ui.util.extension.show
 import com.mohaberabi.presentation.ui.util.extension.showAll
 import com.mohaberabi.presentation.ui.util.extension.submitIfDifferent
 import com.mohaberabi.presentation.ui.util.extension.submitOnce
-import com.mohaberabi.presentation.ui.views.post_item.PostClickCallBacks
+import com.mohaberabi.presentation.ui.views.PostClickCallBacks
 
 
 fun FragmentPostDetailBinding.setup(
@@ -57,7 +58,7 @@ fun FragmentPostDetailBinding.bindWithState(
     state: PostDetailState,
     reactorsAdapter: PostDetailReactorsAdapter,
     commentAdapter: CommentorListAdapter,
-    onPostClickCallbacks: PostClickCallBacks = PostClickCallBacks(),
+    callBacks: PostClickCallBacks,
 ) {
 
     val populatedViews = arrayOf(
@@ -81,8 +82,10 @@ fun FragmentPostDetailBinding.bindWithState(
                 *populatedViews,
                 loader
             )
-            errorWidget.show()
-            errorWidget.setErrorTitle(state.error.asString(root.context))
+            errorWidget.apply {
+                show()
+                setErrorTitle(state.error)
+            }
         }
 
         PostDetailStatus.Populated -> {
@@ -101,8 +104,9 @@ fun FragmentPostDetailBinding.bindWithState(
             state.currentPost?.let {
                 postData.bindFromPost(
                     post = it,
-                    onClickCallBacks = onPostClickCallbacks
+                    clickCallBacks = callBacks
                 )
+
             }
 
             showAll(

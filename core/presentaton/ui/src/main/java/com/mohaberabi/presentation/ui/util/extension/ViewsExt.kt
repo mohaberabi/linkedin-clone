@@ -37,3 +37,22 @@ fun ViewBinding.hideAll(
         it.hide()
     }
 }
+
+inline fun <reified T : View> T.showIf(
+    predicate: Boolean,
+    keepOnTree: Boolean = false,
+    action: T.() -> Unit = {},
+): T {
+    if (!predicate) {
+        if (keepOnTree) {
+            hideAndKeep()
+        } else {
+            hide()
+        }
+    } else {
+        show()
+        this.apply(action)
+    }
+    return this
+}
+

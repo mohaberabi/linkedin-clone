@@ -14,6 +14,14 @@ data class UserDto(
     val img: String,
     val cover: String,
 ) {
-    constructor() : this("", "", "", "", "", "", "")
+    constructor() : this(
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+    )
 }
 

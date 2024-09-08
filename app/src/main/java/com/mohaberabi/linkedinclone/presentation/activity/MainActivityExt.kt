@@ -2,11 +2,11 @@ package com.mohaberabi.linkedinclone.presentation.activity
 
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.mohaberabi.linkedin.core.domain.util.AppBottomSheet
-import com.mohaberabi.linkedin.core.domain.util.BottomSheetAction
+import com.mohaberabi.in_app_notifications.R.id.inAppNotificationsFragment
+import com.mohaberabi.jobs.R.id.jobsFragments
 import com.mohaberabi.linkedinclone.R
-import com.mohaberabi.linkedinclone.job_detail.presentation.fragment.JobDetailFragment
-import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
+import com.mohaberabi.posts.R.id.postsFragment
+import com.mohaberabi.suggested_connection.R.id.suggestedConnectionFragment
 
 
 val MainActivity.rootNavController: NavController
@@ -17,26 +17,15 @@ val MainActivity.rootNavController: NavController
         return navController
     }
 
-fun MainActivity.observeGlobalBottomSheet() {
-    collectLifeCycleFlow(
-        sheetShower.actions,
-    ) { action ->
-        when (action) {
-            BottomSheetAction.Dismiss -> Unit
-            is BottomSheetAction.Show -> handleGlobalBottomSheetOpened(action.appSheet)
-        }
-    }
-}
 
+val Int.isTopLevelRoute
+    get() = when (this) {
+        postsFragment,
+        suggestedConnectionFragment,
+        inAppNotificationsFragment,
+        jobsFragments -> true
 
-private fun MainActivity.handleGlobalBottomSheetOpened(
-    sheet: AppBottomSheet,
-) {
-    when (sheet) {
-        is AppBottomSheet.JobDetailSheet -> {
-            val fragment = JobDetailFragment.newInstance(sheet.jobId)
-            fragment.show(supportFragmentManager, sheet.tag)
-        }
+        else -> false
     }
 
-}
+

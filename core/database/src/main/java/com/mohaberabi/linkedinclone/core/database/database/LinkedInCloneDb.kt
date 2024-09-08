@@ -7,9 +7,12 @@ import com.mohaberabi.linkedinclone.core.database.entity.PostEntity
 
 
 @Database(
-    entities = [PostEntity::class],
-    version = 1,
+    entities = [
+        PostEntity::class,
+    ],
+    version = 3,
 )
 abstract class LinkedInCloneDb : RoomDatabase() {
     abstract fun postsDao(): PostsDao
+
 }

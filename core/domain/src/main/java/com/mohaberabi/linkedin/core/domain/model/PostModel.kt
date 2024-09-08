@@ -14,4 +14,5 @@ data class PostModel(
     val reactionsCount: Int = 0,
     val repostsCount: Int = 0,
     val currentUserReaction: ReactionType? = null,
+    val isSaved: Boolean = false,
 )

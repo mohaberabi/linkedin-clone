@@ -32,7 +32,7 @@ fun NavController.goTo(
 
 private fun NavController.goTo(
     fragmentId: String,
-    args: List<Pair<String, Any>> = listOf(),
+    args: List<Pair<String, Any?>> = listOf(),
     navOptions: NavOptions = NavOptions.Builder().build()
 ) {
     val uri = buildString {

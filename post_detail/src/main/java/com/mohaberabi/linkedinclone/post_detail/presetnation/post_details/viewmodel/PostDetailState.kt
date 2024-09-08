@@ -23,8 +23,9 @@ data class PostDetailState(
     val error: UiText = UiText.Empty,
     val postComment: String = "",
     val commentLoading: Boolean = false,
+    val currentUserUid: String = "",
 ) {
     val canComment: Boolean
         get() = postComment.trim().isNotEmpty()
-    
+
 }

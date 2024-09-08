@@ -30,7 +30,5 @@ class FirebaseJobDetailRemoteDataSource @Inject constructor(
             }
         }
     }
-
-
 }
 

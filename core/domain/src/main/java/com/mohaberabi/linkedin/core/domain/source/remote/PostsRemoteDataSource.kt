@@ -4,8 +4,6 @@ import com.mohaberabi.linkedin.core.domain.model.PostModel
 import kotlinx.coroutines.flow.Flow
 
 
-typealias UserReactionId = String
-
 interface PostsRemoteDataSource {
     suspend fun getPosts(
         limit: Int = 20,
@@ -22,9 +20,9 @@ interface PostsRemoteDataSource {
         postId: String,
     )
 
-    suspend fun getPost(
-        postId: String
-    ): PostModel?
+    suspend fun getPostsByIds(
+        postsIds: List<String>,
+    ): List<PostModel>
 
 
     fun listenToPost(

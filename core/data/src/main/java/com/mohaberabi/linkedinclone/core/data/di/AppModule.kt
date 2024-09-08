@@ -50,23 +50,6 @@ object AppModule {
         }
     }
 
-    @Singleton
-    @Provides
-    fun provideGlobalNavigator(
-        appSuperVisorScope: AppSuperVisorScope
-    ): GlobalNavigator = DefaultGlobalNavigator(appSuperVisorScope)
-
-    @Singleton
-    @Provides
-    fun provideDrawerController(
-        appSuperVisorScope: AppSuperVisorScope
-    ): DrawerController = GlobalDrawerController(appSuperVisorScope)
-
-    @Singleton
-    @Provides
-    fun provideSheetShower(
-        appSuperVisorScope: AppSuperVisorScope
-    ): AppBottomSheetShower = DefaultAppSheetShower(appSuperVisorScope)
 
     @Singleton
     @Provides

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_saved_posts"
+    app:startDestination="@id/savedPostsFragment">
+
+    <fragment
+        android:id="@+id/savedPostsFragment"
+        android:name="com.mohaberabi.saved_posts.presentation.fragments.SavedPostsFragment"
+        android:label="@string/saved_posts">
+        <deepLink app:uri="android-app://linked.clone.app/savedPosts" />
+    </fragment>
+</navigation>

@@ -1,11 +1,11 @@
 plugins {
     alias(libs.plugins.linkedinclone.android.library)
-
+    alias(libs.plugins.linkedinclone.android.hilt)
 
 }
 
 android {
-    namespace = "com.mohaberabi.linkedinclone.core.remote_logging"
+    namespace = libs.versions.projectDomain.get() + ".remote_logging"
 
 }
 

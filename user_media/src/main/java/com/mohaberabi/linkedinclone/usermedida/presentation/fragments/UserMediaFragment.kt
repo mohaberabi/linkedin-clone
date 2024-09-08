@@ -15,8 +15,8 @@ import com.mohaberabi.linkedinclone.usermedida.presentation.viewmodel.UserMediaV
 import com.mohaberabi.presentation.ui.util.extension.asByteArray
 import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow
 import com.mohaberabi.presentation.ui.util.extension.createLoadingDialog
+import com.mohaberabi.presentation.ui.util.extension.showIf
 import com.mohaberabi.presentation.ui.util.extension.showSnackBar
-import com.mohaberabi.presentation.ui.views.post_item.showIf
 import com.mohaberabi.user_media.databinding.FragmentProfilePictureBinding
 import dagger.hilt.android.AndroidEntryPoint
 

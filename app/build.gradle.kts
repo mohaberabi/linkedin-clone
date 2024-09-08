@@ -55,7 +55,6 @@ dependencies {
     implementation(projects.posts)
     implementation(projects.addPost)
     implementation(projects.jobs)
-    implementation(projects.jobDetail)
     implementation(projects.core.domain)
     implementation(libs.core.splashscreen)
     implementation(projects.register)
@@ -70,5 +69,9 @@ dependencies {
     implementation(projects.core.currentUser)
     implementation(projects.suggestedConnection)
     implementation(projects.inAppNotifications)
+    implementation(projects.core.userMetadata)
+    implementation(projects.savedPosts)
+    implementation(projects.profileViews)
+    implementation(projects.settings)
 
 }

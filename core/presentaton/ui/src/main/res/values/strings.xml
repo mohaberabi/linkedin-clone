@@ -4,4 +4,6 @@
     <string name="read_less">Read Less</string>
     <string name="title">Title</string>
     <string name="search">Search</string>
+    <string name="something_went_wrong">Something Went wrong...</string>
+    <string name="analytics_title">Analytics Title</string>
 </resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_pofile_views"
+    app:startDestination="@id/profileViewsFragment">
+
+    <fragment
+        android:id="@+id/profileViewsFragment"
+        android:label="Who Viewed Your Profile"
+        android:name="com.mohaberabi.linkedinclone.profile_views.presentation.fragments.ProfileViewsFragment">
+        <deepLink app:uri="android-app://linked.clone.app/profileViews" />
+    </fragment>
+</navigation>

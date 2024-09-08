@@ -1,4 +1,8 @@
 <resources>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="menu">Menu</string>
+    <string name="reposted_a_document">Reposted a document.</string>
+    <string name="mohab_erabi_reacted_to_your_post">Mohab Erabi Reacted To your post</string>
 </resources>

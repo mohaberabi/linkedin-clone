@@ -9,9 +9,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.mohaberabi.linedinclone.core.remote_anayltics.domain.AppAnalytics
-import com.mohaberabi.linkedin.core.domain.util.AppBottomSheetShower
 import com.mohaberabi.linkedinclone.R
-import com.mohaberabi.linkedinclone.current_user.CurrentUserViewModel
+import com.mohaberabi.linkedinclone.current_user.presentation.CurrentUserViewModel
 import com.mohaberabi.linkedinclone.databinding.ActivityMainBinding
 import com.mohaberabi.linkedinclone.databinding.NavHeaderBinding
 import com.mohaberabi.presentation.ui.navigation.AppRoutes
@@ -25,64 +24,93 @@ import javax.inject.Inject
 import com.mohaberabi.onboarding.R.id.nav_graph_onboarding
 import com.mohaberabi.posts.R.id.postsFragment
 import com.mohaberabi.jobs.R.id.jobsFragments
+import com.mohaberabi.in_app_notifications.R.id.inAppNotificationsFragment
+import com.mohaberabi.in_app_notifications.R.id.nav_graph_app_notifications
+import com.mohaberabi.linedinclone.core.remote_anayltics.domain.screenClosed
+import com.mohaberabi.linedinclone.core.remote_anayltics.domain.screenOpened
+
+import com.mohaberabi.linkedinclone.presentation.activity.viewmodel.MainActivityViewModel
+import com.mohaberabi.linkedinclone.presentation.utils.AppFragmentLifeCycleListener
+import com.mohaberabi.linkedinclone.user_metadata.UserMetaDataViewModel
 import com.mohaberabi.user_media.R.id.profilePictureFragment
 import com.mohaberabi.onboarding.R.id.onBoardingFragment
+import com.mohaberabi.presentation.ui.util.extension.showIf
 import com.mohaberabi.suggested_connection.R.id.suggestedConnectionFragment
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private var _binding: ActivityMainBinding? = null
-    private val binding get() = _binding!!
-    private val currentUserViewModel by viewModels<CurrentUserViewModel>()
-    private lateinit var appBarConfiguration: AppBarConfiguration
 
     @Inject
     lateinit var anayltics: AppAnalytics
+    private var _binding: ActivityMainBinding? = null
+    private val binding get() = _binding!!
+    private val currentUserViewModel by viewModels<CurrentUserViewModel>()
+    private val mainActivityViewModel by viewModels<MainActivityViewModel>()
+    private val userMetaDataViewModel by viewModels<UserMetaDataViewModel>()
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
-    @Inject
-    lateinit var sheetShower: AppBottomSheetShower
+    private val appFragmentLifeCycleListener by lazy {
+        AppFragmentLifeCycleListener(
+            onDestroy = {
+                anayltics.screenClosed(it)
+            },
+            onCreate = {
+                anayltics.screenOpened(it)
+            }
+        )
+    }
+
     private val nonAutoHandledAppBarViews = setOf(
         postsFragment,
         jobsFragments,
         profilePictureFragment,
         onBoardingFragment,
         suggestedConnectionFragment,
+        inAppNotificationsFragment,
     )
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-        anayltics.logEvent("activityCreated")
         enableEdgeToEdge()
-        val splash = installSplashScreen()
-        splash.setKeepOnScreenCondition { !currentUserViewModel.state.value.didLoad }
+        installSplashScreen().apply {
+            setKeepOnScreenCondition { !currentUserViewModel.state.value.didLoad }
+        }
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        addDefaultPaddings(binding.root)
         setSupportActionBar(binding.appBar)
         setupAppBar()
         setupBinding()
-        addDefaultPaddings(rootView = binding.root)
-        observeState()
-        observeGlobalBottomSheet()
+        collectActivityState()
+        collectUserState()
+        collectUserMetaData()
+        registerFragmentListener()
+        anayltics.logEvent("activityCreated")
     }
 
-    private fun setupBinding() {
-        with(binding) {
-            val headerView = appDrawerView.getHeaderView(0)
-            val mainDrawerBinding = NavHeaderBinding.bind(headerView)
-            appBar.setOnAvatarClickListener {
-                appDrawerLayout.openDrawer()
+
+    private fun collectActivityState() {
+        collectLifeCycleFlow(
+            mainActivityViewModel.state,
+        ) { state ->
+            with(binding) {
+                bottomNavigationView.showIf(state.showBottomNav)
+                appBar.apply {
+                    showAvatar(state.showUserAvatar)
+                    showSearchField(state.showSearchField)
+                    toggleTitleVisiblity(state.toolBarTitle != null)
+                    state.toolBarTitle?.let {
+                        setRouteTitle(it.toString())
+                    }
+                }
+
             }
-            mainDrawerBinding.avatarImage.setOnClickListener {
-                goToProfile()
-            }
-            bottomNavigationView.setupWithNavController(rootNavController)
-            listenToNavGraphDestinations(rootNavController)
         }
-
     }
 
-    private fun observeState() {
+    private fun collectUserState() {
         collectLifeCycleFlow(
             currentUserViewModel.state,
         ) { state ->
@@ -94,17 +122,77 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun collectUserMetaData() {
+        collectLifeCycleFlow(
+            userMetaDataViewModel.state,
+        ) { metaData ->
+            binding.bottomNavigationView.addNotificationsBadge(
+                metaData.unreadNotifications.toInt(),
+            )
+        }
+    }
 
-    private fun goToProfile() {
-        binding.appDrawerLayout.closeDrawer()
-        rootNavController.goTo(AppRoutes.Profile)
+    private fun setupBinding() {
+        with(binding) {
+            val headerView = appDrawerView.getHeaderView(0)
+            val mainDrawerBinding = NavHeaderBinding.bind(headerView)
+            appBar.setOnAvatarClickListener {
+                appDrawerLayout.openDrawer()
+            }
+            with(mainDrawerBinding) {
+                avatarImage.setOnClickListener {
+                    goFromDrawer(AppRoutes.Profile())
+                }
+                settingsButton.setOnClickListener {
+                    goFromDrawer(AppRoutes.Settings)
+
+                }
+                savedPosts.setOnClickListener {
+                    goFromDrawer(AppRoutes.SavedPosts)
+                }
+                profileViews.setOnClickListener {
+                    goFromDrawer(AppRoutes.ProfileViews)
+                }
+            }
+        }
+        setupBottomNav()
+        setupRouteListener()
+    }
+
+    private fun setupBottomNav() {
+        binding.bottomNavigationView.apply {
+            setupWithNavController(rootNavController)
+            setOnItemSelectedListener { item ->
+                if (item.itemId == R.id.nav_item_addPost) {
+                    rootNavController.goTo(AppRoutes.AddPost)
+                } else {
+                    if (item.itemId == nav_graph_app_notifications) {
+                        userMetaDataViewModel.markAllNotificationsRead()
+                    }
+                    NavigationUI.onNavDestinationSelected(item, rootNavController)
+                }
+                true
+            }
+        }
+    }
+
+    private fun setupRouteListener() {
+        rootNavController.addOnDestinationChangedListener { _, destination, _ ->
+            mainActivityViewModel.changeDestination(
+                id = destination.id,
+                title = destination.label,
+            )
+        }
     }
 
 
+    private fun goFromDrawer(route: AppRoutes) {
+        binding.appDrawerLayout.closeDrawer()
+        rootNavController.goTo(route)
+    }
+
     private fun setupAppBar() {
-        appBarConfiguration = AppBarConfiguration(
-            nonAutoHandledAppBarViews,
-        )
+        appBarConfiguration = AppBarConfiguration(nonAutoHandledAppBarViews)
         NavigationUI.setupActionBarWithNavController(
             this,
             rootNavController,
@@ -128,10 +216,26 @@ class MainActivity : AppCompatActivity() {
         return rootNavController.navigateUp() || super.onSupportNavigateUp()
     }
 
+
+    private fun unRegisterFragmentListener() {
+        supportFragmentManager.unregisterFragmentLifecycleCallbacks(
+            appFragmentLifeCycleListener,
+        )
+    }
+
+    private fun registerFragmentListener() {
+        supportFragmentManager.registerFragmentLifecycleCallbacks(
+            appFragmentLifeCycleListener,
+            true
+        )
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        unRegisterFragmentListener()
     }
+
 }
 
 

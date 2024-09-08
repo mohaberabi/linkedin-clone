@@ -10,6 +10,10 @@ object EndPoints {
     const val USER_CVR = "users/covers"
     const val REACTIONS = "reactions"
     const val COMMENTS = "comments"
-    const val ACTIVITY = "activity"
+    const val NOTIFICATIONS = "notifications"
+    const val USER_DATA = "userData"
+    const val USER_META_DATA = "userMetaData"
+    const val SAVED_POSTS = "savedPosts"
+    const val PROFILE_VIEWERS = "profileViewers"
 
 }

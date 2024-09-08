@@ -1,12 +1,16 @@
 package com.mohaberabi.linkedinclone.core.data.di
 
 import com.mohaberabi.linkedin.core.domain.source.remote.*
+import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseInAppNotificationsRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseJobDetailRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseJobsRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebasePostReactionsRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebasePostsRemoteDataSource
+import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseProfileViewsRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseRegisterRemoteDataSource
+import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseSavedPostsRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseStorageClient
+import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseUserMetaDataRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseUserRemoteDataSource
 import dagger.Binds
 import dagger.Module
@@ -60,5 +64,27 @@ abstract class RemoteSourceModule {
         firebasePostReactionsRemoteDataSource: FirebasePostReactionsRemoteDataSource
     ): PostReactionsRemoteDataSource
 
+    @Binds
+    @Singleton
+    abstract fun bindInAppNotificationsRemoteDataSource(
+        firebaseInAppNotificationsRemoteDataSource: FirebaseInAppNotificationsRemoteDataSource
+    ): InAppNotificationsRemoteDataSource
 
+    @Binds
+    @Singleton
+    abstract fun bindUserMetaDataRemoteDataSource(
+        firebaseUserMetaDataRemoteDataSource: FirebaseUserMetaDataRemoteDataSource
+    ): UserMetaDataRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindSavedPostRemoteSource(
+        firebaseSavedPostsRemoteDataSource: FirebaseSavedPostsRemoteDataSource
+    ): SavedPostRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindProfileViewsRemoteDataSource(
+        firebaseProfileViewsRemoteDataSource: FirebaseProfileViewsRemoteDataSource
+    ): ProfileViewsRemoteDataSource
 }

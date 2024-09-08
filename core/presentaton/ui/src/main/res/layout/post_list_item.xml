@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/rootLayout"
     android:background="@android:color/white"
+
     android:padding="0dp">
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -111,14 +112,14 @@
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/like"
-                android:layout_marginEnd="-4dp" />
+                android:layout_marginEnd="4dp" />
 
             <ImageView
                 android:id="@+id/funnyReact"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@drawable/funny"
-                android:layout_marginEnd="-4dp" />
+                android:layout_marginEnd="4dp" />
 
             <ImageView
                 android:id="@+id/loveReact"
@@ -138,7 +139,7 @@
 
         <LinearLayout
             android:id="@+id/commentsRepostsLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="end"
@@ -163,6 +164,7 @@
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
+
 
     <View
         android:layout_width="match_parent"
@@ -190,40 +192,41 @@
             android:id="@+id/likeButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:simpleIcon="@drawable/ic_react"
-            app:simpleText="Like"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="8dp"
+            app:simpleIcon="@drawable/ic_react"
+            app:simpleText="Like" />
 
         <com.mohaberabi.presentation.ui.views.SimpleIconButton
             android:id="@+id/commentButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:simpleIcon="@drawable/ic_comment"
-            app:simpleText="Comment"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="8dp"
+            app:simpleIcon="@drawable/ic_comment"
+            app:simpleText="Comment" />
 
         <com.mohaberabi.presentation.ui.views.SimpleIconButton
             android:id="@+id/repostButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:simpleIcon="@drawable/ic_repost"
-            app:simpleText="Repost"
             android:layout_weight="1"
-            android:gravity="center" />
+            android:gravity="center"
+            app:simpleIcon="@drawable/ic_repost"
+            app:simpleText="Repost" />
 
         <com.mohaberabi.presentation.ui.views.SimpleIconButton
             android:id="@+id/sendButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:simpleIcon="@drawable/ic_repost"
-            app:simpleText="Send"
             android:layout_weight="1"
-            android:gravity="center" />
+            android:gravity="center"
+            app:simpleIcon="@drawable/ic_repost"
+            app:simpleText="Send" />
     </LinearLayout>
+
 
     <View
         android:id="@+id/postDivider"

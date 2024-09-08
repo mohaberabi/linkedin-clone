@@ -7,7 +7,6 @@
 
     <fragment
         android:id="@+id/inAppNotificationsFragment"
-        android:name="com.mohaberabi.linkedinclone.in_app_notifications.InAppNotificationsFragment"
-        android:label="fragment_in_app_notifications"
+        android:name="com.mohaberabi.linkedinclone.in_app_notifications.presentation.fragment.InAppNotificationsFragment"
         tools:layout="@layout/fragment_in_app_notifications" />
 </navigation>

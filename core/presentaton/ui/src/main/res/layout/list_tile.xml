@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_medium">
+
+    <ImageView
+        android:id="@+id/listTileIcon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_work"
+        android:layout_gravity="center_vertical" />
+
+    <TextView
+        android:id="@+id/listTileText"
+        android:layout_width="wrap_content"
+        android:text="Account Settings"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:layout_gravity="center_vertical" />
+
+</LinearLayout>

@@ -7,6 +7,7 @@
       <module name="LinkedInClone.core.presentaton.current_user" target="17" />
       <module name="LinkedInClone.edit_profile" target="17" />
       <module name="LinkedInClone.firestore" target="17" />
+      <module name="LinkedInClone.job_detail" target="17" />
       <module name="LinkedInClone.layout" target="17" />
     </bytecodeTargetLevel>
   </component>

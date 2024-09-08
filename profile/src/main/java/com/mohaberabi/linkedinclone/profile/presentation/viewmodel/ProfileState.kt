@@ -5,16 +5,18 @@ import com.mohaberabi.presentation.ui.util.UiText
 
 
 enum class ProfileStatus {
+    Initial,
     Loading,
     Error,
-    Populated,
-
+    Done,
 }
 
 
 data class ProfileState(
     val user: UserModel? = null,
-    val canEdit: Boolean = false,
     val error: UiText = UiText.Empty,
-    val state: ProfileStatus = ProfileStatus.Loading
+    val state: ProfileStatus = ProfileStatus.Initial,
+    val isCurrentUser: Boolean = false,
+    val profileViews: Long = 0,
+    val postImpressions: Long = 0,
 )

@@ -5,5 +5,4 @@ interface StorageClient {
         bytes: ByteArray,
         reference: String,
     ): String
-
 }

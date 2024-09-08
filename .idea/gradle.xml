@@ -30,20 +30,25 @@
             <option value="$PROJECT_DIR$/core/data" />
             <option value="$PROJECT_DIR$/core/database" />
             <option value="$PROJECT_DIR$/core/domain" />
+            <option value="$PROJECT_DIR$/core/post_saver" />
             <option value="$PROJECT_DIR$/core/presentaton" />
             <option value="$PROJECT_DIR$/core/presentaton/design_system" />
             <option value="$PROJECT_DIR$/core/presentaton/ui" />
+            <option value="$PROJECT_DIR$/core/react_to_post" />
             <option value="$PROJECT_DIR$/core/remote-logging" />
             <option value="$PROJECT_DIR$/core/remote_anayltics" />
+            <option value="$PROJECT_DIR$/core/user_metadata" />
             <option value="$PROJECT_DIR$/in_app_notifications" />
-            <option value="$PROJECT_DIR$/job_detail" />
             <option value="$PROJECT_DIR$/jobs" />
             <option value="$PROJECT_DIR$/login" />
             <option value="$PROJECT_DIR$/onboarding" />
             <option value="$PROJECT_DIR$/post_detail" />
             <option value="$PROJECT_DIR$/posts" />
             <option value="$PROJECT_DIR$/profile" />
+            <option value="$PROJECT_DIR$/profile_views" />
             <option value="$PROJECT_DIR$/register" />
+            <option value="$PROJECT_DIR$/saved_posts" />
+            <option value="$PROJECT_DIR$/settings" />
             <option value="$PROJECT_DIR$/suggested_connection" />
             <option value="$PROJECT_DIR$/user_media" />
           </set>

@@ -1,0 +1,57 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/padding_medium">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/viewProfilePic"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_plcholder"
+        app:shapeAppearanceOverlay="@drawable/circle_avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginEnd="@dimen/margin_small"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/viewerName"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Mohab Erabi Mohab Erabi"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/viewProfilePic"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/viewerBio" />
+
+
+    <TextView
+        android:id="@+id/viewerBio"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Android Developer"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@id/viewProfilePic"
+        app:layout_constraintTop_toBottomOf="@id/viewerName" />
+
+    <TextView
+        android:id="@+id/viewedAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="viewed 30 mins ago "
+        android:textSize="12sp"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="@id/viewerName"
+        app:layout_constraintTop_toBottomOf="@id/viewerBio" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,14 +5,22 @@ import com.mohaberabi.linkedin.core.domain.repository.JobRepository
 import com.mohaberabi.linkedin.core.domain.repository.PostsReactionRepository
 import com.mohaberabi.linkedin.core.domain.repository.PostsRepository
 import com.mohaberabi.linkedin.core.domain.repository.AuthRepository
+import com.mohaberabi.linkedin.core.domain.repository.InAppNotificationsRepository
+import com.mohaberabi.linkedin.core.domain.repository.ProfileViewsRepository
+import com.mohaberabi.linkedin.core.domain.repository.SavedPostsRepository
 import com.mohaberabi.linkedin.core.domain.repository.UserMediaRepository
+import com.mohaberabi.linkedin.core.domain.repository.UserMetaDataRepository
 import com.mohaberabi.linkedin.core.domain.repository.UserRepository
+import com.mohaberabi.linkedinclone.core.data.repository.DefaultInAppNotificationsRepository
 import com.mohaberabi.linkedinclone.core.data.repository.DefaultJobDetailRepository
 import com.mohaberabi.linkedinclone.core.data.repository.DefaultJobRepository
 import com.mohaberabi.linkedinclone.core.data.repository.DefaultPostReactionRepository
+import com.mohaberabi.linkedinclone.core.data.repository.DefaultProfileViewersRepository
 import com.mohaberabi.linkedinclone.core.data.repository.OfflineFirstPostsRepository
 import com.mohaberabi.linkedinclone.core.data.repository.DefaultRegisterRepository
+import com.mohaberabi.linkedinclone.core.data.repository.DefaultSavedPostsRepository
 import com.mohaberabi.linkedinclone.core.data.repository.DefaultUserMediaRepository
+import com.mohaberabi.linkedinclone.core.data.repository.DefaultUserMetaDataRepository
 import com.mohaberabi.linkedinclone.core.data.repository.DefaultUserRepository
 import dagger.Binds
 import dagger.Module
@@ -74,4 +82,27 @@ abstract class RepositoryModule {
     ): PostsReactionRepository
 
 
+    @Binds
+    @Singleton
+    abstract fun bindInAppNotificationsRepository(
+        defaultInAppNotificationsRepository: DefaultInAppNotificationsRepository,
+    ): InAppNotificationsRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindUserMetaDataRepository(
+        defaultUserMetaDataRepository: DefaultUserMetaDataRepository,
+    ): UserMetaDataRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindSavedPostsRepository(
+        defaultSavedPostsRepository: DefaultSavedPostsRepository,
+    ): SavedPostsRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindProfileViewsRepository(
+        defaultProfileViewersRepository: DefaultProfileViewersRepository,
+    ): ProfileViewsRepository
 }

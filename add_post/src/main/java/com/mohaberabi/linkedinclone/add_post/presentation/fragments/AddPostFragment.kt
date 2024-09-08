@@ -11,13 +11,12 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.mohaberabi.add_posts.databinding.FragmentAddPostBinding
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostActions
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostEvents
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostState
 import com.mohaberabi.linkedinclone.add_post.presentation.viewmodel.AddPostViewModel
-import com.mohaberabi.linkedinclone.current_user.CurrentUserViewModel
+import com.mohaberabi.linkedinclone.current_user.presentation.CurrentUserViewModel
 import com.mohaberabi.presentation.ui.util.extension.asByteArray
 import com.mohaberabi.presentation.ui.util.extension.cachedImage
 import com.mohaberabi.presentation.ui.util.extension.collectLifeCycleFlow

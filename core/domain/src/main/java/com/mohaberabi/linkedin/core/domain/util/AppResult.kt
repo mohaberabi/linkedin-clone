@@ -18,7 +18,7 @@ sealed interface AppResult<out D, out E : AppError> {
             return handleInternal(call)
         }
 
-        suspend inline fun <D> handle(
+        inline fun <D> handle(
             call: () -> D
         ): AppResult<D, ErrorModel> {
             return handleInternal {
@@ -29,7 +29,7 @@ sealed interface AppResult<out D, out E : AppError> {
 
 }
 
-suspend inline fun <D> handleInternal(
+inline fun <D> handleInternal(
     call: () -> AppResult<D, ErrorModel>
 ): AppResult<D, ErrorModel> {
     return try {
@@ -56,7 +56,8 @@ inline fun <T, E : AppError, R> AppResult<T, E>.map(map: (T) -> R): AppResult<R,
     }
 }
 
-fun <T, E : AppError> AppResult<T, E>.asEmptyResult(): EmptyDataResult<E> {
+fun <T, E : AppError> AppResult<T, E>.asEmptyResult(
+): EmptyDataResult<E> {
     return map { }
 }
 typealias EmptyDataResult<E> = AppResult<Unit, E>

@@ -2,13 +2,11 @@ package com.mohaberbia.linkedinclone.posts.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mohaberabi.linkedin.core.domain.model.InAppNotificationBehaviour
 import com.mohaberabi.linkedin.core.domain.model.PostModel
-import com.mohaberabi.linkedin.core.domain.model.ReactionType
-import com.mohaberabi.linkedin.core.domain.usecase.reaction.PostReactionHandler
-import com.mohaberabi.linkedin.core.domain.usecase.reaction.ReactToPostUseCase
-import com.mohaberabi.linkedin.core.domain.usecase.reaction.UndoReactToPostUseCase
-import com.mohaberabi.linkedin.core.domain.util.onFailure
-import com.mohaberabi.presentation.ui.util.asUiText
+import com.mohaberabi.linkedinclone.core.remote_logging.domain.RemoteLogging
+import com.mohaberabi.linkedinclone.core.remote_logging.domain.collect
+
 import com.mohaberbia.linkedinclone.posts.usecase.GetPostsUseCase
 import com.mohaberbia.linkedinclone.posts.usecase.ListenToPostsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,26 +28,16 @@ import javax.inject.Inject
 @HiltViewModel
 class PostsViewModel @Inject constructor(
     listenToPostsUseCase: ListenToPostsUseCase,
-    private val reactToPostUseCase: ReactToPostUseCase,
-    private val undoReactToPostUseCase: UndoReactToPostUseCase,
     private val getPostsUseCase: GetPostsUseCase,
-    private val postReactionHandler: PostReactionHandler,
+    private val remoteLogger: RemoteLogging,
 ) : ViewModel() {
-
-    companion object {
-        private const val DEBOUNCE_DELAY = 300L
-    }
-
     private val _state = MutableStateFlow(PostsState())
     val state = _state.asStateFlow()
-
-    private val _events = Channel<PostsEvents>()
-    val events = _events.receiveAsFlow()
-    private var reactJob: Job? = null
 
 
     init {
         getPosts()
+        logStateChanges()
     }
 
     init {
@@ -73,7 +61,6 @@ class PostsViewModel @Inject constructor(
                 lastDocId = _state.value.posts.lastOrNull()?.id
             )
 
-            is PostsActions.ReactToPost -> handleReactionDebounced(action)
             PostsActions.Refresh -> getPosts(refresh = true)
         }
     }
@@ -90,51 +77,6 @@ class PostsViewModel @Inject constructor(
         }
     }
 
-    private fun handleReactionDebounced(
-        action: PostsActions.ReactToPost,
-    ) {
-        reactJob?.cancel()
-        reactJob = viewModelScope.launch {
-            delay(DEBOUNCE_DELAY)
-            postReactionHandler(
-                postId = action.postId,
-                previousReactionType = action.previousReactionType,
-                reactionType = action.reactionType,
-                onReactToPost = { postId, reaction, incrementedCount ->
-                    reactToPost(
-                        postId = postId,
-                        reactionType = reaction,
-                        incrementedCount = incrementedCount,
-                    )
-                },
-                onUndoReaction = { postId ->
-                    undoReactToPost(postId)
-                }
-            )
-        }
-    }
-
-
-    private suspend fun undoReactToPost(
-        postId: String,
-    ) = undoReactToPostUseCase(
-        postId = postId,
-    ).onFailure { fail ->
-        _events.send(PostsEvents.Error(fail.asUiText()))
-    }
-
-    private suspend fun reactToPost(
-        postId: String,
-        reactionType: ReactionType,
-        incrementedCount: Int,
-    ) = reactToPostUseCase(
-        postId = postId,
-        reactionType = reactionType,
-        incrementCount = incrementedCount
-    ).onFailure { fail ->
-        _events.send(PostsEvents.Error(fail.asUiText()))
-    }
-
 
     private fun getPosts(
         lastDocId: String? = null,
@@ -142,11 +84,24 @@ class PostsViewModel @Inject constructor(
     ) {
         _state.update { it.copy(isRefreshing = refresh) }
         viewModelScope.launch {
-            getPostsUseCase(
-                lastDocId = lastDocId
-            )
+            getPostsUseCase(lastDocId = lastDocId)
             _state.update { it.copy(isRefreshing = false) }
         }
+    }
+
+
+    private fun logStateChanges() {
+        remoteLogger.collect(
+            flow = state,
+            scope = viewModelScope,
+            action = { state ->
+                logStateChange(
+                    root = javaClass.simpleName,
+                    stateName = state.javaClass.simpleName,
+                    stateValue = state.state.name,
+                )
+            }
+        )
     }
 }
 

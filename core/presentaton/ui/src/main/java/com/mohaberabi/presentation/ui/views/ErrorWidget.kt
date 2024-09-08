@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.mohaberabi.core.presentation.ui.R
 import com.mohaberabi.core.presentation.ui.databinding.ErrorWidgetBinding
+import com.mohaberabi.presentation.ui.util.UiText
 
 class ErrorWidget @JvmOverloads constructor(
     context: Context,
@@ -30,6 +31,15 @@ class ErrorWidget @JvmOverloads constructor(
         }
     }
 
+
+    fun setErrorTitle(title: UiText) {
+        binding.errorTitle.text = title.asString(context)
+    }
+
+    fun setErrorDescription(description: UiText) {
+        binding.errorDescription.text = description.asString(context)
+    }
+
     fun setErrorTitle(title: String) {
         binding.errorTitle.text = title
     }
@@ -42,11 +52,5 @@ class ErrorWidget @JvmOverloads constructor(
         binding.btnCustom.setOnClickListener(listener)
     }
 
-    fun show() {
-        visibility = VISIBLE
-    }
-
-    fun hide() {
-        visibility = GONE
-    }
+ 
 }

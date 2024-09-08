@@ -27,3 +27,5 @@ fun <T, VH : ViewHolder> ListAdapter<T, VH>.submitIfDifferent(
         submitList(data)
     }
 }
+
+

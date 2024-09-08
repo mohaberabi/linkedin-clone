@@ -9,6 +9,13 @@ data class JobDto(
     val jobPlace: String,
     val postedAtMillis: Long
 ) {
-    constructor() : this("", "", "", "", "", 0L)
+    constructor() : this(
+        "",
+        "",
+        "",
+        "",
+        "",
+        0L
+    )
 }
 

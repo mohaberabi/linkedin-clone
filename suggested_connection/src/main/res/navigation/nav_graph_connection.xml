@@ -6,6 +6,5 @@
 
     <fragment
         android:id="@+id/suggestedConnectionFragment"
-        android:name="com.mohaberabi.linkedclone.suggested_connection.SuggestedConnectionFragment"
-        android:label="SuggestedConnectionFragment" />
+        android:name="com.mohaberabi.linkedclone.suggested_connection.SuggestedConnectionFragment" />
 </navigation>

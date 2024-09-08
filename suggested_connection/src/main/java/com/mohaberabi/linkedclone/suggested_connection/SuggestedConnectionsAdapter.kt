@@ -3,13 +3,9 @@ package com.mohaberabi.linkedclone.suggested_connection
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import coil.transform.RoundedCornersTransformation
-import com.mohaberabi.core.presentation.ui.databinding.PostListItemBinding
-import com.mohaberabi.linkedin.core.domain.model.PostModel
 import com.mohaberabi.linkedin.core.domain.model.UserModel
 import com.mohaberabi.presentation.ui.util.AppListAdapter
 import com.mohaberabi.presentation.ui.util.extension.cachedImage
-import com.mohaberabi.presentation.ui.views.post_item.bindFromPost
 import com.mohaberabi.suggested_connection.databinding.ConnectionUserViewBinding
 
 

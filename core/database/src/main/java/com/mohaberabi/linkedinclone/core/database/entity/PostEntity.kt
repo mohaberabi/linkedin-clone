@@ -19,4 +19,5 @@ data class PostEntity(
     val reactionsCount: Int = 0,
     val repostsCount: Int = 0,
     val currentUserReaction: String? = null,
+    val isSaved: Boolean = false,
 )

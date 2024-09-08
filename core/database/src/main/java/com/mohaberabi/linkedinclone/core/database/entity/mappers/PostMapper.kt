@@ -8,6 +8,7 @@ import com.mohaberabi.linkedinclone.core.database.entity.PostEntity
 fun PostEntity.toPostModel(): PostModel {
     return PostModel(
         id = id,
+        isSaved = isSaved,
         createdAtMillis = createdAtMillis,
         issuerName = issuerName,
         issuerUid = issuerUid,
@@ -25,6 +26,7 @@ fun PostEntity.toPostModel(): PostModel {
 fun PostModel.toPostEntity(): PostEntity {
     return PostEntity(
         id = id,
+        isSaved = isSaved,
         createdAtMillis = createdAtMillis,
         issuerName = issuerName,
         issuerUid = issuerUid,

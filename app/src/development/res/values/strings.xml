@@ -1,0 +1,15 @@
+<resources>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings">Settings</string>
+    <string name="saved_posts">Saved Posts</string>
+    <string name="user_name">User Name</string>
+    <string name="profile_views">Profile Views</string>
+    <string name="linkedin_logo">LinkedIn Logo</string>
+    <string name="sign_in">Sign in</string>
+    <string name="or_join_linkedin">or Join LinkedIn</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="already_have_an_account_sign_in">Already have an account? Sign In</string>
+    <string name="email_address">Email address</string>
+    <string name="first_name">First Name</string>
+</resources>

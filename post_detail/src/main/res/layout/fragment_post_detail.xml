@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.mohaberabi.presentation.ui.views.post_item.PostListItem
+            <com.mohaberabi.presentation.ui.views.PostListItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/postData"

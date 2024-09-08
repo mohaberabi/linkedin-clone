@@ -30,7 +30,7 @@ object DatabaseModule {
             context,
             LinkedInCloneDb::class.java,
             DB_NAME
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides
@@ -38,6 +38,7 @@ object DatabaseModule {
     fun providePostsDao(
         database: LinkedInCloneDb,
     ): PostsDao = database.postsDao()
+
 
     @Provides
     @Singleton
@@ -48,4 +49,5 @@ object DatabaseModule {
         dispatchers = dispatchers,
         postsDao = dao
     )
+
 }

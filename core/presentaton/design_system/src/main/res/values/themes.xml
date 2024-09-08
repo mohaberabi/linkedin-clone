@@ -1,8 +1,8 @@
 <resources>
 
+
     <style name="Theme.LinkedInClone" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
-        <item name="toolbarStyle">@style/LinkedInCloneToolbar</item>
         <item name="colorOnPrimary">@color/onPrimaryColor</item>
         <item name="colorPrimaryContainer">@color/primaryContainerColor</item>
         <item name="colorOnPrimaryContainer">@color/onPrimaryContainerColor</item>
@@ -50,7 +50,7 @@
         <item name="colorSurfaceContainerHighest">@color/surfaceContainerHighestColor</item>
     </style>
 
-    <style name="LinkedInCloneToolbar" parent="Widget.Material3.Toolbar">
+    <style name="LinkedInCloneToolbar" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:layout_height">?attr/actionBarSize</item>
     </style>
 </resources>

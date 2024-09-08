@@ -1,0 +1,85 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.mohaberabi.linkedinclone.settings.SettingsFragment">
+
+
+    <LinearLayout
+        android:padding="@dimen/padding_large"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="42dp"
+            android:id="@+id/profilePic"
+            android:src="@drawable/img_plcholder"
+            app:shapeAppearanceOverlay="@drawable/circle_avatar"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:layout_height="42dp">
+
+        </com.google.android.material.imageview.ShapeableImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Settings"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:layout_height="wrap_content">
+
+        </TextView>
+    </LinearLayout>
+
+
+    <com.mohaberabi.presentation.ui.views.ListTileView
+        android:layout_width="wrap_content"
+        app:icon="@drawable/ic_account"
+        app:text="Account Preferences"
+        android:layout_height="wrap_content" />
+
+
+    <com.mohaberabi.presentation.ui.views.ListTileView
+        android:layout_width="wrap_content"
+        app:icon="@drawable/ic_lock"
+        app:text="Sign in security"
+        android:layout_height="wrap_content" />
+
+    <com.mohaberabi.presentation.ui.views.ListTileView
+        android:layout_width="wrap_content"
+        app:icon="@drawable/ic_eye"
+        app:text="Visibility"
+        android:layout_height="wrap_content" />
+
+    <com.mohaberabi.presentation.ui.views.ListTileView
+        android:layout_width="wrap_content"
+        app:icon="@drawable/ic_privacy"
+        app:text="Data Privacy"
+        android:layout_height="wrap_content" />
+
+    <com.mohaberabi.presentation.ui.views.ListTileView
+        android:layout_width="wrap_content"
+        app:icon="@drawable/ic_paper"
+        app:text="Advertising Data"
+        android:layout_height="wrap_content" />
+
+    <com.mohaberabi.presentation.ui.views.ListTileView
+        android:layout_width="wrap_content"
+        app:icon="@drawable/ic_noti"
+        app:text="Notifications"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Sign out "
+        android:id="@+id/signOut"
+        android:padding="@dimen/padding_large"
+        android:textSize="14sp"
+        android:layout_height="wrap_content">
+
+    </TextView>
+
+</LinearLayout>

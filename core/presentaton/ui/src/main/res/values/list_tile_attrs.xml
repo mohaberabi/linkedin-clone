@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="ListTileView">
+        <attr name="icon" format="reference" />
+        <attr name="text" format="string" />
+    </declare-styleable>
+</resources>

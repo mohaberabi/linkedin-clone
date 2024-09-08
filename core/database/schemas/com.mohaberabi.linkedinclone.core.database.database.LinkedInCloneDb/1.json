@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5584b6b613dd3c17cfe96f7bb69a40e9",
+    "identityHash": "b75b032815453bc361b9cf1f6f6e5cfc",
     "entities": [
       {
         "tableName": "posts",
@@ -89,12 +89,104 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "savedPost",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`savedId` TEXT NOT NULL, `id` TEXT NOT NULL, `createdAtMillis` INTEGER NOT NULL, `issuerName` TEXT NOT NULL, `issuerUid` TEXT NOT NULL, `issuerAvatar` TEXT NOT NULL, `issuerBio` TEXT NOT NULL, `postData` TEXT NOT NULL, `postAttachedImg` TEXT NOT NULL, `commentsCount` INTEGER NOT NULL, `reactionsCount` INTEGER NOT NULL, `repostsCount` INTEGER NOT NULL, `currentUserReaction` TEXT, PRIMARY KEY(`savedId`))",
+        "fields": [
+          {
+            "fieldPath": "savedId",
+            "columnName": "savedId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "post.id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "post.createdAtMillis",
+            "columnName": "createdAtMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "post.issuerName",
+            "columnName": "issuerName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "post.issuerUid",
+            "columnName": "issuerUid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "post.issuerAvatar",
+            "columnName": "issuerAvatar",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "post.issuerBio",
+            "columnName": "issuerBio",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "post.postData",
+            "columnName": "postData",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "post.postAttachedImg",
+            "columnName": "postAttachedImg",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "post.commentsCount",
+            "columnName": "commentsCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "post.reactionsCount",
+            "columnName": "reactionsCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "post.repostsCount",
+            "columnName": "repostsCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "post.currentUserReaction",
+            "columnName": "currentUserReaction",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "savedId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5584b6b613dd3c17cfe96f7bb69a40e9')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b75b032815453bc361b9cf1f6f6e5cfc')"
     ]
   }
 }

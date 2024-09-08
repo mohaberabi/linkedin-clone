@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/postReactionsFragment"
         android:name="com.mohaberabi.linkedinclone.post_detail.presetnation.post_reactions.fragments.PostReactionsFragment"
-        android:label="PostReactionsFragment">
+        android:label="@string/post_reactions">
 
         <argument
             android:name="postId"

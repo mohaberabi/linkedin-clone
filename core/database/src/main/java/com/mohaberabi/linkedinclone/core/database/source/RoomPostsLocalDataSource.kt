@@ -42,11 +42,6 @@ class RoomPostsLocalDataSource @Inject constructor(
         }.flowOn(dispatchers.io)
     }
 
-    override fun getPostById(postId: String): Flow<PostModel?> {
-        return postsDao.getPostById(postId).map {
-            it?.toPostModel()
-        }.flowOn(dispatchers.io)
-    }
 
     override suspend fun reactToPost(postId: String, reaction: String) {
 
@@ -64,4 +59,22 @@ class RoomPostsLocalDataSource @Inject constructor(
             }
         }
     }
+
+    override suspend fun deleteAllPostsByIds(
+        ids: List<String>,
+    ) {
+        withContext(dispatchers.io) {
+            safeCall {
+                postsDao.deleteSavedPostsWhereIn(ids.toSet())
+
+            }
+        }
+    }
+
+    override fun getSavedPosts(): Flow<List<PostModel>> =
+        postsDao.getAllSavedPosts()
+            .map { list ->
+                list.map { it.toPostModel() }
+            }.flowOn(dispatchers.io)
+
 }

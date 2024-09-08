@@ -10,24 +10,39 @@ private object NavDeepLinks {
     const val POSTS = "posts"
     const val Login = "login"
     const val Register = "register"
+    const val SavedPosts = "savedPosts"
+    const val Settings = "settings"
+    const val ProfileViews = "profileViews"
 
 }
 
 sealed class AppRoutes(
     val route: String,
-    val args: List<Pair<String, Any>> = listOf(),
+    val args: List<Pair<String, Any?>> = listOf(),
     var navTransition: NavTransition? = null,
 ) {
+    data object Settings : AppRoutes(NavDeepLinks.Settings)
+    data object ProfileViews : AppRoutes(NavDeepLinks.ProfileViews)
     data object Login : AppRoutes(NavDeepLinks.Login)
     data object Register : AppRoutes(NavDeepLinks.Register)
     data object Posts : AppRoutes(NavDeepLinks.POSTS)
+    data object SavedPosts : AppRoutes(NavDeepLinks.SavedPosts)
     data object AddPost :
         AppRoutes(
             NavDeepLinks.ADD_POST,
             navTransition = NavTransition.BottomToTop
         )
 
-    data object Profile : AppRoutes(NavDeepLinks.PROFILE)
+    data class Profile(val uid: String? = null) :
+        AppRoutes(
+            NavDeepLinks.PROFILE,
+            args = uid?.let {
+                listOf(
+                    "uid" to it,
+                )
+            } ?: emptyList()
+        )
+
     data class UserMedia(
         val imgUri: String,
         val isCover: Boolean = false,

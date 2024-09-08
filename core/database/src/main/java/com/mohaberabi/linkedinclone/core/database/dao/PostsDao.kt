@@ -56,4 +56,14 @@ interface PostsDao {
     """
     )
     suspend fun undoReaction(postId: String)
+
+
+    @Query("UPDATE posts SET isSaved = 1 WHERE id = :id")
+    suspend fun savePost(id: String)
+
+    @Query("SELECT * FROM posts WHERE isSaved = 1")
+    fun getAllSavedPosts(): Flow<List<PostEntity>>
+
+    @Query("DELETE FROM posts WHERE id IN (:ids)")
+    suspend fun deleteSavedPostsWhereIn(ids: Set<String>)
 }
