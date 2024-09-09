@@ -2,10 +2,12 @@ package com.mohaberbai.linkedinclone.jobs.presentation.details.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mohaberabi.linedinclone.core.remote_anayltics.domain.AppAnalytics
 import com.mohaberabi.linkedin.core.domain.error.RemoteError
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
 import com.mohaberabi.presentation.ui.util.asUiText
+import com.mohaberbai.linkedinclone.jobs.presentation.details.fragment.logJobDetails
 import com.mohaberbai.linkedinclone.jobs.usecase.GetJobDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class JobDetailsViewModel @Inject constructor(
     private val getJobDetailsUseCase: GetJobDetailsUseCase,
+    private val appAnalytics: AppAnalytics,
 ) : ViewModel() {
     private val _state = MutableStateFlow(JobDetailState())
     val state = _state.asStateFlow()
@@ -47,6 +50,7 @@ class JobDetailsViewModel @Inject constructor(
                                 detail = detail
                             )
                         }
+                        logJobDetailOnDone(detail.id)
                     }
             }
         } ?: run {
@@ -61,4 +65,5 @@ class JobDetailsViewModel @Inject constructor(
     }
 
 
+    private fun logJobDetailOnDone(id: String) = appAnalytics.logJobDetails(id)
 }

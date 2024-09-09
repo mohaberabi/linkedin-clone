@@ -15,5 +15,6 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.reactToPost)
     implementation(projects.core.currentUser)
+    implementation(projects.core.remoteAnayltics)
 
 }

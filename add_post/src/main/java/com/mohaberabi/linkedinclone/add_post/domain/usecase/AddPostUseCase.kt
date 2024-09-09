@@ -1,4 +1,4 @@
-package com.mohaberabi.linkedinclone.add_post.usecase
+package com.mohaberabi.linkedinclone.add_post.domain.usecase
 
 import com.mohaberabi.linkedin.core.domain.model.AppFile
 import com.mohaberabi.linkedin.core.domain.repository.PostsRepository

@@ -94,4 +94,7 @@ class LoginFragment : Fragment() {
             fragmentId = AppRoutes.Posts.route,
         )
     }
+
+
 }
+

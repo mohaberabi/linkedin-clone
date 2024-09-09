@@ -10,6 +10,8 @@ import com.mohaberabi.linkedin.core.domain.util.onSuccess
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.CommentOnPostUseCase
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostCommentsUseCase
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.ListenToPostDetailUseCase
+import com.mohaberabi.linkedinclone.post_detail.domain.usecase.analytics.LogPostOpenedUseCase
+import com.mohaberabi.linkedinclone.post_detail.domain.usecase.analytics.PostAnaylticsUseCases
 import com.mohaberabi.presentation.ui.util.UiText
 import com.mohaberabi.presentation.ui.util.asUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,6 +34,7 @@ class PostDetailViewModel @Inject constructor(
     private val getPostCommentsUseCase: GetPostCommentsUseCase,
     private val listenToPostDetailUseCase: ListenToPostDetailUseCase,
     private val addInAppNotificationUseCase: AddInAppNotificationUseCase,
+    private val postAnaylticsUseCases: PostAnaylticsUseCases,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -54,6 +57,7 @@ class PostDetailViewModel @Inject constructor(
                 .catch { _state.update { it.copy(state = PostDetailStatus.Error) } }
                 .onEach { detail ->
                     _state.update {
+                        postAnaylticsUseCases.postOpened(detail.post!!.id)
                         it.copy(
                             topPostReactions = detail.topReactions,
                             postComments = detail.topComments,
@@ -83,6 +87,8 @@ class PostDetailViewModel @Inject constructor(
                 postId = postId!!,
                 lastDocId = stateVal.postComments.lastOrNull()?.id
             ).onSuccess { newComments ->
+                val id = _state.value.currentPost!!.id
+                postAnaylticsUseCases.postHasCommentInterest(id)
                 _state.update {
                     it.copy(
                         postComments = it.postComments + newComments
@@ -106,8 +112,11 @@ class PostDetailViewModel @Inject constructor(
                 comment = _state.value.postComment
             ).onFailure { fail ->
                 sendErrorEvent(fail.asUiText())
+
             }.onSuccess {
+                val id = _state.value.currentPost!!.id
                 addInAppNotificationOnComment()
+                postAnaylticsUseCases.postGotComment(id)
             }
             _state.update { it.copy(commentLoading = false) }
         }

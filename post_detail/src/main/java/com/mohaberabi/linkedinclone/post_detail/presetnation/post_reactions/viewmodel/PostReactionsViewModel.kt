@@ -8,6 +8,7 @@ import com.mohaberabi.linkedin.core.domain.model.ReactionType
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostReactionsUseCase
+import com.mohaberabi.linkedinclone.post_detail.domain.usecase.analytics.PostAnaylticsUseCases
 import com.mohaberabi.presentation.ui.util.UiText
 import com.mohaberabi.presentation.ui.util.asUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +24,7 @@ import javax.inject.Inject
 class PostReactionsViewModel @Inject constructor(
     private val getPostReactionsUseCase: GetPostReactionsUseCase,
     savedStateHandle: SavedStateHandle,
+    private val postAnaylticsUseCases: PostAnaylticsUseCases
 ) : ViewModel() {
 
     private var getReactionsJob: Job? = null
@@ -34,6 +36,9 @@ class PostReactionsViewModel @Inject constructor(
 
     init {
 
+        postId?.let {
+            postAnaylticsUseCases.postHasReactionsInterest(it)
+        }
         getReactions(
             reactionType = null,
         )
@@ -67,6 +72,9 @@ class PostReactionsViewModel @Inject constructor(
             ).onFailure { fail ->
                 emitError(fail.asUiText())
             }.onSuccess { reactions ->
+                postId.let {
+                    postAnaylticsUseCases.postHasReactionsInterest(it)
+                }
                 _state.update {
                     it.copy(
                         reactions = reactions,
@@ -97,6 +105,9 @@ class PostReactionsViewModel @Inject constructor(
                 reactionType = stateVal.reactionType?.name,
                 lastDocId = stateVal.reactions.lastOrNull()?.reactorId
             ).onSuccess { reactions ->
+                postId.let {
+                    postAnaylticsUseCases.postHasReactionsInterest(it)
+                }
                 _state.update { it.copy(reactions = it.reactions + reactions) }
             }
         }

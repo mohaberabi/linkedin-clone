@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
-import com.mohaberabi.saved_posts.domain.usecase.GetSavedPostsWithReactionUseCase
+import com.mohaberabi.saved_posts.domain.usecase.GetSavedPostsWithReactionsUseCase
 import com.mohaberabi.saved_posts.domain.usecase.ListenToSavedPostsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SavedPostsViewModel @Inject constructor(
     listenToSavedPostsUseCase: ListenToSavedPostsUseCase,
-    private val getSavedPostsWithReactionUseCase: GetSavedPostsWithReactionUseCase,
+    private val getSavedPostsWithReactionUseCase: GetSavedPostsWithReactionsUseCase,
 ) : ViewModel() {
     companion object {
         const val MAX_RETRY = 5
