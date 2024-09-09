@@ -13,13 +13,12 @@ import com.mohaberabi.linkedinclone.core.data.dto.RegisterRequest
 import com.mohaberabi.linkedinclone.core.data.dto.UserDto
 import com.mohaberabi.linkedinclone.core.data.dto.mapper.toUserModel
 import com.mohaberabi.linkedinclone.core.data.util.safeCall
-import kotlinx.coroutines.async
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
-class FirebaseRegisterRemoteDataSource @Inject constructor(
+class FirebaseAuthRemoteDataSource @Inject constructor(
     private val dispatchers: DispatchersProvider,
     private val auth: FirebaseAuth,
     private val firestore: FirebaseFirestore
@@ -78,6 +77,12 @@ class FirebaseRegisterRemoteDataSource @Inject constructor(
                 }
             } ?: throw AppException.RemoteException(ErrorModel(type = RemoteError.UNKNOWN_ERROR))
 
+        }
+    }
+
+    override suspend fun signOut() {
+        auth.safeCall {
+            signOut()
         }
     }
 

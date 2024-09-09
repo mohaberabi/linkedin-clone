@@ -6,6 +6,10 @@
 
     <fragment
         android:id="@+id/onBoardingFragment"
-        android:name="com.mohaberabi.linkedinclone.onboarding.presentation.fragments.OnBoardingFragment"
-        android:label="OnBoardingFragment" />
+        android:name="com.mohaberabi.linkedinclone.onboarding.presentation.fragments.OnBoardingFragment">
+        <deepLink app:uri="android-app://linked.clone.app/onboarding" />
+
+    </fragment>
+
+
 </navigation>

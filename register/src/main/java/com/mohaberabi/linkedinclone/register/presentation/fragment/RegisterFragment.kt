@@ -62,6 +62,8 @@ class RegisterFragment : Fragment() {
 
 
     private fun goHome() {
-        findNavController().popAllAndNavigate(AppRoutes.Posts)
+        findNavController().popAllAndNavigate(
+            AppRoutes.Posts.route,
+        )
     }
 }

@@ -18,10 +18,10 @@ data class CurrentUserState(
 
 @HiltViewModel
 class CurrentUserViewModel @Inject constructor(
-    getUserUseCase: ListenToUserUseCase,
+    listenToUserUseCase: ListenToUserUseCase,
 ) : ViewModel() {
     val state =
-        getUserUseCase().map { user ->
+        listenToUserUseCase().map { user ->
             CurrentUserState(
                 didLoad = true,
                 user = user

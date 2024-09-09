@@ -2,6 +2,7 @@ package com.mohaberabi.presentation.ui.navigation
 
 import com.mohaberabi.presentation.ui.util.NavTransition
 
+
 private object NavDeepLinks {
     const val ADD_POST = "addPost"
     const val PROFILE = "profile"
@@ -13,6 +14,7 @@ private object NavDeepLinks {
     const val SavedPosts = "savedPosts"
     const val Settings = "settings"
     const val ProfileViews = "profileViews"
+    const val OnBoarding = "onboarding"
 
 }
 
@@ -21,6 +23,8 @@ sealed class AppRoutes(
     val args: List<Pair<String, Any?>> = listOf(),
     var navTransition: NavTransition? = null,
 ) {
+    data object OnBoarding : AppRoutes(NavDeepLinks.OnBoarding)
+
     data object Settings : AppRoutes(NavDeepLinks.Settings)
     data object ProfileViews : AppRoutes(NavDeepLinks.ProfileViews)
     data object Login : AppRoutes(NavDeepLinks.Login)

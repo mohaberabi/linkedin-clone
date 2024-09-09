@@ -60,8 +60,8 @@ class RegisterViewModel @Inject constructor(
             ).onFailure { fail ->
                 _event.send(RegisterEvents.Error(fail.asUiText()))
             }.onSuccess { _event.send(RegisterEvents.Registered) }
+            _state.update { it.copy(loading = false) }
         }
-        _state.update { it.copy(loading = false) }
 
     }
 }

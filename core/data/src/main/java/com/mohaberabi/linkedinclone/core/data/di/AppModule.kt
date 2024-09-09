@@ -11,13 +11,10 @@ import com.mohaberabi.linkedin.core.domain.source.local.persistence.PersistenceC
 import com.mohaberabi.linkedin.core.domain.util.AppBottomSheetShower
 import com.mohaberabi.linkedin.core.domain.util.AppSuperVisorScope
 import com.mohaberabi.linkedin.core.domain.util.DispatchersProvider
-import com.mohaberabi.linkedin.core.domain.util.DrawerController
-import com.mohaberabi.linkedin.core.domain.util.GlobalNavigator
 import com.mohaberabi.linkedinclone.core.data.source.local.persistence.DataStorePersistenceClient
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseStorageClient
 import com.mohaberabi.linkedinclone.core.data.util.DefaultAppSheetShower
 import com.mohaberabi.linkedinclone.core.data.util.DefaultDispatchersProvider
-import com.mohaberabi.linkedinclone.core.data.util.DefaultGlobalNavigator
 import com.mohaberabi.linkedinclone.core.data.util.GlobalDrawerController
 import dagger.Module
 import dagger.Provides

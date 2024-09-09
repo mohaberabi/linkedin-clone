@@ -7,7 +7,7 @@ import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseJobsRemoteDa
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebasePostReactionsRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebasePostsRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseProfileViewsRemoteDataSource
-import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseRegisterRemoteDataSource
+import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseAuthRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseSavedPostsRemoteDataSource
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseStorageClient
 import com.mohaberabi.linkedinclone.core.data.source.remote.FirebaseUserMetaDataRemoteDataSource
@@ -43,7 +43,7 @@ abstract class RemoteSourceModule {
     @Binds
     @Singleton
     abstract fun bindRegisterRemoteDataSource(
-        firebaseRegisterRemoteDataSource: FirebaseRegisterRemoteDataSource
+        firebaseRegisterRemoteDataSource: FirebaseAuthRemoteDataSource
     ): AuthRemoteDataSource
 
     @Binds

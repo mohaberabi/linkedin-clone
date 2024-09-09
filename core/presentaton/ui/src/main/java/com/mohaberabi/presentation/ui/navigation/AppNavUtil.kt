@@ -52,11 +52,9 @@ private fun NavController.goTo(
 
 
 fun NavController.popAllAndNavigate(
-    route: AppRoutes,
-) = popAllAndNavigate(route.route)
-
-fun NavController.popAllAndNavigate(
     fragmentId: String,
+    inclusive: Boolean = true,
+    clearWholeStack: Boolean = false
 ) {
     val uri = buildString {
         append(APP_DOMAIN)
@@ -67,25 +65,16 @@ fun NavController.popAllAndNavigate(
         .fromUri(uri)
         .build()
 
-    val navOptions = NavOptions.Builder()
-        .setPopUpTo(
-            graph.startDestinationId,
-            inclusive = true
-        )
-        .build()
+    val navOptionsBuilder = if (clearWholeStack) {
+        NavOptions.Builder().setPopUpTo(fragmentId, inclusive)
+    } else {
+        NavOptions.Builder().setPopUpTo(graph.startDestinationId, inclusive)
+    }
+    val navOptions = navOptionsBuilder
+        .setLaunchSingleTop(true)
+        .setRestoreState(false).build()
+
 
     navigate(request, navOptions)
-}
-
-fun NavController.popAllAndNavigate(
-    destinationId: Int,
-    builder: NavOptions.Builder.() -> Unit = {},
-) {
-    val navOptions = NavOptions.Builder().apply {
-        setPopUpTo(graph.startDestinationId, true)
-        builder()
-    }.build()
-
-    navigate(destinationId, null, navOptions)
 }
 

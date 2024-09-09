@@ -10,16 +10,14 @@ import javax.inject.Inject
 
 
 class GlobalDrawerController @Inject constructor(
-    private val appSuperVisorScope: AppSuperVisorScope,
 ) : DrawerController {
     private val _events = Channel<AppDrawerActions>()
     private val flow = _events.receiveAsFlow()
     override fun sendDrawerAction(
         actions: AppDrawerActions,
     ) {
-        appSuperVisorScope().launch {
-            _events.send(actions)
-        }
+        _events.trySend(actions)
+
     }
 
 

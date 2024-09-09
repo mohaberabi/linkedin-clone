@@ -72,7 +72,6 @@ class LoginFragment : Fragment() {
                 viewModel.onAction(LoginActions.SubmitLogin)
             }
             joinLinkedIn.setOnClickListener {
-                goSignUp()
             }
         }
     }
@@ -91,10 +90,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun goHome() {
-        findNavController().popAllAndNavigate(AppRoutes.Posts)
-    }
-
-    private fun goSignUp() {
-
+        findNavController().popAllAndNavigate(
+            fragmentId = AppRoutes.Posts.route,
+        )
     }
 }

@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="NavigationCustomAttributes">
+        <attr name="showBottomNav" format="boolean" />
+        <attr name="showToolbar" format="boolean" />
+        <attr name="showDrawer" format="boolean" />
+    </declare-styleable>
+</resources>

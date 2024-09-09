@@ -18,4 +18,6 @@ interface AuthRemoteDataSource {
         email: String,
         password: String,
     ): UserModel
+
+    suspend fun signOut()
 }

@@ -30,7 +30,7 @@ class ImageFileCompressor @Inject constructor(
             }
             bitmap.compress(
                 outputFormat,
-                80,
+                100,
                 output
             )
             output.toByteArray()

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.mohaberabi.linkedinclone.settings.SettingsFragment">
+    tools:context="com.mohaberabi.linkedinclone.settings.presentation.fragments.SettingsFragment">
 
 
     <LinearLayout
@@ -17,7 +17,7 @@
             android:layout_width="42dp"
             android:id="@+id/profilePic"
             android:src="@drawable/img_plcholder"
-            app:shapeAppearanceOverlay="@drawable/circle_avatar"
+            app:shapeAppearanceOverlay="@style/cropedCircle"
             android:layout_marginEnd="@dimen/margin_medium"
             android:layout_height="42dp">
 
