@@ -10,6 +10,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.remoteAnayltics)
+
     implementation(projects.core.domain)
     implementation(libs.prefs.datastore)
     implementation(libs.kotlinx.serilization)

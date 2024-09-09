@@ -1,5 +1,6 @@
 package com.mohaberabi.linkedinclone.core.data.repository
 
+import com.mohaberabi.linedinclone.core.remote_anayltics.domain.AppAnalytics
 import com.mohaberabi.linkedin.core.domain.error.ErrorModel
 import com.mohaberabi.linkedin.core.domain.model.UserModel
 import com.mohaberabi.linkedin.core.domain.source.local.user.UserLocalDataSource
@@ -12,6 +13,7 @@ import javax.inject.Inject
 class DefaultRegisterRepository @Inject constructor(
     private val authRemoteDataSource: AuthRemoteDataSource,
     private val userLocalDataSource: UserLocalDataSource,
+    private val appaAnalytics: AppAnalytics
 ) : AuthRepository {
     override suspend fun createUserWithEmailAndPassword(
         email: String,
@@ -35,7 +37,11 @@ class DefaultRegisterRepository @Inject constructor(
                 bio = bio,
                 uid = uid
             )
+
+
             userLocalDataSource.saveUser(user)
+
+            appaAnalytics.setUserId(uid)
         }
 
     }
@@ -50,6 +56,7 @@ class DefaultRegisterRepository @Inject constructor(
                 password = password
             )
             userLocalDataSource.saveUser(user)
+            appaAnalytics.setUserId(user.uid)
         }
     }
 }
