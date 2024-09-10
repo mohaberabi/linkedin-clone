@@ -15,5 +15,6 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.currentUser)
     implementation(projects.core.remoteAnayltics)
+    implementation(projects.core.remoteLogging)
 
 }

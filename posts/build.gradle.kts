@@ -14,10 +14,12 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.data)
     implementation(libs.androdix.pull.refresh)
-    implementation(projects.core.remoteLogging)
 
     implementation(projects.core.reactToPost)
     implementation(projects.core.currentUser)
     implementation(projects.core.postSaver)
+    implementation(projects.core.remoteLogging)
+
+    implementation(projects.core.remoteAnayltics)
 
 }

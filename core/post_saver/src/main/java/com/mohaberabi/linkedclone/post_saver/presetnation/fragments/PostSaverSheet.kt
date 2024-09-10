@@ -61,7 +61,7 @@ class PostSaverSheet : BottomSheetDialogFragment() {
         ) { event ->
             when (event) {
                 is PostSaverEvents.Error -> binding.root.showSnackBar(event.error)
-                PostSaverEvents.PostSaved -> binding.root.showSnackBar("Post Saved")
+                PostSaverEvents.PostSaved -> dismiss()
 
             }
         }

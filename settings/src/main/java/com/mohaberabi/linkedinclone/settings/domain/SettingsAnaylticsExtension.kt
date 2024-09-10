@@ -1,8 +1,6 @@
 package com.mohaberabi.linkedinclone.settings.domain
 
-import com.mohaberabi.linedinclone.core.remote_anayltics.domain.AppAnalytics
+import com.mohaberabi.linedinclone.core.remote_anayltics.domain.LogEventUseCase
 
 
-internal fun AppAnalytics.logUserSignedOut() {
-    logEvent("userSignOut")
-}
+internal fun LogEventUseCase.logUserSignedOut() = this("userSignOut")

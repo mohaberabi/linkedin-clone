@@ -1,4 +1,4 @@
-package com.mohaberbia.linkedinclone.posts.usecase
+package com.mohaberbia.linkedinclone.posts.domain.usecase
 
 import com.mohaberabi.linkedin.core.domain.repository.PostsRepository
 import javax.inject.Inject

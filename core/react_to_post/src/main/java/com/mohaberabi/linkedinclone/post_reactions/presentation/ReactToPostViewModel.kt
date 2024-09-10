@@ -4,11 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohaberabi.linkedin.core.domain.error.ErrorModel
 import com.mohaberabi.linkedin.core.domain.model.InAppNotificationBehaviour
-import com.mohaberabi.linkedin.core.domain.model.ReactionType
 import com.mohaberabi.linkedin.core.domain.model.annotations.MentorNote
 import com.mohaberabi.linkedin.core.domain.usecase.in_app_noti.AddInAppNotificationUseCase
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
+import com.mohaberabi.linkedinclone.core.remote_logging.domain.model.LogInfo
+import com.mohaberabi.linkedinclone.core.remote_logging.domain.usecase.RemoteLoggingUseCases
 import com.mohaberabi.linkedinclone.post_reactions.domain.usecase.ReactToPostUseCase
 import com.mohaberabi.linkedinclone.post_reactions.domain.usecase.UndoReactToPostUseCase
 import com.mohaberabi.presentation.ui.util.asUiText
@@ -19,6 +20,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.log
 
 
 @HiltViewModel
@@ -26,6 +28,7 @@ class ReactToPostViewModel @Inject constructor(
     private val reactToPostUseCase: ReactToPostUseCase,
     private val undoReactToPostUseCase: UndoReactToPostUseCase,
     private val addInAppNotificationUseCase: AddInAppNotificationUseCase,
+    private val remoteLoggingUseCases: RemoteLoggingUseCases,
 ) : ViewModel() {
 
     companion object {
@@ -70,6 +73,7 @@ class ReactToPostViewModel @Inject constructor(
         postId = postId,
     ).onFailure { fail ->
         _events.send(ReactToPostEvents.Error(fail.asUiText()))
+        logRemote(fail)
     }
 
     private suspend fun reactToPost(
@@ -81,18 +85,12 @@ class ReactToPostViewModel @Inject constructor(
         incrementCount = incrementedCount
     ).onFailure { fail ->
         _events.send(ReactToPostEvents.Error(fail.asUiText()))
+        logRemote(fail)
     }.onSuccess {
-
         addInAppNotificationsOnReaction(params = params)
-
     }
 
 
-    @MentorNote(
-        "Side effect , in readl world apps ,handled by cloud functions , " +
-                "firebase also supports it but i dont know js" +
-                " , so made it like this for idea explain"
-    )
     private fun addInAppNotificationsOnReaction(
         params: PostReactionParams,
     ) {
@@ -105,7 +103,14 @@ class ReactToPostViewModel @Inject constructor(
             addInAppNotificationUseCase(
                 behaviour = behaviour,
                 receiverId = params.postOwnerId,
-            )
+            ).onFailure { fail ->
+                logRemote(fail)
+            }
         }
+    }
+
+    private fun logRemote(fail: ErrorModel) {
+        remoteLoggingUseCases.log(LogInfo.Error(fail.toString()))
+        remoteLoggingUseCases.recordException(fail.cause)
     }
 }

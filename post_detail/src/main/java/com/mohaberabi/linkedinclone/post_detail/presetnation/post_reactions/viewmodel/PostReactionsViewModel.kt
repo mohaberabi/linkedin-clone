@@ -4,11 +4,12 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mohaberabi.linedinclone.core.remote_anayltics.domain.LogEventUseCase
 import com.mohaberabi.linkedin.core.domain.model.ReactionType
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostReactionsUseCase
-import com.mohaberabi.linkedinclone.post_detail.domain.usecase.analytics.PostAnaylticsUseCases
+import com.mohaberabi.linkedinclone.post_detail.domain.usecase.logUserInterestPostReactions
 import com.mohaberabi.presentation.ui.util.UiText
 import com.mohaberabi.presentation.ui.util.asUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +25,7 @@ import javax.inject.Inject
 class PostReactionsViewModel @Inject constructor(
     private val getPostReactionsUseCase: GetPostReactionsUseCase,
     savedStateHandle: SavedStateHandle,
-    private val postAnaylticsUseCases: PostAnaylticsUseCases
+    private val logEventUseCase: LogEventUseCase
 ) : ViewModel() {
 
     private var getReactionsJob: Job? = null
@@ -37,7 +38,7 @@ class PostReactionsViewModel @Inject constructor(
     init {
 
         postId?.let {
-            postAnaylticsUseCases.postHasReactionsInterest(it)
+            logEventUseCase.logUserInterestPostReactions(it)
         }
         getReactions(
             reactionType = null,
@@ -73,7 +74,7 @@ class PostReactionsViewModel @Inject constructor(
                 emitError(fail.asUiText())
             }.onSuccess { reactions ->
                 postId.let {
-                    postAnaylticsUseCases.postHasReactionsInterest(it)
+                    logEventUseCase.logUserInterestPostReactions(it)
                 }
                 _state.update {
                     it.copy(
@@ -106,7 +107,7 @@ class PostReactionsViewModel @Inject constructor(
                 lastDocId = stateVal.reactions.lastOrNull()?.reactorId
             ).onSuccess { reactions ->
                 postId.let {
-                    postAnaylticsUseCases.postHasReactionsInterest(it)
+                    logEventUseCase.logUserInterestPostReactions(it)
                 }
                 _state.update { it.copy(reactions = it.reactions + reactions) }
             }

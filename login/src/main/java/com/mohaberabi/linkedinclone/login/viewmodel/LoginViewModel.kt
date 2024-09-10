@@ -2,9 +2,11 @@ package com.mohaberabi.linkedinclone.login.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mohaberabi.linedinclone.core.remote_anayltics.domain.LogEventUseCase
 import com.mohaberabi.linkedin.core.domain.usecase.validator.ValidatorUseCases
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
+import com.mohaberabi.linkedinclone.login.domain.logUserLoggedIn
 import com.mohaberabi.linkedinclone.login.domain.usecase.LoginUseCase
 import com.mohaberabi.linkedinclone.login.viewmodel.LoginActions
 import com.mohaberabi.linkedinclone.login.viewmodel.LoginEvents
@@ -23,6 +25,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val inputValidator: ValidatorUseCases,
+    private val logEventUseCase: LogEventUseCase
 ) : ViewModel() {
 
 
@@ -52,6 +55,7 @@ class LoginViewModel @Inject constructor(
                 _events.send(LoginEvents.Error(fail.asUiText()))
             }.onSuccess {
                 _events.send(LoginEvents.LoggedIn)
+                logEventUseCase.logUserLoggedIn()
             }
             _state.update { it.copy(loading = false) }
         }

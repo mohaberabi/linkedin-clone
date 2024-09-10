@@ -24,11 +24,4 @@ class AppLoader @JvmOverloads constructor(
     }
 
 
-    fun hide() {
-        binding.root.visibility = View.GONE
-    }
-
-    fun show() {
-        binding.root.visibility = View.VISIBLE
-    }
 }

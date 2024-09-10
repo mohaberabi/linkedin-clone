@@ -7,4 +7,6 @@ class MarkAllNotificationsReadUseCase(
 ) {
     suspend operator fun invoke(
     ) = userMetaDataRepository.markAllNotificationsRead()
+
+
 }

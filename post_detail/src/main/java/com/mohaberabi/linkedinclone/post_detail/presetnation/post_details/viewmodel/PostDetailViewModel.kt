@@ -3,6 +3,7 @@ package com.mohaberabi.linkedinclone.post_detail.presetnation.post_details.viewm
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mohaberabi.linedinclone.core.remote_anayltics.domain.LogEventUseCase
 import com.mohaberabi.linkedin.core.domain.model.InAppNotificationBehaviour
 import com.mohaberabi.linkedin.core.domain.usecase.in_app_noti.AddInAppNotificationUseCase
 import com.mohaberabi.linkedin.core.domain.util.onFailure
@@ -10,8 +11,9 @@ import com.mohaberabi.linkedin.core.domain.util.onSuccess
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.CommentOnPostUseCase
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.GetPostCommentsUseCase
 import com.mohaberabi.linkedinclone.post_detail.domain.usecase.ListenToPostDetailUseCase
-import com.mohaberabi.linkedinclone.post_detail.domain.usecase.analytics.LogPostOpenedUseCase
-import com.mohaberabi.linkedinclone.post_detail.domain.usecase.analytics.PostAnaylticsUseCases
+import com.mohaberabi.linkedinclone.post_detail.domain.usecase.logPostGotComment
+import com.mohaberabi.linkedinclone.post_detail.domain.usecase.logPostOpened
+import com.mohaberabi.linkedinclone.post_detail.domain.usecase.logUserInterestPostComments
 import com.mohaberabi.presentation.ui.util.UiText
 import com.mohaberabi.presentation.ui.util.asUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,7 +36,7 @@ class PostDetailViewModel @Inject constructor(
     private val getPostCommentsUseCase: GetPostCommentsUseCase,
     private val listenToPostDetailUseCase: ListenToPostDetailUseCase,
     private val addInAppNotificationUseCase: AddInAppNotificationUseCase,
-    private val postAnaylticsUseCases: PostAnaylticsUseCases,
+    private val logEventUseCase: LogEventUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -57,7 +59,7 @@ class PostDetailViewModel @Inject constructor(
                 .catch { _state.update { it.copy(state = PostDetailStatus.Error) } }
                 .onEach { detail ->
                     _state.update {
-                        postAnaylticsUseCases.postOpened(detail.post!!.id)
+                        logEventUseCase.logPostOpened(detail.post!!.id)
                         it.copy(
                             topPostReactions = detail.topReactions,
                             postComments = detail.topComments,
@@ -88,7 +90,7 @@ class PostDetailViewModel @Inject constructor(
                 lastDocId = stateVal.postComments.lastOrNull()?.id
             ).onSuccess { newComments ->
                 val id = _state.value.currentPost!!.id
-                postAnaylticsUseCases.postHasCommentInterest(id)
+                logEventUseCase.logUserInterestPostComments(id)
                 _state.update {
                     it.copy(
                         postComments = it.postComments + newComments
@@ -116,7 +118,7 @@ class PostDetailViewModel @Inject constructor(
             }.onSuccess {
                 val id = _state.value.currentPost!!.id
                 addInAppNotificationOnComment()
-                postAnaylticsUseCases.postGotComment(id)
+                logEventUseCase.logPostGotComment(id)
             }
             _state.update { it.copy(commentLoading = false) }
         }

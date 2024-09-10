@@ -15,9 +15,9 @@ data class ErrorModel(
     override fun toString(): String {
         val message = buildString {
             append("App Error ->")
-            append("Type ${type}-")
-            append("Message ${message}-")
-            append("Code ${statusCode}-")
+            append("Type ${type}- ")
+            append("Message ${message}- ")
+            append("Code ${statusCode}- ")
         }
         return message
     }

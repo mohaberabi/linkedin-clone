@@ -1,11 +1,11 @@
 package com.mohaberabi.linkedinclone.user_metadata
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohaberabi.linkedin.core.domain.model.UserMetaData
 import com.mohaberabi.linkedin.core.domain.util.onFailure
-import com.mohaberabi.linkedin.core.domain.util.onSuccess
+import com.mohaberabi.linkedinclone.core.remote_logging.domain.model.LogInfo
+import com.mohaberabi.linkedinclone.core.remote_logging.domain.usecase.RemoteLoggingUseCases
 import com.mohaberabi.linkedinclone.user_metadata.usecase.ListenToUserMetaDataUseCase
 import com.mohaberabi.linkedinclone.user_metadata.usecase.MarkAllNotificationsReadUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class UserMetaDataViewModel @Inject constructor(
     private val listenToUserMetaDataUseCase: ListenToUserMetaDataUseCase,
-    private val markAllNotificationsReadUseCase: MarkAllNotificationsReadUseCase
+    private val markAllNotificationsReadUseCase: MarkAllNotificationsReadUseCase,
+    private val remoteLogger: RemoteLoggingUseCases,
 ) : ViewModel() {
     val state = listenToUserMetaDataUseCase()
         .stateIn(
@@ -31,8 +32,10 @@ class UserMetaDataViewModel @Inject constructor(
     fun markAllNotificationsRead() {
         viewModelScope.launch {
             markAllNotificationsReadUseCase()
-                .onSuccess { Log.d("meta", "Done") }
-                .onFailure { Log.e("meta", it.toString()) }
+                .onFailure { fail ->
+                    remoteLogger.log(LogInfo.Info(message = fail.toString()))
+                    remoteLogger.recordException(fail.cause)
+                }
         }
     }
 }

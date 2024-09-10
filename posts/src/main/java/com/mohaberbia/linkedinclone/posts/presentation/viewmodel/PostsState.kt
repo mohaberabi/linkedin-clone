@@ -1,9 +1,7 @@
 package com.mohaberbia.linkedinclone.posts.presentation.viewmodel
 
 import com.mohaberabi.linkedin.core.domain.model.PostModel
-import com.mohaberabi.linkedin.core.domain.model.ReactionModel
 import com.mohaberabi.presentation.ui.util.UiText
-
 
 enum class PostsStatus {
     Initial,
@@ -18,5 +16,4 @@ data class PostsState(
     val error: UiText = UiText.Empty,
     val isRefreshing: Boolean = false
 )
-
 

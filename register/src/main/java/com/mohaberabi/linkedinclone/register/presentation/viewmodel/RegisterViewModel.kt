@@ -2,8 +2,10 @@ package com.mohaberabi.linkedinclone.register.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mohaberabi.linedinclone.core.remote_anayltics.domain.LogEventUseCase
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
+import com.mohaberabi.linkedinclone.register.domain.logUserRegistered
 import com.mohaberabi.linkedinclone.register.domain.usecase.RegisterUsecase
 import com.mohaberabi.presentation.ui.util.asUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val registerUsecase: RegisterUsecase,
+    private val logEventUseCase: LogEventUseCase
 ) : ViewModel() {
 
 
@@ -59,7 +62,10 @@ class RegisterViewModel @Inject constructor(
                 bio = stateVal.bio
             ).onFailure { fail ->
                 _event.send(RegisterEvents.Error(fail.asUiText()))
-            }.onSuccess { _event.send(RegisterEvents.Registered) }
+            }.onSuccess {
+                _event.send(RegisterEvents.Registered)
+                logEventUseCase.logUserRegistered()
+            }
             _state.update { it.copy(loading = false) }
         }
 

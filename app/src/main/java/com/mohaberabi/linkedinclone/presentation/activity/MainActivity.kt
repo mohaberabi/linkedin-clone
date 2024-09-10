@@ -20,12 +20,14 @@ import javax.inject.Inject
 import com.mohaberabi.onboarding.R.id.nav_graph_onboarding
 import com.mohaberabi.linedinclone.core.remote_anayltics.domain.screenClosed
 import com.mohaberabi.linedinclone.core.remote_anayltics.domain.screenOpened
+import com.mohaberabi.linkedinclone.core.remote_logging.domain.model.RemoteLogging
 import com.mohaberabi.linkedinclone.presentation.activity.constants.AppConstants.appbarRoutesConfig
-import com.mohaberabi.linkedinclone.presentation.activity.constants.AppConstants.bottomNavRoutes
 import com.mohaberabi.linkedinclone.presentation.activity.constants.toRouteType
 import com.mohaberabi.linkedinclone.presentation.activity.ext.addNotificationsBadge
 import com.mohaberabi.linkedinclone.presentation.activity.ext.bindWithActivityState
 import com.mohaberabi.linkedinclone.presentation.activity.ext.bindWithCurrentUserState
+import com.mohaberabi.linkedinclone.presentation.activity.ext.logActivityCreated
+import com.mohaberabi.linkedinclone.presentation.activity.ext.logActivityDestroyed
 import com.mohaberabi.linkedinclone.presentation.activity.ext.rootNavController
 import com.mohaberabi.linkedinclone.presentation.activity.ext.setupAppBottomNavigation
 import com.mohaberabi.linkedinclone.presentation.activity.ext.setupDrawerNavigation
@@ -37,6 +39,9 @@ import com.mohaberabi.presentation.ui.util.closeAndDo
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var remoteLogging: RemoteLogging
 
     @Inject
     lateinit var anayltics: AppAnalytics
@@ -74,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         collectUserMetaData()
         registerFragmentListener()
         setupRouteListener()
-        anayltics.logEvent("activityCreated")
+        anayltics.logActivityCreated()
     }
 
 
@@ -140,6 +145,7 @@ class MainActivity : AppCompatActivity() {
         )
         binding.appBar.setOnAvatarClickListener {
             binding.appDrawerLayout.openDrawer()
+
         }
     }
 
@@ -179,6 +185,8 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         _binding = null
         unRegisterFragmentListener()
+        anayltics.logActivityDestroyed()
+
     }
 
 }

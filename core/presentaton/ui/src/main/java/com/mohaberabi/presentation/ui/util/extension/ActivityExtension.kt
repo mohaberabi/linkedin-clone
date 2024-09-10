@@ -20,11 +20,3 @@ fun Activity.addDefaultPaddings(rootView: View) {
     }
 }
 
-fun Activity.closeKeyboard() {
-    val inputMethodManager =
-        getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    val currentFocusView = currentFocus
-    currentFocusView?.let {
-        inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
-    }
-}

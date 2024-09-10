@@ -1,4 +1,4 @@
-package com.mohaberbai.linkedinclone.jobs.usecase
+package com.mohaberbai.linkedinclone.jobs.domain.usecase
 
 import com.mohaberabi.linkedin.core.domain.repository.JobRepository
 import javax.inject.Inject

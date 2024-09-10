@@ -17,15 +17,10 @@ interface PostsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertPosts(posts: List<PostEntity>)
 
-    @Delete
-    suspend fun deletePost(post: PostEntity)
-
     @Query("SELECT * FROM posts ORDER BY createdAtMillis DESC")
     fun getPosts(): Flow<List<PostEntity>>
 
-    @Query("SELECT * FROM posts WHERE id = :postId LIMIT 1")
-    fun getPostById(postId: String): Flow<PostEntity?>
-
+  
     @Query(
         """
     UPDATE posts 

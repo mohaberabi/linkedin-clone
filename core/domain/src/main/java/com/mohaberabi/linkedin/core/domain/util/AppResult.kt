@@ -7,6 +7,7 @@ import com.mohaberabi.linkedin.core.domain.error.ErrorModel
 import com.mohaberabi.linkedin.core.domain.util.AppResult.Error
 import kotlinx.coroutines.CancellationException
 
+typealias EmptyDataResult<E> = AppResult<Unit, E>
 
 sealed interface AppResult<out D, out E : AppError> {
     data class Done<out D>(val data: D) : AppResult<D, Nothing>
@@ -60,7 +61,6 @@ fun <T, E : AppError> AppResult<T, E>.asEmptyResult(
 ): EmptyDataResult<E> {
     return map { }
 }
-typealias EmptyDataResult<E> = AppResult<Unit, E>
 
 inline fun <T, E : AppError> AppResult<T, E>.onSuccess(
     action: (T) -> Unit,

@@ -1,6 +1,7 @@
 package com.mohaberabi.saved_posts.data.di
 
 import com.mohaberabi.linkedin.core.domain.repository.SavedPostsRepository
+import com.mohaberabi.saved_posts.domain.usecase.GetSavedPostsWithReactionsUseCase
 import com.mohaberabi.saved_posts.domain.usecase.ListenToSavedPostsUseCase
 import dagger.Module
 import dagger.Provides
@@ -27,5 +28,5 @@ object SavedPostsModule {
     @Provides
     fun provideGetSavedPostsUseCase(
         repo: SavedPostsRepository,
-    ) = GetSavedPostsWithReactionUseCase(savedPostsRepository = repo)
+    ) = GetSavedPostsWithReactionsUseCase(savedPostsRepository = repo)
 }

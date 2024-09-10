@@ -1,8 +1,8 @@
-package com.mohaberbia.linkedinclone.posts.di
+package com.mohaberbia.linkedinclone.posts.data.di
 
-import com.mohaberbia.linkedinclone.posts.usecase.GetPostsUseCase
+import com.mohaberbia.linkedinclone.posts.domain.usecase.GetPostsUseCase
 import com.mohaberabi.linkedin.core.domain.repository.PostsRepository
-import com.mohaberbia.linkedinclone.posts.usecase.ListenToPostsUseCase
+import com.mohaberbia.linkedinclone.posts.domain.usecase.ListenToPostsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

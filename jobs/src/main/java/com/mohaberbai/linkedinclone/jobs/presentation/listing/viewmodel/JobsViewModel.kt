@@ -2,11 +2,13 @@ package com.mohaberbai.linkedinclone.jobs.presentation.listing.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mohaberabi.linedinclone.core.remote_anayltics.domain.LogEventUseCase
 import com.mohaberabi.linkedin.core.domain.usecase.user.ListenToUserUseCase
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
-import com.mohaberbai.linkedinclone.jobs.usecase.GetJobsUseCase
+import com.mohaberbai.linkedinclone.jobs.domain.usecase.GetJobsUseCase
 import com.mohaberabi.presentation.ui.util.asUiText
+import com.mohaberbai.linkedinclone.jobs.domain.logJobsHasInterests
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class JobsViewModel @Inject constructor(
     private val getJobsUseCase: GetJobsUseCase,
-    private val listenToCurrentUserUseCase: ListenToUserUseCase,
+    private val logEventUseCase: LogEventUseCase,
 ) : ViewModel() {
 
 
@@ -31,16 +33,9 @@ class JobsViewModel @Inject constructor(
     private var pagingJob: Job? = null
 
     init {
-        listenToUser()
         getJobs()
     }
 
-
-    private fun listenToUser() {
-        listenToCurrentUserUseCase().onEach { user ->
-            _state.update { it.copy(userImg = user?.img ?: "") }
-        }.launchIn(viewModelScope)
-    }
 
     fun onAction(action: JobsActions) {
         when (action) {
@@ -57,6 +52,7 @@ class JobsViewModel @Inject constructor(
         pagingJob = viewModelScope.launch {
             getJobsUseCase(lastElementId = stateVal.jobs.lastOrNull()?.id)
                 .onSuccess { jobs ->
+                    logEventUseCase.logJobsHasInterests()
                     _state.update {
                         it.copy(
                             jobs = it.jobs + jobs,

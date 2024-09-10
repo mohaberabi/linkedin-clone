@@ -26,13 +26,19 @@ fun Long.toTimeAgo(context: Context): String {
             context.getString(R.string.time_one_hour_ago)
 
         diff < TimeUnit.DAYS.toMillis(1) ->
-            context.getString(R.string.time_hours_ago, TimeUnit.MILLISECONDS.toHours(diff).toInt())
+            context.getString(
+                R.string.time_hours_ago,
+                TimeUnit.MILLISECONDS.toHours(diff).toInt()
+            )
 
         diff < TimeUnit.DAYS.toMillis(2) ->
             context.getString(R.string.time_yesterday)
 
         diff < TimeUnit.DAYS.toMillis(7) ->
-            context.getString(R.string.time_days_ago, TimeUnit.MILLISECONDS.toDays(diff).toInt())
+            context.getString(
+                R.string.time_days_ago,
+                TimeUnit.MILLISECONDS.toDays(diff).toInt()
+            )
 
         diff < TimeUnit.DAYS.toMillis(30) ->
             context.getString(

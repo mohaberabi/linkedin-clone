@@ -1,9 +1,9 @@
 package com.mohaberbai.linkedinclone.jobs.di
 
 import com.mohaberabi.linkedin.core.domain.repository.JobDetailRepository
-import com.mohaberbai.linkedinclone.jobs.usecase.GetJobsUseCase
+import com.mohaberbai.linkedinclone.jobs.domain.usecase.GetJobsUseCase
 import com.mohaberabi.linkedin.core.domain.repository.JobRepository
-import com.mohaberbai.linkedinclone.jobs.usecase.GetJobDetailsUseCase
+import com.mohaberbai.linkedinclone.jobs.domain.usecase.GetJobDetailsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

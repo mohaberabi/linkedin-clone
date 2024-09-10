@@ -2,9 +2,10 @@ package com.mohaberabi.linkedinclone.settings.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mohaberabi.linedinclone.core.remote_anayltics.domain.LogEventUseCase
 import com.mohaberabi.linkedin.core.domain.util.onFailure
 import com.mohaberabi.linkedin.core.domain.util.onSuccess
-import com.mohaberabi.linkedinclone.settings.domain.usecase.LogUserSignedOutUseCase
+import com.mohaberabi.linkedinclone.settings.domain.logUserSignedOut
 import com.mohaberabi.linkedinclone.settings.domain.usecase.SignOutUseCase
 import com.mohaberabi.presentation.ui.util.asUiText
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,7 @@ import kotlin.math.sign
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val signOutUseCase: SignOutUseCase,
-    private val logUserSignedOutUseCase: LogUserSignedOutUseCase,
+    private val logEventUseCase: LogEventUseCase,
 ) : ViewModel() {
 
 
@@ -36,7 +37,7 @@ class SettingsViewModel @Inject constructor(
             signOutUseCase()
                 .onSuccess {
                     _event.send(SettingsEvents.SignedOut)
-                    logUserSignedOutUseCase()
+                    logEventUseCase.logUserSignedOut()
                 }
                 .onFailure { fail -> _event.send(SettingsEvents.Error(fail.asUiText())) }
         }
