@@ -57,7 +57,8 @@ class PostsViewModel @Inject constructor(
                 _state.update {
                     it.copy(state = PostsStatus.Loading)
                 }
-            }.catch {
+            }.catch { error ->
+                remoteLoggingUseCases.recordException(error)
                 _state.update {
                     it.copy(state = PostsStatus.Error)
                 }
